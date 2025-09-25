@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Interactive</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: '#eff6ff',
+                500: '#3b82f6',
+                600: '#2563eb',
+                700: '#1d4ed8',
+                800: '#1e40af',
+                900: '#1e3a8a',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+
+  <body class="bg-gray-900 text-white min-h-screen">
+    <!-- Header -->
+    <header class="bg-gray-800 shadow-lg">
+      <nav class="container mx-auto px-6 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <img
+              src="images/alternative-rvb-logo.svg"
+              alt="Alternative RVB logo"
+              class="w-10 h-10"
+            />
+            <h1 class="text-xl font-bold text-white">Quiz Interactive</h1>
+          </div>
+          <div class="hidden md:flex items-center space-x-6">
+            <a href="/" class="text-gray-300 hover:text-white transition-colors">Home</a>
+            <a href="https://alternative-rvb.com" class="text-gray-300 hover:text-white transition-colors">Alternative RVB</a>
+            <a href="https://github.com/alternative-rvb" class="text-gray-300 hover:text-white transition-colors">
+              <i class="fab fa-github text-xl"></i>
+            </a>
+          </div>
+          <button class="md:hidden text-white">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+      <!-- Quiz Selection Screen -->
+      <div id="quiz-selection" class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+            Choisissez votre Quiz
+          </h2>
+          <p class="text-gray-400 text-lg">Sélectionnez un thème et testez vos connaissances !</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- JavaScript Quiz -->
+          <div class="quiz-card bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-105 cursor-pointer" 
+               data-quiz="javascript-1.json">
+            <div class="text-center">
+              <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fab fa-js-square text-2xl text-black"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-white">JavaScript</h3>
+              <p class="text-gray-400 mb-4">Testez vos connaissances en JavaScript avec 20 questions</p>
+              <div class="flex justify-between text-sm text-gray-500">
+                <span>📊 20 questions</span>
+                <span>⏱️ 10s/question</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Animals Quiz -->
+          <div class="quiz-card bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-green-500 transition-all duration-300 hover:transform hover:scale-105 cursor-pointer" 
+               data-quiz="animaux.json">
+            <div class="text-center">
+              <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-paw text-2xl text-white"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-white">Animaux</h3>
+              <p class="text-gray-400 mb-4">Découvrez le monde animal avec 20 questions captivantes</p>
+              <div class="flex justify-between text-sm text-gray-500">
+                <span>📊 20 questions</span>
+                <span>⏱️ 10s/question</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SpongeBob Quiz -->
+          <div class="quiz-card bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-yellow-500 transition-all duration-300 hover:transform hover:scale-105 cursor-pointer" 
+               data-quiz="spongebob.json">
+            <div class="text-center">
+              <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-smile text-2xl text-black"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-white">Bob l'Éponge</h3>
+              <p class="text-gray-400 mb-4">Plongez dans l'univers de Bikini Bottom avec 10 questions</p>
+              <div class="flex justify-between text-sm text-gray-500">
+                <span>📊 10 questions</span>
+                <span>⏱️ 10s/question</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings -->
+        <div class="mt-12 bg-gray-800 rounded-xl p-6 border border-gray-700">
+          <h3 class="text-xl font-bold mb-6 text-center text-white">Paramètres</h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="block text-sm font-medium text-gray-300">Temps par question</label>
+              <select id="time-limit" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white">
+                <option value="10">10 secondes</option>
+                <option value="15">15 secondes</option>
+                <option value="20">20 secondes</option>
+                <option value="30">30 secondes</option>
+              </select>
+            </div>
+            <div class="space-y-2">
+              <label class="block text-sm font-medium text-gray-300">Mode images</label>
+              <label class="flex items-center space-x-3">
+                <input type="checkbox" id="spoiler-mode" class="form-checkbox h-5 w-5 text-blue-600">
+                <span class="text-gray-300">Images floues (spoiler)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Game Screen -->
+      <div id="quiz-game" class="max-w-4xl mx-auto hidden">
+        <div class="bg-gray-800 rounded-xl p-8 border border-gray-700">
+          <div id="quiz-header" class="flex justify-between items-center mb-8">
+            <button id="back-to-selection" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors">
+              <i class="fas fa-arrow-left mr-2"></i>Retour
+            </button>
+            <div id="quiz-info" class="text-center">
+              <span id="current-quiz-name" class="text-xl font-bold"></span>
+            </div>
+            <div id="score-display" class="text-right">
+              <div class="text-sm text-gray-400">Score</div>
+              <div id="current-score" class="text-xl font-bold text-blue-400">0</div>
+            </div>
+          </div>
+          <div id="quiz-content">
+            <!-- Le contenu du quiz sera injecté ici -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 mt-auto py-6">
+      <div class="container mx-auto px-6 text-center">
+        <p class="text-gray-400">
+          <a href="https://alternative-rvb.com/" class="hover:text-white transition-colors">
+            © 2025 Alternative RVB
+          </a>
+        </p>
+      </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.11.0/tsparticles.confetti.bundle.min.js"></script>
+    <script src="js/index.js" type="module"></script>
+  </body>
+</html>
