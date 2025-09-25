@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="fr" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quiz Interactive</title>
+    <title>Quiz - Alternative RVB</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Custom Tailwind Config -->
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -14,171 +17,151 @@
           extend: {
             colors: {
               primary: {
-                50: '#eff6ff',
+                50: '#f0f9ff',
                 500: '#3b82f6',
                 600: '#2563eb',
                 700: '#1d4ed8',
                 800: '#1e40af',
-                900: '#1e3a8a',
+                900: '#1e3a8a'
+              }
+            },
+            animation: {
+              'shake': 'shake 0.5s ease-in-out',
+              'bounce-subtle': 'bounce 1s infinite'
+            },
+            keyframes: {
+              shake: {
+                '0%, 100%': { transform: 'translateX(0)' },
+                '10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-2px)' },
+                '20%, 40%, 60%, 80%': { transform: 'translateX(2px)' }
               }
             }
           }
         }
       }
     </script>
-    <!-- Font Awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <style>
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+        20%, 40%, 60%, 80% { transform: translateX(2px); }
+      }
+      
+      .touch-manipulation {
+        touch-action: manipulation;
+      }
+      
+      /* Amélioration du scroll sur mobile */
+      .question-container {
+        scroll-behavior: smooth;
+      }
+      
+      /* Animation de pulse pour les éléments importants */
+      .pulse-glow {
+        animation: pulse-glow 2s ease-in-out infinite;
+      }
+      
+      @keyframes pulse-glow {
+        0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+        50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.4); }
+      }
+    </style>
   </head>
 
-  <body class="bg-gray-900 text-white min-h-screen">
-    <!-- Header -->
+  <body class="dark bg-gray-900 text-white min-h-screen">
+    <!-- Header avec navigation -->
     <header class="bg-gray-800 shadow-lg">
-      <nav class="container mx-auto px-6 py-4">
+      <nav class="container mx-auto px-4 py-3">
         <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-4">
-            <img
-              src="images/alternative-rvb-logo.svg"
-              alt="Alternative RVB logo"
-              class="w-10 h-10"
-            />
-            <h1 class="text-xl font-bold text-white">Quiz Interactive</h1>
+          <!-- Logo -->
+          <div class="flex items-center space-x-2">
+            <img src="images/alternative-rvb-logo.svg" alt="Alternative RVB logo" class="w-8 h-8" />
+            <span class="text-xl font-bold text-primary-400">Quiz App</span>
           </div>
+          
+          <!-- Navigation Desktop -->
           <div class="hidden md:flex items-center space-x-6">
-            <a href="/" class="text-gray-300 hover:text-white transition-colors">Home</a>
-            <a href="https://alternative-rvb.com" class="text-gray-300 hover:text-white transition-colors">Alternative RVB</a>
-            <a href="https://github.com/alternative-rvb" class="text-gray-300 hover:text-white transition-colors">
-              <i class="fab fa-github text-xl"></i>
-            </a>
+            <a href="/" class="hover:text-primary-400 transition-colors">Home</a>
+            <a href="https://alternative-rvb.com" class="hover:text-primary-400 transition-colors">Alternative RVB</a>
+            <div class="flex items-center space-x-3">
+              <a href="https://www.youtube.com/@nicolasmalet9267/" class="hover:text-primary-400 transition-colors" aria-label="Youtube">
+                <i class="bi bi-youtube text-lg"></i>
+              </a>
+              <a href="https://github.com/alternative-rvb" class="hover:text-primary-400 transition-colors" aria-label="GitHub">
+                <i class="bi bi-github text-lg"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/nicolas-malet/" class="hover:text-primary-400 transition-colors" aria-label="LinkedIn">
+                <i class="bi bi-linkedin text-lg"></i>
+              </a>
+            </div>
           </div>
-          <button class="md:hidden text-white">
-            <i class="fas fa-bars text-xl"></i>
-          </button>
+          
+          <!-- Menu Mobile -->
+          <div class="md:hidden">
+            <button id="mobile-menu-toggle" class="text-white hover:text-primary-400">
+              <i class="bi bi-list text-2xl"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Menu Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+          <a href="/" class="block py-2 hover:text-primary-400 transition-colors">Home</a>
+          <a href="https://alternative-rvb.com" class="block py-2 hover:text-primary-400 transition-colors">Alternative RVB</a>
         </div>
       </nav>
     </header>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 py-12">
-      <!-- Quiz Selection Screen -->
+    <!-- Contenu principal -->
+    <main class="container mx-auto px-4 py-8 min-h-screen">
+      <!-- Page de sélection des quiz -->
       <div id="quiz-selection" class="max-w-4xl mx-auto">
-        <div class="text-center mb-12">
-          <h2 class="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+        <div class="text-center mb-8">
+          <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-primary-400 to-purple-500 bg-clip-text text-transparent">
             Choisissez votre Quiz
-          </h2>
+          </h1>
           <p class="text-gray-400 text-lg">Sélectionnez un thème et testez vos connaissances !</p>
         </div>
-
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- JavaScript Quiz -->
-          <div class="quiz-card bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-105 cursor-pointer" 
-               data-quiz="javascript-1.json">
-            <div class="text-center">
-              <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fab fa-js-square text-2xl text-black"></i>
-              </div>
-              <h3 class="text-xl font-bold mb-3 text-white">JavaScript</h3>
-              <p class="text-gray-400 mb-4">Testez vos connaissances en JavaScript avec 20 questions</p>
-              <div class="flex justify-between text-sm text-gray-500">
-                <span>📊 20 questions</span>
-                <span>⏱️ 10s/question</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Animals Quiz -->
-          <div class="quiz-card bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-green-500 transition-all duration-300 hover:transform hover:scale-105 cursor-pointer" 
-               data-quiz="animaux.json">
-            <div class="text-center">
-              <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-paw text-2xl text-white"></i>
-              </div>
-              <h3 class="text-xl font-bold mb-3 text-white">Animaux</h3>
-              <p class="text-gray-400 mb-4">Découvrez le monde animal avec 20 questions captivantes</p>
-              <div class="flex justify-between text-sm text-gray-500">
-                <span>📊 20 questions</span>
-                <span>⏱️ 10s/question</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- SpongeBob Quiz -->
-          <div class="quiz-card bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-yellow-500 transition-all duration-300 hover:transform hover:scale-105 cursor-pointer" 
-               data-quiz="spongebob.json">
-            <div class="text-center">
-              <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-smile text-2xl text-black"></i>
-              </div>
-              <h3 class="text-xl font-bold mb-3 text-white">Bob l'Éponge</h3>
-              <p class="text-gray-400 mb-4">Plongez dans l'univers de Bikini Bottom avec 10 questions</p>
-              <div class="flex justify-between text-sm text-gray-500">
-                <span>📊 10 questions</span>
-                <span>⏱️ 10s/question</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Settings -->
-        <div class="mt-12 bg-gray-800 rounded-xl p-6 border border-gray-700">
-          <h3 class="text-xl font-bold mb-6 text-center text-white">Paramètres</h3>
-          <div class="grid md:grid-cols-2 gap-6">
-            <div class="space-y-2">
-              <label class="block text-sm font-medium text-gray-300">Temps par question</label>
-              <select id="time-limit" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white">
-                <option value="10">10 secondes</option>
-                <option value="15">15 secondes</option>
-                <option value="20">20 secondes</option>
-                <option value="30">30 secondes</option>
-              </select>
-            </div>
-            <div class="space-y-2">
-              <label class="block text-sm font-medium text-gray-300">Mode images</label>
-              <label class="flex items-center space-x-3">
-                <input type="checkbox" id="spoiler-mode" class="form-checkbox h-5 w-5 text-blue-600">
-                <span class="text-gray-300">Images floues (spoiler)</span>
-              </label>
-            </div>
-          </div>
+        
+        <div id="quiz-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+          <!-- Les quiz seront générés dynamiquement -->
         </div>
       </div>
 
-      <!-- Quiz Game Screen -->
-      <div id="quiz-game" class="max-w-4xl mx-auto hidden">
-        <div class="bg-gray-800 rounded-xl p-8 border border-gray-700">
-          <div id="quiz-header" class="flex justify-between items-center mb-8">
-            <button id="back-to-selection" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors">
-              <i class="fas fa-arrow-left mr-2"></i>Retour
-            </button>
-            <div id="quiz-info" class="text-center">
-              <span id="current-quiz-name" class="text-xl font-bold"></span>
-            </div>
-            <div id="score-display" class="text-right">
-              <div class="text-sm text-gray-400">Score</div>
-              <div id="current-score" class="text-xl font-bold text-blue-400">0</div>
+      <!-- Interface de quiz (cachée au démarrage) -->
+      <div id="quiz-container" class="hidden max-w-2xl mx-auto">
+        <div id="quiz-header" class="text-center mb-6">
+          <button id="back-to-selection" class="mb-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors">
+            <i class="bi bi-arrow-left mr-2"></i>Retour à la sélection
+          </button>
+          <h2 id="quiz-title" class="text-2xl font-bold mb-2"></h2>
+          <div class="flex justify-center items-center space-x-4 text-sm text-gray-400">
+            <span id="question-counter">Question 1/10</span>
+            <span id="score-display">Score: 0</span>
+            <div class="flex items-center">
+              <i class="bi bi-clock mr-1"></i>
+              <span id="timer-display">10</span>s
             </div>
           </div>
-          <div id="quiz-content">
-            <!-- Le contenu du quiz sera injecté ici -->
-          </div>
+        </div>
+        
+        <div id="quiz-content" class="bg-gray-800 rounded-xl p-6 shadow-lg">
+          <!-- Le contenu du quiz sera généré dynamiquement -->
         </div>
       </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 mt-auto py-6">
-      <div class="container mx-auto px-6 text-center">
+    <footer class="bg-gray-800 py-6 mt-12">
+      <div class="container mx-auto px-4 text-center">
         <p class="text-gray-400">
-          <a href="https://alternative-rvb.com/" class="hover:text-white transition-colors">
-            © 2025 Alternative RVB
-          </a>
+          <a href="https://alternative-rvb.com/" class="hover:text-primary-400 transition-colors">© 2023 Alternative RVB</a>
         </p>
       </div>
     </footer>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.11.0/tsparticles.confetti.bundle.min.js"></script>
-    <script src="js/index.js" type="module"></script>
+    <script src="js/app.js" type="module"></script>
   </body>
 </html>
