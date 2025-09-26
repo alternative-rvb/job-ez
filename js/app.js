@@ -38,6 +38,7 @@ class QuizApp {
 
         // Configurer les écouteurs d'événements globaux
         this.setupEventListeners();
+        this.setupGameOptions();
 
         // Afficher la sélection des quiz
         this.quizSelector.show();
@@ -51,14 +52,61 @@ class QuizApp {
         if (backButton) {
             backButton.addEventListener('click', () => this.backToHome());
         }
+    }
 
-        // Menu mobile
-        const mobileMenuToggle = domManager.get('mobileMenuToggle');
-        if (mobileMenuToggle) {
-            mobileMenuToggle.addEventListener('click', () => {
-                domManager.toggleMobileMenu();
+    setupGameOptions() {
+        // Gestionnaire pour les boutons de temps
+        document.querySelectorAll('.time-option').forEach(button => {
+            button.addEventListener('click', () => {
+                // Retirer la classe selected de tous les boutons
+                document.querySelectorAll('.time-option').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+                // Ajouter la classe selected au bouton cliqué
+                button.classList.add('selected');
+
+                // Mettre à jour la configuration
+                const timeLimit = parseInt(button.dataset.time);
+                CONFIG.timeLimit = timeLimit;
+
+                // Mettre à jour l'affichage du temps estimé sur les cartes
+                this.updateQuizCardsTime();
             });
-        }
+        });
+
+        // Gestionnaire pour les modes de jeu
+        document.querySelectorAll('.game-mode').forEach(button => {
+            button.addEventListener('click', () => {
+                // Retirer la classe selected de tous les boutons
+                document.querySelectorAll('.game-mode').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+                // Ajouter la classe selected au bouton cliqué
+                button.classList.add('selected');
+
+                // Mettre à jour la configuration
+                const isSpoilerMode = button.id === 'spoiler-mode';
+                CONFIG.spoilerMode = isSpoilerMode;
+
+                // Ajouter/retirer la classe spoiler-mode sur le body
+                document.body.classList.toggle('spoiler-mode', isSpoilerMode);
+            });
+        });
+    }
+
+    updateQuizCardsTime() {
+        // Mettre à jour le temps estimé sur toutes les cartes de quiz
+        document.querySelectorAll('.quiz-card').forEach(card => {
+            const quizId = card.dataset.quizId;
+            const quiz = CONFIG.availableQuizzes.find(q => q.id === quizId);
+            if (quiz) {
+                const timeElement = card.querySelector('.text-sm.text-gray-400 span');
+                if (timeElement) {
+                    const estimatedTime = Math.ceil(quiz.questionCount * CONFIG.timeLimit / 60);
+                    timeElement.textContent = `~${estimatedTime} min`;
+                }
+            }
+        });
     }
 
     async startQuiz(selectedQuiz) {

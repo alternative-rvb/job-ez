@@ -25,12 +25,11 @@ export class QuestionManager {
         
         let imageSection = '';
         if (question.imageUrl) {
-            const blurClass = CONFIG.spoilerMode ? 'filter blur-sm' : '';
             imageSection = `
                 <div class="mb-6 text-center">
                     <img src="${question.imageUrl}" 
                          alt="Question ${quizState.currentQuestionIndex + 1}" 
-                         class="max-w-full h-48 object-cover rounded-lg mx-auto ${blurClass}" 
+                         class="max-w-full h-48 object-cover rounded-lg mx-auto" 
                          id="question-image">
                 </div>
             `;
@@ -38,8 +37,9 @@ export class QuestionManager {
         
         const optionsHTML = question.options.map((option, index) => {
             const letter = String.fromCharCode(65 + index);
+            const isHidden = CONFIG.spoilerMode ? 'hidden' : '';
             return `
-                <button class="answer-btn p-4 md:p-5 text-left bg-gray-700 hover:bg-gray-600 active:bg-gray-600 rounded-lg md:rounded-xl transition-all duration-200 border-2 border-transparent hover:border-primary-500 active:scale-95 touch-manipulation" 
+                <button class="answer-btn ${isHidden} p-4 md:p-5 text-left bg-gray-700 hover:bg-gray-600 active:bg-gray-600 rounded-lg md:rounded-xl transition-all duration-200 border-2 border-transparent hover:border-primary-500 active:scale-95 touch-manipulation" 
                         data-answer-index="${index}">
                     <div class="flex items-center space-x-3">
                         <span class="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold text-sm md:text-base">${letter}</span>
@@ -68,6 +68,13 @@ export class QuestionManager {
                 
                 <!-- Options améliorées pour mobile -->
                 <div class="grid grid-cols-1 gap-3 md:gap-4 mb-6 px-2">
+                    ${CONFIG.spoilerMode ? `
+                        <div class="text-center py-4 px-6 bg-blue-900/30 border-2 border-blue-500/50 rounded-lg mb-4">
+                            <i class="bi bi-eye-slash text-2xl text-blue-400 mb-2"></i>
+                            <p class="text-blue-300 font-medium">Mode Spoiler activé</p>
+                            <p class="text-blue-400 text-sm">Les réponses sont cachées. Réfléchissez bien !</p>
+                        </div>
+                    ` : ''}
                     ${optionsHTML}
                 </div>
                 
@@ -154,10 +161,54 @@ export class QuestionManager {
         quizState.endQuestionTimer();
 
         quizState.setAnswered();
-        
+
         const question = quizState.getCurrentQuestion();
         const answerButtons = document.querySelectorAll('.answer-btn');
-        
+
+        // En mode spoiler, révéler automatiquement la bonne réponse
+        if (CONFIG.spoilerMode && answerIndex === -1) {
+            this.revealCorrectAnswer(question);
+            return;
+        }
+
+        // Logique normale pour le mode normal
+        this.handleNormalMode(answerIndex, question, answerButtons);
+    }
+
+    revealCorrectAnswer(question) {
+        // Afficher le popup avec juste le texte de la bonne réponse
+        const correctAnswerText = question.options[question.answer];
+        this.showFeedbackMessage(correctAnswerText, 'timeout');
+
+        // Créer l'élément de révélation
+        const revealHTML = `
+            <div class="answer-reveal correct">
+                <div class="text-2xl font-bold mb-2">Temps écoulé !</div>
+                <div class="text-lg mb-2">La bonne réponse était :</div>
+                <div class="text-xl font-semibold bg-green-600 text-white px-4 py-2 rounded-lg inline-block">
+                    ${String.fromCharCode(65 + question.answer)}) ${question.options[question.answer]}
+                </div>
+            </div>
+        `;
+
+        // Ajouter la révélation après les boutons de réponse
+        const quizContent = document.getElementById('quizContent');
+        if (quizContent) {
+            const existingReveal = quizContent.querySelector('.answer-reveal');
+            if (existingReveal) {
+                existingReveal.remove();
+            }
+            quizContent.insertAdjacentHTML('beforeend', revealHTML);
+        }
+
+        // Délai avant de passer à la question suivante
+        setTimeout(() => {
+            quizState.nextQuestion();
+            this.showQuestion();
+        }, 3000);
+    }
+
+    handleNormalMode(answerIndex, question, answerButtons) {
         // Animation de sélection
         if (answerIndex >= 0) {
             const selectedButton = answerButtons[answerIndex];
@@ -194,20 +245,12 @@ export class QuestionManager {
             if (answerIndex === question.answer) {
                 quizState.addScore();
                 launchConfetti();
-                this.showFeedbackMessage('Bonne réponse ! 🎉', 'success');
+                const correctAnswerText = `Réponse ${String.fromCharCode(65 + answerIndex)} : ${question.options[answerIndex]}`;
+                this.showFeedbackMessage(correctAnswerText, 'success');
             } else if (answerIndex === -1) {
                 this.showFeedbackMessage('Temps écoulé ! ⏰', 'timeout');
             } else {
                 this.showFeedbackMessage('Mauvaise réponse 😔', 'error');
-            }
-            
-            // Révéler l'image si en mode spoiler
-            if (CONFIG.spoilerMode) {
-                const questionImage = document.getElementById('question-image');
-                if (questionImage) {
-                    questionImage.classList.remove('blur-sm');
-                    questionImage.classList.add('transition-all', 'duration-500');
-                }
             }
             
             domManager.updateQuizStats(

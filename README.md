@@ -18,6 +18,13 @@ Une application web moderne de quiz interactifs développée avec JavaScript ES6
 - **Barre de progression** visuelle du quiz
 - **Messages flottants** de feedback
 
+### ⚙️ Options de Jeu Personnalisables
+
+- **Sélection du temps** : 5, 10, 15 ou 20 secondes par question
+- **Mode Spoiler** : Réponses cachées, révélation automatique à la fin du temps
+- **Temps estimé** mis à jour dynamiquement sur les cartes de quiz
+- **Configuration persistante** pendant la session
+
 ### 🎨 Design Moderne
 
 - **Dark theme** élégant avec Tailwind CSS
@@ -76,16 +83,25 @@ Ouvrez votre navigateur sur `http://localhost:8000`
 
 ### Sélection d'un Quiz
 
-1. Sur la page d'accueil, choisissez parmi les quiz disponibles
-2. Chaque quiz affiche son thème, description et nombre de questions
+1. Sur la page d'accueil, choisissez un thème de quiz
+2. **Configurez vos options de jeu** :
+   - **Temps par question** : 5, 10, 15 ou 20 secondes
+   - **Mode de jeu** : Normal (réponses visibles) ou Spoiler (réponses cachées)
 3. Cliquez sur "Commencer" pour démarrer
 
 ### Pendant le Quiz
 
+#### Mode Normal
 - **Timer** : Compteur visible en haut avec animations
 - **Questions** : Une question à la fois avec options multiples
 - **Navigation** : Sélection directe des réponses
 - **Feedback** : Retour visuel immédiat sur chaque réponse
+
+#### Mode Spoiler
+- **Réponses cachées** : Les boutons de réponse ne sont pas visibles
+- **Réflexion pure** : Concentrez-vous sur la question sans distraction
+- **Révélation automatique** : La bonne réponse apparaît quand le temps est écoulé
+- **Même système de score** : Les points sont attribués normalement
 
 ### Résultats
 

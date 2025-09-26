@@ -65,6 +65,49 @@
         0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
         50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.4); }
       }
+
+      /* Styles pour les options */
+      .time-option.selected,
+      .game-mode.selected {
+        background-color: #2563eb !important;
+        box-shadow: 0 0 0 2px #60a5fa, 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+      }
+
+      .time-option:hover,
+      .game-mode:hover {
+        transform: scale(1.05);
+      }
+
+      /* Mode spoiler - masquer les boutons de réponse */
+      .spoiler-mode .answer-btn {
+        display: none !important;
+      }
+
+      .spoiler-mode .answer-reveal {
+        display: block !important;
+      }
+
+      .answer-reveal {
+        display: none;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: rgba(34, 197, 94, 0.1);
+        border: 2px solid #22c55e;
+        border-radius: 0.5rem;
+        text-align: center;
+      }
+
+      .answer-reveal.correct {
+        background: rgba(34, 197, 94, 0.1);
+        border-color: #22c55e;
+        color: #22c55e;
+      }
+
+      .answer-reveal.incorrect {
+        background: rgba(239, 68, 68, 0.1);
+        border-color: #ef4444;
+        color: #ef4444;
+      }
     </style>
   </head>
 
@@ -122,7 +165,60 @@
           </h1>
           <p class="text-gray-400 text-lg">Sélectionnez un thème et testez vos connaissances !</p>
         </div>
-        
+
+        <!-- Options de jeu -->
+        <div class="bg-gray-800 rounded-xl p-6 mb-8 shadow-lg">
+          <h2 class="text-2xl font-bold mb-6 text-center">Options de Jeu</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Sélection du temps par question -->
+            <div class="space-y-3">
+              <label class="block text-lg font-medium text-white">
+                <i class="bi bi-clock mr-2 text-primary-400"></i>
+                Temps par question
+              </label>
+              <div class="grid grid-cols-2 gap-3">
+                <button type="button" data-time="5" class="time-option px-4 py-3 bg-gray-700 hover:bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium text-center">
+                  5 secondes
+                </button>
+                <button type="button" data-time="10" class="time-option px-4 py-3 bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium text-center selected">
+                  10 secondes
+                </button>
+                <button type="button" data-time="15" class="time-option px-4 py-3 bg-gray-700 hover:bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium text-center">
+                  15 secondes
+                </button>
+                <button type="button" data-time="20" class="time-option px-4 py-3 bg-gray-700 hover:bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium text-center">
+                  20 secondes
+                </button>
+              </div>
+            </div>
+
+            <!-- Mode spoiler -->
+            <div class="space-y-3">
+              <label class="block text-lg font-medium text-white">
+                <i class="bi bi-eye-slash mr-2 text-primary-400"></i>
+                Mode de Jeu
+              </label>
+              <div class="space-y-3">
+                <button type="button" id="normal-mode" class="game-mode w-full px-4 py-3 bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium text-left flex items-center selected">
+                  <i class="bi bi-lightbulb mr-3 text-xl"></i>
+                  <div>
+                    <div class="font-semibold">Mode Normal</div>
+                    <div class="text-sm opacity-80">Réponses visibles, choix interactif</div>
+                  </div>
+                </button>
+                <button type="button" id="spoiler-mode" class="game-mode w-full px-4 py-3 bg-gray-700 hover:bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium text-left flex items-center">
+                  <i class="bi bi-eye-slash mr-3 text-xl"></i>
+                  <div>
+                    <div class="font-semibold">Mode Spoiler</div>
+                    <div class="text-sm opacity-80">Réponses cachées, révélation automatique</div>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div id="quiz-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           <!-- Les quiz seront générés dynamiquement -->
         </div>
@@ -155,7 +251,7 @@
     <footer class="bg-gray-800 py-6 mt-12">
       <div class="container mx-auto px-4 text-center">
         <p class="text-gray-400">
-          <a href="https://alternative-rvb.com/" class="hover:text-primary-400 transition-colors">© 2023 Alternative RVB</a>
+          <a href="https://alternative-rvb.com/" class="hover:text-primary-400 transition-colors">© 2025 Alternative RVB</a>
         </p>
       </div>
     </footer>
