@@ -276,15 +276,54 @@ export class QuestionManager {
             timeout: 'from-yellow-400 to-orange-500'
         };
 
-        const feedback = document.createElement('div');
-        feedback.className = `fixed top-20 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-full text-white font-bold text-lg bg-gradient-to-r ${feedbackColors[type]} shadow-lg animate-bounce`;
-        feedback.textContent = message;
-        
-        document.body.appendChild(feedback);
-        
+        // Créer l'overlay modal
+        const overlay = document.createElement('div');
+        overlay.className = 'feedback-modal-overlay';
+
+        // Créer le contenu modal
+        const modalContent = document.createElement('div');
+        modalContent.className = 'feedback-modal-content';
+
+        // Contenu du modal selon le type
+        let icon = '';
+        let title = '';
+
+        switch(type) {
+            case 'success':
+                icon = '🎉';
+                title = 'Bonne réponse !';
+                break;
+            case 'error':
+                icon = '❌';
+                title = 'Mauvaise réponse';
+                break;
+            case 'timeout':
+                icon = '⏰';
+                title = 'Temps écoulé !';
+                break;
+        }
+
+        modalContent.innerHTML = `
+            <div class="text-6xl mb-4">${icon}</div>
+            <h3 class="text-2xl font-bold mb-4 bg-gradient-to-r ${feedbackColors[type]} bg-clip-text text-transparent">
+                ${title}
+            </h3>
+            <p class="text-xl text-gray-300 leading-relaxed">
+                ${message}
+            </p>
+        `;
+
+        overlay.appendChild(modalContent);
+        document.body.appendChild(overlay);
+
+        // Supprimer le modal après 3 secondes
         setTimeout(() => {
-            feedback.remove();
-        }, 2000);
+            overlay.style.animation = 'fadeInModal 0.3s ease-out reverse';
+            modalContent.style.animation = 'scaleInModal 0.3s ease-out reverse';
+            setTimeout(() => {
+                overlay.remove();
+            }, 300);
+        }, 3000);
     }
 
     showLoadingMessage() {
