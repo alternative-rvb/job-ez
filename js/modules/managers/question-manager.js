@@ -21,6 +21,7 @@ export class QuestionManager {
         const question = quizState.getCurrentQuestion();
         
         quizState.startTimer();
+        quizState.startQuestionTimer();
         
         let imageSection = '';
         if (question.imageUrl) {
@@ -147,7 +148,11 @@ export class QuestionManager {
 
     selectAnswer(answerIndex) {
         if (quizState.isAnswered) return;
-        
+
+        // Enregistrer la réponse et arrêter le timer de la question
+        quizState.recordAnswer(answerIndex);
+        quizState.endQuestionTimer();
+
         quizState.setAnswered();
         
         const question = quizState.getCurrentQuestion();

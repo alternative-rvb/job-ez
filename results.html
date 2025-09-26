@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats - Job Ready Quiz</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- tsparticles pour les confettis -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.11.0/tsparticles.confetti.bundle.min.js"></script>
+
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: '#f0f9ff',
+                500: '#3b82f6',
+                600: '#2563eb',
+                700: '#1d4ed8',
+                800: '#1e40af',
+                900: '#1e3a8a'
+              }
+            },
+            animation: {
+              'shake': 'shake 0.5s ease-in-out',
+              'bounce-subtle': 'bounce 1s infinite',
+              'fade-in': 'fadeIn 0.6s ease-in-out',
+              'slide-up': 'slideUp 0.5s ease-out'
+            },
+            keyframes: {
+              shake: {
+                '0%, 100%': { transform: 'translateX(0)' },
+                '10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-2px)' },
+                '20%, 40%, 60%, 80%': { transform: 'translateX(2px)' }
+              },
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' }
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(100px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' }
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <style>
+      body {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        min-height: 100vh;
+      }
+
+      .touch-manipulation {
+        touch-action: manipulation;
+      }
+
+      .results-card {
+        background: rgba(30, 41, 59, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(148, 163, 184, 0.1);
+      }
+
+      .progress-ring {
+        transition: stroke-dashoffset 2s ease-in-out;
+      }
+
+      .stat-card {
+        background: rgba(51, 65, 85, 0.5);
+        border: 1px solid rgba(148, 163, 184, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      .celebration-emoji {
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-10px); }
+        60% { transform: translateY(-5px); }
+      }
+    </style>
+</head>
+<body class="dark text-white">
+    <!-- Navigation -->
+    <nav class="bg-slate-800/90 backdrop-blur-sm border-b border-slate-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <button onclick="goBack()" class="flex items-center space-x-2 text-slate-300 hover:text-white transition-colors">
+                        <i class="bi bi-arrow-left text-xl"></i>
+                        <span class="hidden sm:inline">Retour</span>
+                    </button>
+                    <div class="h-6 w-px bg-slate-600"></div>
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                        Résultats du Quiz
+                    </h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div id="quizTitle" class="text-sm text-slate-400"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Section principale des résultats -->
+        <div class="results-card rounded-2xl p-8 mb-8 animate-fade-in">
+            <div class="text-center mb-8">
+                <!-- Emoji de célébration -->
+                <div id="celebrationEmoji" class="text-8xl mb-6 celebration-emoji"></div>
+
+                <!-- Message principal -->
+                <h2 id="resultMessage" class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                    Chargement...
+                </h2>
+
+                <!-- Score principal -->
+                <div class="flex justify-center items-center space-x-8 mb-8">
+                    <div class="text-center">
+                        <div id="scoreText" class="text-6xl font-bold text-white mb-2">0/0</div>
+                        <div class="text-lg text-slate-400">Questions correctes</div>
+                    </div>
+                    <div class="text-center">
+                        <div id="percentageText" class="text-6xl font-bold text-blue-400 mb-2">0%</div>
+                        <div class="text-lg text-slate-400">Taux de réussite</div>
+                    </div>
+                </div>
+
+                <!-- Cercle de progression -->
+                <div class="relative w-48 h-48 mx-auto mb-8">
+                    <svg class="transform -rotate-90 w-48 h-48" viewBox="0 0 200 200">
+                        <!-- Cercle de fond -->
+                        <circle cx="100" cy="100" r="85" stroke="currentColor" stroke-width="12"
+                                fill="none" class="text-slate-700"></circle>
+                        <!-- Cercle de progression -->
+                        <circle cx="100" cy="100" r="85" stroke="currentColor" stroke-width="12"
+                                fill="none" class="text-blue-400 progress-ring"
+                                stroke-dasharray="534" stroke-dashoffset="534"
+                                stroke-linecap="round" id="progressCircle"></circle>
+                    </svg>
+                    <!-- Texte au centre -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <div id="centerPercentage" class="text-3xl font-bold text-white">0%</div>
+                            <div class="text-sm text-slate-400">Score</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistiques détaillées -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Temps total -->
+            <div class="stat-card rounded-xl p-6 text-center animate-slide-up" style="animation-delay: 0.1s">
+                <div class="text-4xl mb-3 text-green-400">
+                    <i class="bi bi-clock"></i>
+                </div>
+                <div id="totalTime" class="text-2xl font-bold text-white mb-1">--:--</div>
+                <div class="text-sm text-slate-400">Temps total</div>
+            </div>
+
+            <!-- Temps moyen par question -->
+            <div class="stat-card rounded-xl p-6 text-center animate-slide-up" style="animation-delay: 0.2s">
+                <div class="text-4xl mb-3 text-yellow-400">
+                    <i class="bi bi-speedometer2"></i>
+                </div>
+                <div id="avgTime" class="text-2xl font-bold text-white mb-1">--.--s</div>
+                <div class="text-sm text-slate-400">Moyenne/question</div>
+            </div>
+
+            <!-- Précision -->
+            <div class="stat-card rounded-xl p-6 text-center animate-slide-up" style="animation-delay: 0.3s">
+                <div class="text-4xl mb-3 text-purple-400">
+                    <i class="bi bi-bullseye"></i>
+                </div>
+                <div id="accuracy" class="text-2xl font-bold text-white mb-1">--%</div>
+                <div class="text-sm text-slate-400">Précision</div>
+            </div>
+        </div>
+
+        <!-- Détails des questions -->
+        <div class="results-card rounded-2xl p-6 mb-8">
+            <h3 class="text-2xl font-bold mb-6 text-center">Détail des Questions</h3>
+            <div id="questionsDetail" class="space-y-4">
+                <!-- Les détails des questions seront insérés ici -->
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button onclick="restartQuiz()" class="flex-1 sm:flex-none px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-medium text-lg transition-all duration-200 transform hover:scale-105 active:scale-95 touch-manipulation shadow-lg hover:shadow-xl">
+                <i class="bi bi-arrow-clockwise mr-2"></i>
+                Refaire le Quiz
+            </button>
+            <button onclick="goHome()" class="flex-1 sm:flex-none px-8 py-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-medium text-lg transition-all duration-200 transform hover:scale-105 active:scale-95 touch-manipulation shadow-lg hover:shadow-xl">
+                <i class="bi bi-house-door mr-2"></i>
+                Choisir un Quiz
+            </button>
+        </div>
+    </main>
+
+    <!-- Script pour gérer les résultats -->
+    <script type="module">
+        import { launchConfetti } from './js/modules/core/utils.js';
+
+        // Récupération des données depuis l'URL ou le localStorage
+        const urlParams = new URLSearchParams(window.location.search);
+        const quizData = JSON.parse(localStorage.getItem('quizResults') || '{}');
+
+        if (quizData.score === undefined) {
+            // Redirection si pas de données
+            window.location.href = 'index.html';
+        }
+
+        // Configuration des éléments
+        const elements = {
+            celebrationEmoji: document.getElementById('celebrationEmoji'),
+            resultMessage: document.getElementById('resultMessage'),
+            scoreText: document.getElementById('scoreText'),
+            percentageText: document.getElementById('percentageText'),
+            centerPercentage: document.getElementById('centerPercentage'),
+            progressCircle: document.getElementById('progressCircle'),
+            totalTime: document.getElementById('totalTime'),
+            avgTime: document.getElementById('avgTime'),
+            accuracy: document.getElementById('accuracy'),
+            questionsDetail: document.getElementById('questionsDetail'),
+            quizTitle: document.getElementById('quizTitle')
+        };
+
+        // Calculs des statistiques
+        const percentage = Math.round((quizData.score / quizData.totalQuestions) * 100);
+        const totalTime = quizData.totalTime || 0;
+        const avgTime = totalTime / quizData.totalQuestions;
+        const accuracy = percentage;
+
+        // Configuration selon le score
+        const scoreConfig = getScoreConfig(percentage);
+
+        // Animation d'entrée
+        setTimeout(() => {
+            displayResults();
+        }, 500);
+
+        function getScoreConfig(percentage) {
+            if (percentage >= 90) {
+                return {
+                    emoji: "🏆",
+                    message: "Excellent ! Maître du sujet !",
+                    gradient: "from-yellow-400 to-orange-500",
+                    confetti: true
+                };
+            } else if (percentage >= 80) {
+                return {
+                    emoji: "🎉",
+                    message: "Bravo ! Excellent travail !",
+                    gradient: "from-green-400 to-emerald-500",
+                    confetti: true
+                };
+            } else if (percentage >= 70) {
+                return {
+                    emoji: "👏",
+                    message: "Bien joué ! Très bon score !",
+                    gradient: "from-blue-400 to-cyan-500",
+                    confetti: false
+                };
+            } else if (percentage >= 60) {
+                return {
+                    emoji: "👍",
+                    message: "Pas mal du tout !",
+                    gradient: "from-indigo-400 to-purple-500",
+                    confetti: false
+                };
+            } else if (percentage >= 40) {
+                return {
+                    emoji: "📚",
+                    message: "Il y a matière à amélioration",
+                    gradient: "from-yellow-400 to-orange-500",
+                    confetti: false
+                };
+            } else {
+                return {
+                    emoji: "💪",
+                    message: "Courage ! La persévérance paie",
+                    gradient: "from-red-400 to-pink-500",
+                    confetti: false
+                };
+            }
+        }
+
+        function displayResults() {
+            // Mise à jour des éléments principaux
+            elements.celebrationEmoji.textContent = scoreConfig.emoji;
+            elements.resultMessage.textContent = scoreConfig.message;
+            elements.scoreText.textContent = `${quizData.score}/${quizData.totalQuestions}`;
+            elements.percentageText.textContent = `${percentage}%`;
+            elements.centerPercentage.textContent = `${percentage}%`;
+
+            // Animation du cercle de progression
+            const circumference = 534; // 2 * π * 85
+            const offset = circumference - (circumference * percentage) / 100;
+            elements.progressCircle.style.strokeDashoffset = offset;
+
+            // Statistiques
+            elements.totalTime.textContent = formatTime(totalTime);
+            elements.avgTime.textContent = `${avgTime.toFixed(1)}s`;
+            elements.accuracy.textContent = `${accuracy}%`;
+
+            // Titre du quiz
+            elements.quizTitle.textContent = quizData.quizTitle || 'Quiz';
+
+            // Détails des questions
+            displayQuestionsDetail();
+
+            // Confettis si excellent score
+            if (scoreConfig.confetti) {
+                setTimeout(() => {
+                    launchConfetti({
+                        particleCount: 150,
+                        spread: 100,
+                        origin: { y: 0.3 },
+                        colors: ['#3b82f6', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b']
+                    });
+                }, 1000);
+            }
+        }
+
+        function displayQuestionsDetail() {
+            if (!quizData.questions) return;
+
+            const detailsHTML = quizData.questions.map((question, index) => {
+                const isCorrect = question.userAnswer === question.correct;
+                const statusClass = isCorrect ? 'text-green-400' : 'text-red-400';
+                const statusIcon = isCorrect ? 'bi-check-circle-fill' : 'bi-x-circle-fill';
+
+                return `
+                    <div class="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
+                        <div class="flex items-start justify-between mb-2">
+                            <h4 class="font-medium text-white flex-1">Question ${index + 1}</h4>
+                            <i class="bi ${statusIcon} ${statusClass} text-xl"></i>
+                        </div>
+                        <p class="text-slate-300 text-sm mb-2">${question.question}</p>
+                        <div class="text-xs text-slate-400">
+                            <span class="font-medium">Votre réponse:</span>
+                            <span class="${isCorrect ? 'text-green-400' : 'text-red-400'}">
+                                ${question.userAnswer !== undefined ? question.options[question.userAnswer] : 'Non répondu'}
+                            </span>
+                        </div>
+                        ${!isCorrect ? `
+                            <div class="text-xs text-slate-400 mt-1">
+                                <span class="font-medium">Bonne réponse:</span>
+                                <span class="text-green-400">${question.options[question.correct]}</span>
+                            </div>
+                        ` : ''}
+                        ${question.explanation ? `
+                            <div class="mt-2 p-2 bg-slate-700/50 rounded text-xs text-slate-300">
+                                <strong>Explication:</strong> ${question.explanation}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+
+            elements.questionsDetail.innerHTML = detailsHTML;
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Fonctions de navigation
+        window.goBack = function() {
+            window.history.back();
+        };
+
+        window.restartQuiz = function() {
+            // Redirection vers le quiz avec les mêmes paramètres
+            const quizId = urlParams.get('quiz') || quizData.quizId;
+            if (quizId) {
+                window.location.href = `index.html?quiz=${quizId}`;
+            } else {
+                window.location.href = 'index.html';
+            }
+        };
+
+        window.goHome = function() {
+            window.location.href = 'index.html';
+        };
+
+        // Nettoyage du localStorage après utilisation
+        window.addEventListener('beforeunload', () => {
+            localStorage.removeItem('quizResults');
+        });
+    </script>
+</body>
+</html>

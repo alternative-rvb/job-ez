@@ -13,6 +13,9 @@ class QuizState {
         this.timeRemaining = CONFIG.timeLimit;
         this.timerInterval = null;
         this.isAnswered = false;
+        this.userAnswers = []; // Réponses de l'utilisateur
+        this.questionStartTime = null; // Temps de début de la question
+        this.totalTime = 0; // Temps total écoulé
     }
 
     reset() {
@@ -22,6 +25,9 @@ class QuizState {
         this.score = 0;
         this.timeRemaining = CONFIG.timeLimit;
         this.isAnswered = false;
+        this.userAnswers = [];
+        this.questionStartTime = null;
+        this.totalTime = 0;
         if (this.timerInterval) {
             clearInterval(this.timerInterval);
             this.timerInterval = null;
@@ -62,6 +68,24 @@ class QuizState {
 
     getCurrentQuestion() {
         return this.questions[this.currentQuestionIndex];
+    }
+
+    // Gestion des réponses utilisateur
+    recordAnswer(answerIndex) {
+        this.userAnswers[this.currentQuestionIndex] = answerIndex;
+    }
+
+    // Gestion du temps
+    startQuestionTimer() {
+        this.questionStartTime = Date.now();
+    }
+
+    endQuestionTimer() {
+        if (this.questionStartTime) {
+            const questionTime = (Date.now() - this.questionStartTime) / 1000; // en secondes
+            this.totalTime += questionTime;
+            this.questionStartTime = null;
+        }
     }
 }
 
