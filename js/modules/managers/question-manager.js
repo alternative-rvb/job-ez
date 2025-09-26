@@ -244,11 +244,10 @@ export class QuestionManager {
             // Vérifier la réponse
             if (answerIndex === question.answer) {
                 quizState.addScore();
-                launchConfetti();
                 const correctAnswerText = `Réponse ${String.fromCharCode(65 + answerIndex)} : ${question.options[answerIndex]}`;
                 this.showFeedbackMessage(correctAnswerText, 'success');
             } else if (answerIndex === -1) {
-                this.showFeedbackMessage('Temps écoulé ! ⏰', 'timeout');
+                this.showFeedbackMessage('Temps écoulé ! ⏰', 'timeout', question, question.answer);
             } else {
                 this.showFeedbackMessage('Mauvaise réponse 😔', 'error');
             }
@@ -269,7 +268,7 @@ export class QuestionManager {
         }, 300);
     }
 
-    showFeedbackMessage(message, type) {
+    showFeedbackMessage(message, type, question = null, answerIndex = null) {
         const feedbackColors = {
             success: 'from-green-400 to-emerald-500',
             error: 'from-red-400 to-pink-500',
@@ -287,19 +286,31 @@ export class QuestionManager {
         // Contenu du modal selon le type
         let icon = '';
         let title = '';
+        let subtitle = '';
 
         switch(type) {
             case 'success':
                 icon = '🎉';
                 title = 'Bonne réponse !';
+                subtitle = message;
                 break;
             case 'error':
                 icon = '❌';
                 title = 'Mauvaise réponse';
+                subtitle = message;
                 break;
             case 'timeout':
                 icon = '⏰';
                 title = 'Temps écoulé !';
+                if (question && answerIndex !== null) {
+                    // Mode normal : afficher avec lettrage
+                    subtitle = `Réponse était ${String.fromCharCode(65 + answerIndex)} : ${question.options[answerIndex]}`;
+                } else if (question) {
+                    // Mode spoiler : afficher sans lettrage
+                    subtitle = question.options[question.answer];
+                } else {
+                    subtitle = message;
+                }
                 break;
         }
 
@@ -309,7 +320,7 @@ export class QuestionManager {
                 ${title}
             </h3>
             <p class="text-xl text-gray-300 leading-relaxed">
-                ${message}
+                ${subtitle}
             </p>
         `;
 
