@@ -14,6 +14,7 @@ class QuizState {
         this.timerInterval = null;
         this.isAnswered = false;
         this.userAnswers = []; // Réponses de l'utilisateur
+        this.userAnswersCorrect = []; // Si les réponses sont correctes
         this.questionStartTime = null; // Temps de début de la question
         this.totalTime = 0; // Temps total écoulé
     }
@@ -26,6 +27,7 @@ class QuizState {
         this.timeRemaining = CONFIG.timeLimit;
         this.isAnswered = false;
         this.userAnswers = [];
+        this.userAnswersCorrect = [];
         this.questionStartTime = null;
         this.totalTime = 0;
         if (this.timerInterval) {
@@ -73,6 +75,14 @@ class QuizState {
     // Gestion des réponses utilisateur
     recordAnswer(answerIndex) {
         this.userAnswers[this.currentQuestionIndex] = answerIndex;
+    }
+
+    recordFreeAnswer(answerText) {
+        this.userAnswers[this.currentQuestionIndex] = answerText;
+    }
+
+    recordAnswerCorrectness(isCorrect) {
+        this.userAnswersCorrect[this.currentQuestionIndex] = isCorrect;
     }
 
     // Gestion du temps

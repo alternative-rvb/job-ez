@@ -42,6 +42,15 @@ export const CONFIG = {
             color: 'from-purple-400 to-pink-500',
             difficulty: 'Difficile',
             questionCount: 15
+        },
+        {
+            id: 'entretien-dev-web-2',
+            title: 'Entretien Dev Web Avancé',
+            description: 'Questions avancées d\'entretien pour développeur web',
+            icon: 'bi-briefcase-fill',
+            color: 'from-red-400 to-pink-500',
+            difficulty: 'Expert',
+            questionCount: 25
         }
     ]
 };

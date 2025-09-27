@@ -35,19 +35,31 @@ export class QuestionManager {
             `;
         }
         
-        const optionsHTML = question.options.map((option, index) => {
-            const letter = String.fromCharCode(65 + index);
-            const isHidden = CONFIG.spoilerMode ? 'hidden' : '';
-            return `
-                <button class="answer-btn ${isHidden} p-4 md:p-5 text-left bg-gray-700 hover:bg-gray-600 active:bg-gray-600 rounded-lg md:rounded-xl transition-all duration-200 border-2 border-transparent hover:border-primary-500 active:scale-95 touch-manipulation" 
-                        data-answer-index="${index}">
-                    <div class="flex items-center space-x-3">
-                        <span class="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold text-sm md:text-base">${letter}</span>
-                        <span class="text-sm md:text-base leading-relaxed">${option}</span>
-                    </div>
-                </button>
+        let optionsHTML = '';
+        if (question.choices && question.choices.length > 0) {
+            // Mode choix multiples
+            optionsHTML = question.choices.map((option, index) => {
+                const letter = String.fromCharCode(65 + index);
+                const isHidden = CONFIG.spoilerMode ? 'hidden' : '';
+                return `
+                    <button class="answer-btn ${isHidden} p-4 md:p-5 text-left bg-gray-700 hover:bg-gray-600 active:bg-gray-600 rounded-lg md:rounded-xl transition-all duration-200 border-2 border-transparent hover:border-primary-500 active:scale-95 touch-manipulation" 
+                            data-answer-index="${index}">
+                        <div class="flex items-center space-x-3">
+                            <span class="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold text-sm md:text-base">${letter}</span>
+                            <span class="text-sm md:text-base leading-relaxed">${option}</span>
+                        </div>
+                    </button>
+                `;
+            }).join('');
+        } else {
+            // Mode réponse libre - affichage simple
+            optionsHTML = `
+                <div class="text-center py-8">
+                    <p class="text-lg md:text-xl text-blue-400 font-medium">Réponse libre</p>
+                    <p class="text-sm text-gray-400 mt-2">Cette question ne compte pas dans le score</p>
+                </div>
             `;
-        }).join('');
+        }
         
         const questionHTML = `
             <div class="question-container">
@@ -79,13 +91,14 @@ export class QuestionManager {
                 </div>
                 
                 <!-- Progress bar -->
-                <div class="mt-8 px-2">
+                <div class="mt-4 px-2 mb-4">
                     <div class="flex items-center justify-between mb-2">
-                        <span class="text-sm text-gray-400">Progression</span>
-                        <span class="text-sm text-gray-400">${quizState.currentQuestionIndex + 1}/${quizState.questions.length}</span>
+                        <span class="text-sm font-semibold text-white">Progression</span>
+                        <span class="text-sm font-semibold text-white" id="question-progress">${quizState.currentQuestionIndex + 1}/${quizState.questions.length}</span>
                     </div>
-                    <div class="w-full bg-gray-700 rounded-full h-2">
-                        <div class="bg-gradient-to-r from-primary-400 to-primary-500 h-2 rounded-full transition-all duration-300" 
+                    <div class="w-full bg-gray-600 rounded-full h-4 overflow-hidden shadow-inner border border-gray-500">
+                        <div class="bg-gradient-to-r from-green-400 to-blue-500 h-4 rounded-full transition-all duration-1000 ease-out shadow-md" 
+                             id="question-progress-bar"
                              style="width: ${((quizState.currentQuestionIndex + 1) / quizState.questions.length) * 100}%"></div>
                     </div>
                 </div>
@@ -108,6 +121,8 @@ export class QuestionManager {
                 }
             });
         });
+        
+        // Pour les questions libres, aucun événement spécial - elles utilisent le timer normal
         
         this.startTimer();
     }
@@ -147,46 +162,81 @@ export class QuestionManager {
             if (quizState.timeRemaining <= 0) {
                 clearInterval(quizState.timerInterval);
                 if (!quizState.isAnswered) {
-                    this.selectAnswer(-1); // Temps écoulé
+                    const question = quizState.getCurrentQuestion();
+                    if (question && (!question.choices || question.choices.length === 0)) {
+                        // Pour les questions libres, passer simplement à la suivante
+                        this.handleFreeResponseMode();
+                    } else {
+                        this.selectAnswer(-1); // Temps écoulé pour les choix multiples
+                    }
                 }
             }
         }, 1000);
     }
 
     selectAnswer(answerIndex) {
-        if (quizState.isAnswered) return;
+        if (!quizState.isAnswered && quizState.questions && quizState.questions.length > 0) {
+            const question = quizState.getCurrentQuestion();
+            
+            // Vérification de sécurité - pour les questions à choix multiples
+            if (!question || !question.choices || question.choices.length === 0 || !question.correctAnswer) {
+                console.error('Question data is invalid for multiple choice:', question);
+                return;
+            }
+            
+            quizState.setAnswered(true);
+            quizState.recordAnswer(answerIndex); // Enregistrer la réponse de l'utilisateur
+            quizState.endQuestionTimer(); // Enregistrer le temps de cette question
 
-        // Enregistrer la réponse et arrêter le timer de la question
-        quizState.recordAnswer(answerIndex);
-        quizState.endQuestionTimer();
+            const answerButtons = document.querySelectorAll('.answer-btn');
 
-        quizState.setAnswered();
+            // En mode spoiler, révéler automatiquement la bonne réponse
+            if (CONFIG.spoilerMode && answerIndex === -1) {
+                this.revealCorrectAnswer(question);
+                return;
+            }
 
-        const question = quizState.getCurrentQuestion();
-        const answerButtons = document.querySelectorAll('.answer-btn');
-
-        // En mode spoiler, révéler automatiquement la bonne réponse
-        if (CONFIG.spoilerMode && answerIndex === -1) {
-            this.revealCorrectAnswer(question);
-            return;
+            // Logique normale pour le mode normal
+            // Vérifier la réponse
+            const correctAnswerIndex = question.choices.indexOf(question.correctAnswer);
+            const isCorrect = correctAnswerIndex !== -1 && answerIndex === correctAnswerIndex;
+            if (isCorrect) {
+                quizState.addScore();
+                quizState.recordAnswerCorrectness(true);
+                const correctAnswerText = `Réponse ${String.fromCharCode(65 + answerIndex)} : ${question.choices[answerIndex]}`;
+                this.showFeedbackMessage(correctAnswerText, 'success');
+            } else if (answerIndex === -1) {
+                quizState.recordAnswerCorrectness(false);
+                this.showFeedbackMessage('Temps écoulé ! ⏰', 'timeout', question, correctAnswerIndex);
+            } else {
+                quizState.recordAnswerCorrectness(false);
+                this.showFeedbackMessage('Mauvaise réponse 😔', 'error');
+            }
+            
+            domManager.updateQuizStats(
+                quizState.currentQuestionIndex, 
+                quizState.questions.length, 
+                quizState.score, 
+                quizState.timeRemaining
+            );
+            
+            this.handleNormalMode(answerIndex, question, answerButtons);
         }
-
-        // Logique normale pour le mode normal
-        this.handleNormalMode(answerIndex, question, answerButtons);
     }
 
     revealCorrectAnswer(question) {
         // Afficher le popup avec juste le texte de la bonne réponse
-        const correctAnswerText = question.options[question.answer];
+        const correctAnswerText = question.correctAnswer;
         this.showFeedbackMessage(correctAnswerText, 'timeout');
 
         // Créer l'élément de révélation
+        const correctAnswerIndex = question.choices.indexOf(question.correctAnswer);
         const revealHTML = `
             <div class="answer-reveal correct">
                 <div class="text-2xl font-bold mb-2">Temps écoulé !</div>
                 <div class="text-lg mb-2">La bonne réponse était :</div>
                 <div class="text-xl font-semibold bg-green-600 text-white px-4 py-2 rounded-lg inline-block">
-                    ${String.fromCharCode(65 + question.answer)}) ${question.options[question.answer]}
+                    ${String.fromCharCode(65 + correctAnswerIndex)}) ${question.correctAnswer}
                 </div>
             </div>
         `;
@@ -219,7 +269,7 @@ export class QuestionManager {
         setTimeout(() => {
             // Marquer les réponses avec animations améliorées
             answerButtons.forEach((btn, index) => {
-                const isCorrect = index === question.answer;
+                const isCorrect = question.choices && question.correctAnswer ? question.choices[index] === question.correctAnswer : false;
                 const isSelected = index === answerIndex;
                 const letterSpan = btn.querySelector('span');
                 
@@ -241,23 +291,8 @@ export class QuestionManager {
                 }
             });
             
-            // Vérifier la réponse
-            if (answerIndex === question.answer) {
-                quizState.addScore();
-                const correctAnswerText = `Réponse ${String.fromCharCode(65 + answerIndex)} : ${question.options[answerIndex]}`;
-                this.showFeedbackMessage(correctAnswerText, 'success');
-            } else if (answerIndex === -1) {
-                this.showFeedbackMessage('Temps écoulé ! ⏰', 'timeout', question, question.answer);
-            } else {
-                this.showFeedbackMessage('Mauvaise réponse 😔', 'error');
-            }
-            
-            domManager.updateQuizStats(
-                quizState.currentQuestionIndex, 
-                quizState.questions.length, 
-                quizState.score, 
-                quizState.timeRemaining
-            );
+            // Vérifier la réponse (déjà fait dans selectAnswer)
+            // La logique de vérification a été déplacée vers selectAnswer pour éviter les doublons
             
             // Passer à la question suivante après un délai
             setTimeout(() => {
@@ -268,10 +303,41 @@ export class QuestionManager {
         }, 300);
     }
 
+    handleFreeResponseMode() {
+        // Pour les questions libres, on ne compte pas de points
+        quizState.setAnswered(true);
+        quizState.recordAnswerCorrectness(false); // Marquer comme non compté dans le score
+        quizState.endQuestionTimer();
+        
+        // Feedback simple
+        this.showFeedbackMessage('Question informative - pas de points', 'neutral');
+        
+        // Désactiver les éléments si présents (pour compatibilité)
+        const freeAnswerInput = document.getElementById('free-answer-input');
+        const submitFreeAnswerBtn = document.getElementById('submit-free-answer');
+        
+        if (freeAnswerInput) {
+            freeAnswerInput.disabled = true;
+            freeAnswerInput.classList.add('opacity-50');
+        }
+        
+        if (submitFreeAnswerBtn) {
+            submitFreeAnswerBtn.disabled = true;
+            submitFreeAnswerBtn.classList.add('opacity-50');
+        }
+        
+        // Passer à la question suivante après un délai
+        setTimeout(() => {
+            quizState.nextQuestion();
+            this.showQuestion();
+        }, 2000);
+    }
+
     showFeedbackMessage(message, type, question = null, answerIndex = null) {
         const feedbackColors = {
             success: 'from-green-400 to-emerald-500',
             error: 'from-red-400 to-pink-500',
+            neutral: 'from-blue-400 to-cyan-500',
             timeout: 'from-yellow-400 to-orange-500'
         };
 
@@ -299,15 +365,20 @@ export class QuestionManager {
                 title = 'Mauvaise réponse';
                 subtitle = message;
                 break;
+            case 'neutral':
+                icon = '📝';
+                title = 'Réponse enregistrée';
+                subtitle = message;
+                break;
             case 'timeout':
                 icon = '⏰';
                 title = 'Temps écoulé !';
                 if (question && answerIndex !== null) {
                     // Mode normal : afficher avec lettrage
-                    subtitle = `Réponse était ${String.fromCharCode(65 + answerIndex)} : ${question.options[answerIndex]}`;
+                    subtitle = `Réponse était ${String.fromCharCode(65 + answerIndex)} : ${question.choices[answerIndex]}`;
                 } else if (question) {
                     // Mode spoiler : afficher sans lettrage
-                    subtitle = question.options[question.answer];
+                    subtitle = question.correctAnswer;
                 } else {
                     subtitle = message;
                 }
@@ -345,5 +416,20 @@ export class QuestionManager {
             </div>
         `;
         domManager.setContent('quizContent', loadingHTML);
+    }
+
+    updateProgressBar() {
+        const progressElement = document.getElementById('question-progress');
+        const progressBarElement = document.getElementById('question-progress-bar');
+        
+        if (progressElement && progressBarElement) {
+            const current = quizState.currentQuestionIndex;
+            const total = quizState.questions.length;
+            const progressText = `${current + 1}/${total}`;
+            const progressPercent = ((current + 1) / total) * 100;
+            
+            progressElement.textContent = progressText;
+            progressBarElement.style.width = `${progressPercent}%`;
+        }
     }
 }

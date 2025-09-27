@@ -245,7 +245,8 @@
         };
 
         // Calculs des statistiques
-        const percentage = Math.round((quizData.score / quizData.totalQuestions) * 100);
+        const totalScorable = quizData.totalScorable || quizData.totalQuestions; // Questions qui comptent pour le score
+        const percentage = Math.round((quizData.score / totalScorable) * 100);
         const totalTime = quizData.totalTime || 0;
         const avgTime = totalTime / quizData.totalQuestions;
         const accuracy = percentage;
@@ -308,7 +309,7 @@
             // Mise à jour des éléments principaux
             elements.celebrationEmoji.textContent = scoreConfig.emoji;
             elements.resultMessage.textContent = scoreConfig.message;
-            elements.scoreText.textContent = `${quizData.score}/${quizData.totalQuestions}`;
+            elements.scoreText.textContent = `${quizData.score}/${totalScorable}`;
             elements.percentageText.textContent = `${percentage}%`;
             elements.centerPercentage.textContent = `${percentage}%`;
 
@@ -342,30 +343,57 @@
         }
 
         function displayQuestionsDetail() {
-            if (!quizData.questions) return;
+            console.log('quizData:', quizData);
+            console.log('quizData.questions:', quizData.questions);
+            if (!quizData.questions) {
+                console.log('No questions data found');
+                return;
+            }
 
             const detailsHTML = quizData.questions.map((question, index) => {
-                const isCorrect = question.userAnswer === question.correct;
-                const statusClass = isCorrect ? 'text-green-400' : 'text-red-400';
-                const statusIcon = isCorrect ? 'bi-check-circle-fill' : 'bi-x-circle-fill';
+                let statusClass = 'text-blue-400';
+                let statusIcon = 'bi-info-circle-fill';
+                
+                if (question.isFreeResponse) {
+                    // Pour les réponses libres - questions informatives
+                    statusClass = 'text-blue-400';
+                    statusIcon = 'bi-info-circle-fill';
+                } else {
+                    // Pour les choix multiples
+                    statusClass = question.isCorrect ? 'text-green-400' : 'text-red-400';
+                    statusIcon = question.isCorrect ? 'bi-check-circle-fill' : 'bi-x-circle-fill';
+                }
 
                 return `
                     <div class="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
                         <div class="flex items-start justify-between mb-2">
-                            <h4 class="font-medium text-white flex-1">Question ${index + 1}</h4>
+                            <h4 class="font-medium text-white flex-1">
+                                Question ${index + 1}
+                                ${question.isFreeResponse ? '<span class="text-xs text-blue-400 ml-2">(Réponse libre)</span>' : ''}
+                            </h4>
                             <i class="bi ${statusIcon} ${statusClass} text-xl"></i>
                         </div>
                         <p class="text-slate-300 text-sm mb-2">${question.question}</p>
-                        <div class="text-xs text-slate-400">
-                            <span class="font-medium">Votre réponse:</span>
-                            <span class="${isCorrect ? 'text-green-400' : 'text-red-400'}">
-                                ${question.userAnswer !== undefined ? question.options[question.userAnswer] : 'Non répondu'}
-                            </span>
-                        </div>
-                        ${!isCorrect ? `
+                        ${question.userAnswer ? `
+                            <div class="text-xs text-slate-400">
+                                <span class="font-medium">Votre réponse:</span>
+                                <span class="${question.isFreeResponse ? 'text-blue-400' : (question.isCorrect ? 'text-green-400' : 'text-red-400')}">
+                                    ${question.userAnswer}
+                                </span>
+                            </div>
+                        ` : question.isFreeResponse ? `
+                            <div class="text-xs text-slate-400">
+                                <span class="text-blue-400">Question informative - aucun point</span>
+                            </div>
+                        ` : `
+                            <div class="text-xs text-slate-400">
+                                <span class="text-gray-400">Non répondu</span>
+                            </div>
+                        `}
+                        ${question.correctAnswer && question.correctAnswer !== 'Réponse inconnue' && (!question.isFreeResponse || !question.isCorrect) ? `
                             <div class="text-xs text-slate-400 mt-1">
-                                <span class="font-medium">Bonne réponse:</span>
-                                <span class="text-green-400">${question.options[question.correct]}</span>
+                                <span class="font-medium">Réponse attendue:</span>
+                                <span class="text-green-400">${question.correctAnswer}</span>
                             </div>
                         ` : ''}
                         ${question.explanation ? `

@@ -27,7 +27,30 @@ export async function loadQuestions(url) {
         if (!response.ok) {
             throw new Error(`Erreur de chargement: ${response.status}`);
         }
-        return await response.json();
+        const questions = await response.json();
+        
+        // Mélanger les réponses pour chaque question à choix multiples
+        return questions.map(question => {
+            if (question.choices && question.choices.length > 0) {
+                // Créer un tableau avec les réponses et leurs indices originaux
+                const choicesWithIndex = question.choices.map((choice, index) => ({
+                    choice,
+                    originalIndex: index,
+                    isCorrect: choice === question.correctAnswer
+                }));
+                
+                // Mélanger les réponses
+                const shuffledChoices = shuffleArray(choicesWithIndex);
+                
+                // Reconstruire la question avec les réponses mélangées
+                return {
+                    ...question,
+                    choices: shuffledChoices.map(item => item.choice),
+                    correctAnswer: question.correctAnswer // La bonne réponse reste la même
+                };
+            }
+            return question; // Retourner la question inchangée si pas de choix multiples
+        });
     } catch (error) {
         console.error('Erreur lors du chargement des questions:', error);
         throw error;

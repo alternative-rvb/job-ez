@@ -13,22 +13,40 @@ export class ResultsManager {
     }
 
     show() {
+        // Calculer le nombre de questions qui comptent pour le score (exclure les questions libres)
+        const scorableQuestions = quizState.questions.filter(q => q.choices && q.choices.length > 0);
+        const totalScorable = scorableQuestions.length;
+        
         // Sauvegarde des données pour la page de résultats
         const resultsData = {
             score: quizState.score,
             totalQuestions: quizState.questions.length,
+            totalScorable: totalScorable, // Nombre de questions qui comptent
             totalTime: quizState.totalTime || 0,
             quizTitle: quizState.currentQuiz?.title || 'Quiz',
             quizId: quizState.currentQuiz?.id,
-            questions: quizState.questions.map((q, index) => ({
-                question: q.question,
-                options: q.options,
-                correct: q.answer,
-                userAnswer: quizState.userAnswers[index],
-                explanation: q.explanation || null
-            }))
+            questions: quizState.questions.map((q, index) => {
+                const userAnswer = quizState.userAnswers[index];
+                let userAnswerText = undefined;
+                let isFreeResponse = !q.choices || q.choices.length === 0;
+                
+                if (userAnswer !== undefined && !isFreeResponse) {
+                    // Pour les choix multiples seulement
+                    userAnswerText = q.choices[userAnswer] || 'Réponse inconnue';
+                }
+                
+                return {
+                    question: q.question,
+                    choices: q.choices || q.options || [],
+                    correctAnswer: q.correctAnswer || q.answer || 'Réponse inconnue',
+                    userAnswer: userAnswerText,
+                    isCorrect: quizState.userAnswersCorrect[index] || false,
+                    isFreeResponse: isFreeResponse,
+                    explanation: q.explanation || null
+                };
+            })
         };
-
+        
         // Sauvegarde dans localStorage
         localStorage.setItem('quizResults', JSON.stringify(resultsData));
 

@@ -62,6 +62,14 @@ class DOMManager {
         if (this.elements.questionCounter) {
             this.elements.questionCounter.textContent = `Question ${currentIndex + 1}/${totalQuestions}`;
         }
+        
+        // Mettre à jour la barre de progression
+        const progressBar = document.getElementById('progress-bar');
+        if (progressBar) {
+            const progressPercent = (currentIndex / totalQuestions) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+        }
+        
         if (this.elements.scoreDisplay) {
             this.elements.scoreDisplay.textContent = `Score: ${score}`;
         }

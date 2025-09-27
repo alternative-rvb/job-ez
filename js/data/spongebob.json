@@ -1,78 +1,118 @@
 [
-    {
-        "question": "Quel est le nom complet de Bob l'éponge ?",
-        "imageUrl": "images/1-Bob-leponge.jpg",
-        "options": [
-            "Bob l'éponge Carrée",
-            "Bob l'éponge Pantalon Carré",
-            "Bob l'éponge Éponge",
-            "Bob l'éponge SquarePants"
-        ],
-        "answer": 3
-    },
-    {
-        "question": "Quel est le nom du meilleur ami de Bob l'éponge ?",
-        "imageUrl": null,
-        "options": ["Sandy", "Carlo", "Patrick", "Perle"],
-        "answer": 2
-    },
-    {
-        "question": "Quel est le métier de Bob l'éponge ?",
-        "imageUrl": null,
-        "options": ["Cuisinier", "Facteur", "Vendeur de glaces", "Caissier"],
-        "answer": 0
-    },
-    {
-        "question": "Qui est le voisin grincheux de Bob l'éponge ?",
-        "imageUrl": null,
-        "options": ["Monsieur Krabs", "Patrick", "Carlo", "Plankton"],
-        "answer": 3
-    },
-    {
-        "question": "Quel est l'animal de compagnie de Bob l'éponge ?",
-        "imageUrl": null,
-        "options": ["Un poisson", "Un chat", "Un escargot", "Un chien"],
-        "answer": 2
-    },
-    {
-        "question": "Dans quelle ville se déroule la série Bob l'éponge ?",
-        "imageUrl": null,
-        "options": ["Bikini Bottom", "Krusty Krab", "Spongeville", "Squidville"],
-        "answer": 0
-    },
-    {
-        "question": "Quelle est la nourriture préférée de Bob l'éponge ?",
-        "imageUrl": null,
-        "options": ["Pâté de crabe", "Hamburger", "Pizza", "Sushis"],
-        "answer": 0
-    },
-    {
-        "question": "Quel est le hobby de Carlo Tentacule ?",
-        "imageUrl": null,
-        "options": [
-            "Jouer de la clarinette",
-            "Peindre",
-            "Faire du sport",
-            "Jardiner"
-        ],
-        "answer": 0
-    },
-    {
-        "question": "Quelle est la couleur de la cravate de Monsieur Krabs ?",
-        "imageUrl": null,
-        "options": ["Rouge", "Bleue", "Jaune", "Violette"],
-        "answer": 2
-    },
-    {
-        "question": "Quel est le nom du restaurant où travaille Bob l'éponge ?",
-        "imageUrl": null,
-        "options": [
-            "Krusty Burger",
-            "Krabby Patty",
-            "SpongeBob's Diner",
-            "Pineapple Café"
-        ],
-        "answer": 1
-    }
+  {
+    "question": "Connais-tu Bob l'éponge ?",
+    "choices": null,
+    "correctAnswer": "Bob l'éponge SquarePants",
+    "imageUrl": "images/1-Bob-leponge.jpg"
+  },
+  {
+    "question": "Quel est le nom complet de Bob l'éponge ?",
+    "choices": [
+      "Bob l'éponge Carlo",
+      "Bob l'éponge Pantalon Carré",
+      "Bob l'éponge Éponge",
+      "Bob l'éponge SquarePants"
+    ],
+    "correctAnswer": "Bob l'éponge SquarePants",
+    "imageUrl": "images/1-Bob-leponge.jpg"
+  },
+  {
+    "question": "Quel est le nom du meilleur ami de Bob l'éponge ?",
+    "choices": [
+      "Sandy",
+      "Carlo",
+      "Patrick",
+      "Perle"
+    ],
+    "correctAnswer": "Patrick",
+    "imageUrl": null
+  },
+  {
+    "question": "Quel est le métier de Bob l'éponge ?",
+    "choices": [
+      "Cuisinier",
+      "Facteur",
+      "Vendeur de glaces",
+      "Caissier"
+    ],
+    "correctAnswer": "Cuisinier",
+    "imageUrl": null
+  },
+  {
+    "question": "Qui est le voisin grincheux de Bob l'éponge ?",
+    "choices": [
+      "Monsieur Krabs",
+      "Patrick",
+      "Carlo",
+      "Plankton"
+    ],
+    "correctAnswer": "Carlo",
+    "imageUrl": null
+  },
+  {
+    "question": "Quel est l'animal de compagnie de Bob l'éponge ?",
+    "choices": [
+      "Un poisson",
+      "Un chat",
+      "Un escargot",
+      "Un chien"
+    ],
+    "correctAnswer": "Un escargot",
+    "imageUrl": null
+  },
+  {
+    "question": "Dans quelle ville se déroule la série Bob l'éponge ?",
+    "choices": [
+      "Bikini Bottom",
+      "Krusty Krab",
+      "Spongeville",
+      "Squidville"
+    ],
+    "correctAnswer": "Bikini Bottom",
+    "imageUrl": null
+  },
+  {
+    "question": "Quelle est la nourriture préférée de Bob l'éponge ?",
+    "choices": [
+      "Pâté de crabe",
+      "Hamburger",
+      "Pizza",
+      "Sushis"
+    ],
+    "correctAnswer": "Pâté de crabe",
+    "imageUrl": null
+  },
+  {
+    "question": "Quel est le hobby de Carlo Tentacule ?",
+    "choices": [
+      "Jouer de la clarinette",
+      "Peindre",
+      "Faire du sport",
+      "Jardiner"
+    ],
+    "correctAnswer": "Jouer de la clarinette",
+    "imageUrl": null
+  },
+  {
+    "question": "Quelle est la couleur de la cravate de Monsieur Krabs ?",
+    "choices": [
+      "Rouge",
+      "Bleue",
+      "Jaune",
+      "Violette"
+    ],
+    "correctAnswer": "Jaune",
+    "imageUrl": null
+  },
+  {
+    "question": "Quel est le nom du restaurant où travaille Bob l'éponge ?",
+    "choices": [
+      "Krusty Burger",
+      "Krabby Patty",
+      "SpongeBob's Diner",
+      "Pineapple Café"
+    ],
+    "correctAnswer": "Krabby Patty",
+    "imageUrl": null
+  }
 ]
-
