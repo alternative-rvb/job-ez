@@ -123,7 +123,7 @@
         <div class="results-card rounded-2xl p-8 mb-8 animate-fade-in">
             <div class="text-center mb-8">
                 <!-- Emoji de célébration -->
-                <div id="celebrationEmoji" class="text-8xl mb-6 celebration-emoji"></div>
+                <div id="celebrationEmoji" class="text-8xl mb-4 celebration-emoji"></div>
 
                 <!-- Message principal -->
                 <h2 id="resultMessage" class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
@@ -168,7 +168,7 @@
         <!-- Statistiques détaillées -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <!-- Temps total -->
-            <div class="stat-card rounded-xl p-6 text-center animate-slide-up" style="animation-delay: 0.1s">
+            <div class="stat-card rounded-xl p-4 text-center animate-slide-up" style="animation-delay: 0.1s">
                 <div class="text-4xl mb-3 text-green-400">
                     <i class="bi bi-clock"></i>
                 </div>
@@ -177,7 +177,7 @@
             </div>
 
             <!-- Temps moyen par question -->
-            <div class="stat-card rounded-xl p-6 text-center animate-slide-up" style="animation-delay: 0.2s">
+            <div class="stat-card rounded-xl p-4 text-center animate-slide-up" style="animation-delay: 0.2s">
                 <div class="text-4xl mb-3 text-yellow-400">
                     <i class="bi bi-speedometer2"></i>
                 </div>
@@ -186,7 +186,7 @@
             </div>
 
             <!-- Précision -->
-            <div class="stat-card rounded-xl p-6 text-center animate-slide-up" style="animation-delay: 0.3s">
+            <div class="stat-card rounded-xl p-4 text-center animate-slide-up" style="animation-delay: 0.3s">
                 <div class="text-4xl mb-3 text-purple-400">
                     <i class="bi bi-bullseye"></i>
                 </div>
@@ -196,8 +196,8 @@
         </div>
 
         <!-- Détails des questions -->
-        <div id="questions-details-section" class="results-card rounded-2xl p-6 mb-8">
-            <h3 class="text-2xl font-bold mb-6 text-center">Détail des Questions</h3>
+        <div id="questions-details-section" class="results-card rounded-2xl p-4 mb-8">
+            <h3 class="text-2xl font-bold mb-4 text-center">Détail des Questions</h3>
             <div id="questionsDetail" class="space-y-4">
                 <!-- Les détails des questions seront insérés ici -->
             </div>
@@ -205,10 +205,10 @@
 
         <!-- Actions -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button onclick="restartQuiz()" class="flex-1 sm:flex-none px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-medium text-lg transition-all duration-200 transform hover:scale-105 active:scale-95 touch-manipulation shadow-lg hover:shadow-xl">
+            <!-- <button onclick="restartQuiz()" class="flex-1 sm:flex-none px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-medium text-lg transition-all duration-200 transform hover:scale-105 active:scale-95 touch-manipulation shadow-lg hover:shadow-xl">
                 <i class="bi bi-arrow-clockwise mr-2"></i>
                 Refaire le Quiz
-            </button>
+            </button> -->
             <button onclick="goHome()" class="flex-1 sm:flex-none px-8 py-4 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-medium text-lg transition-all duration-200 transform hover:scale-105 active:scale-95 touch-manipulation shadow-lg hover:shadow-xl">
                 <i class="bi bi-house-door mr-2"></i>
                 Choisir un Quiz

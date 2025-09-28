@@ -36,10 +36,10 @@ export class QuestionManager {
             ` : '';
             
             imageSection = `
-                <div class="mb-6 text-center relative">
+                <div class="mb-4 text-center relative overflow-hidden">
                     <img src="${question.imageUrl}" 
                          alt="Question ${quizState.currentQuestionIndex + 1}" 
-                         class="max-w-full h-48 aspect-square object-cover rounded-lg mx-auto ${blurClass}" 
+                         class="max-w-full h-32 aspect-square object-cover rounded-lg mx-auto ${blurClass}" 
                          id="question-image">
                     ${spoilerOverlay}
                 </div>
@@ -53,7 +53,7 @@ export class QuestionManager {
                 const letter = String.fromCharCode(65 + index);
                 const isHidden = CONFIG.freeMode ? 'hidden' : '';
                 return `
-                    <button class="answer-btn ${isHidden} p-4 md:p-5 text-left bg-gray-700 hover:bg-gray-600 active:bg-gray-600 rounded-lg md:rounded-xl transition-all duration-200 border-2 border-transparent hover:border-primary-500 active:scale-95 touch-manipulation" 
+                    <button class="answer-btn ${isHidden} px-4 py-2 md:p-5 text-left bg-gray-700 hover:bg-gray-600 active:bg-gray-600 rounded-lg md:rounded-xl transition-all duration-200 border-2 border-transparent hover:border-primary-500 active:scale-95 touch-manipulation" 
                             data-answer-index="${index}">
                         <div class="flex items-center space-x-3">
                             <span class="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-primary-500 text-white rounded-full flex items-center justify-center font-bold text-sm md:text-base">${letter}</span>
@@ -75,7 +75,7 @@ export class QuestionManager {
         const questionHTML = `
             <div class="question-container">
                 <!-- Timer prominent en haut -->
-                <div class="mb-6 flex justify-center">
+                <div class="mb-4 flex justify-center">
                     <div class="bg-gradient-to-r from-primary-500 to-primary-600 rounded-full px-6 py-3 shadow-lg">
                         <div class="flex items-center space-x-3">
                             <i class="bi bi-clock text-white text-lg"></i>
@@ -87,10 +87,10 @@ export class QuestionManager {
                 
                 ${imageSection}
                 
-                <h3 class="text-xl md:text-2xl font-bold mb-6 text-center px-2">${question.question}</h3>
+                <h3 class="text-xl md:text-2xl font-bold mb-4 text-center px-2">${question.question}</h3>
                 
                 <!-- Options améliorées pour mobile -->
-                <div class="grid grid-cols-1 gap-3 md:gap-4 mb-6 px-2">
+                <div class="grid grid-cols-1 gap-3 md:gap-4 mb-4 px-2">
                     ${CONFIG.freeMode ? `
                         <div class="text-center py-4 px-6 bg-blue-900/30 border-2 border-blue-500/50 rounded-lg mb-4">
                             <i class="bi bi-lightbulb text-2xl text-blue-400 mb-2"></i>

@@ -13,7 +13,7 @@ export class QuizSelector {
     render() {
         const quizCards = CONFIG.availableQuizzes.map(quiz => {
             return `
-                <div class="bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer quiz-card" 
+                <div class="bg-gray-800 rounded-xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer quiz-card" 
                      data-quiz-id="${quiz.id}">
                     <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center space-x-3">
