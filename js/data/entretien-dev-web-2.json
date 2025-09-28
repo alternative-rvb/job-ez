@@ -1,4 +1,14 @@
-[
+{
+  "config": {
+    "title": "Entretien Développeur Web 2",
+    "description": "Questions techniques avancées pour évaluer les compétences techniques des développeurs web (PHP, JavaScript, SQL, Docker, Git)",
+    "spoilerMode": true,
+    "difficulty": "Difficile",
+    "questionCount": 40,
+    "icon": "bi-briefcase-fill",
+    "color": "from-red-400 to-pink-500"
+  },
+  "questions": [
   {
     "id": 1,
     "question": "Qu'est-ce qu'un DTO (Data Transfer Object) en PHP ?",
@@ -317,14 +327,14 @@
   },
   {
     "id": 29,
-    "question": "Qu'est-ce qu'un commit atomique en Git ?",
+    "question": "Qu'est-ce que `git bisect` et dans quel contexte l'utiliser ?",
     "choices": [
-      "Un commit très rapide",
-      "Un commit contenant une seule modification logique, facile à comprendre et à reverter",
-      "Un commit qui ne peut pas être modifié",
-      "Un commit automatique"
+      "Diviser un fichier en deux",
+      "Recherche dichotomique pour trouver le commit qui a introduit un bug",
+      "Fusionner deux branches",
+      "Créer deux branches parallèles"
     ],
-    "correctAnswer": "Un commit contenant une seule modification logique, facile à comprendre et à reverter",
+    "correctAnswer": "Recherche dichotomique pour trouver le commit qui a introduit un bug",
     "imageUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
   },
   {
@@ -379,7 +389,7 @@
   },
   {
     "id": 35,
-    "question": "Qu'est-ce qu'un index en base de données et quand l'utiliser ?",
+    "question": "Qu'est-ce que un index en base de données et quand l'utiliser ?",
     "choices": [
       "Un numéro de ligne",
       "Une structure optimisant les recherches, à utiliser sur les colonnes fréquemment utilisées dans WHERE, JOIN, ORDER BY",
@@ -440,3 +450,4 @@
     "imageUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
   }
 ]
+}

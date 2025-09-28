@@ -3,6 +3,7 @@
  */
 
 import { CONFIG } from '../core/config.js';
+import { loadAvailableQuizzes } from '../core/utils.js';
 import { domManager } from '../ui/dom.js';
 
 export class QuizSelector {
@@ -10,8 +11,9 @@ export class QuizSelector {
         this.onQuizSelect = onQuizSelect;
     }
 
-    render() {
-        const quizCards = CONFIG.availableQuizzes.map(quiz => {
+    async render() {
+        const availableQuizzes = await loadAvailableQuizzes();
+        const quizCards = availableQuizzes.map(quiz => {
             return `
                 <div class="bg-gray-800 rounded-xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer quiz-card" 
                      data-quiz-id="${quiz.id}">
@@ -52,7 +54,7 @@ export class QuizSelector {
         document.querySelectorAll('.quiz-card').forEach(card => {
             card.addEventListener('click', () => {
                 const quizId = card.dataset.quizId;
-                const selectedQuiz = CONFIG.availableQuizzes.find(q => q.id === quizId);
+                const selectedQuiz = availableQuizzes.find(q => q.id === quizId);
                 if (selectedQuiz && this.onQuizSelect) {
                     this.onQuizSelect(selectedQuiz);
                 }
@@ -60,8 +62,8 @@ export class QuizSelector {
         });
     }
 
-    show() {
+    async show() {
         domManager.showQuizSelection();
-        this.render();
+        await this.render();
     }
 }

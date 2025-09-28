@@ -1,4 +1,14 @@
-[
+{
+  "config": {
+    "title": "Entretien Développeur Web 1",
+    "description": "Questions d'entretien pour évaluer les compétences comportementales et techniques des développeurs web",
+    "spoilerMode": true,
+    "difficulty": "Moyen",
+    "questionCount": 20,
+    "icon": "bi-briefcase",
+    "color": "from-purple-400 to-pink-500"
+  },
+  "questions": [
   {
     "id": 1,
     "question": "Quelle est votre principale motivation pour postuler à ce poste de développeur web ?",
@@ -172,11 +182,11 @@
     "question": "Quelle est votre attitude face aux changements fréquents de requirements ?",
     "choices": [
       "Je refuse catégoriquement tout changement",
-      "Je m'adapte tout en communiquant l'impact sur le planning",
+      "Je m'adapte tout en communiquant l'impact sur les risques",
       "Je fais tous les changements sans broncher",
       "Je démissionne"
     ],
-    "correctAnswer": "Je m'adapte tout en communiquant l'impact sur le planning",
+    "correctAnswer": "Je m'adapte tout en communiquant l'impact sur les risques",
     "imageUrl": "https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
   },
   {
@@ -240,3 +250,4 @@
     "imageUrl": "https://images.unsplash.com/photo-1549923746-c502d488b3ea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80"
   }
 ]
+}

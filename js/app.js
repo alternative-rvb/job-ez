@@ -10,13 +10,14 @@ import { domManager } from './modules/ui/dom.js';
 import { QuizSelector } from './modules/managers/quiz-selector.js';
 import { QuestionManager } from './modules/managers/question-manager.js';
 import { ResultsManager } from './modules/managers/results-manager.js';
-import { shuffleArray, loadQuestions } from './modules/core/utils.js';
+import { shuffleArray, loadQuizData } from './modules/core/utils.js';
 
 class QuizApp {
     constructor() {
         this.quizSelector = null;
         this.questionManager = null;
         this.resultsManager = null;
+        this.availableQuizzes = [];
     }
 
     async init() {
@@ -40,8 +41,12 @@ class QuizApp {
         this.setupEventListeners();
         this.setupGameOptions();
 
+        // Charger la liste des quiz disponibles
+        const { loadAvailableQuizzes } = await import('./modules/core/utils.js');
+        this.availableQuizzes = await loadAvailableQuizzes();
+
         // Afficher la sélection des quiz
-        this.quizSelector.show();
+        await this.quizSelector.show();
 
         console.log('Quiz App initialisée');
     }
@@ -98,7 +103,7 @@ class QuizApp {
         // Mettre à jour le temps estimé sur toutes les cartes de quiz
         document.querySelectorAll('.quiz-card').forEach(card => {
             const quizId = card.dataset.quizId;
-            const quiz = CONFIG.availableQuizzes.find(q => q.id === quizId);
+            const quiz = this.availableQuizzes.find(q => q.id === quizId);
             if (quiz) {
                 const timeElement = card.querySelector('.text-sm.text-gray-400 span');
                 if (timeElement) {
@@ -116,13 +121,19 @@ class QuizApp {
             domManager.updateQuizTitle(selectedQuiz.title);
             this.questionManager.showLoadingMessage();
 
-            // Charger les questions
-            const questions = await loadQuestions(`${CONFIG.questionsPath}${selectedQuiz.id}.json`);
+            // Charger les données du quiz (config + questions)
+            const quizData = await loadQuizData(`${CONFIG.questionsPath}${selectedQuiz.id}.json`);
+            
+            // Fusionner la configuration du fichier JSON avec celle de config.js
+            const mergedQuiz = {
+                ...selectedQuiz,
+                ...quizData.config
+            };
             
             // Configurer l'état du quiz
             quizState.reset();
-            quizState.setQuiz(selectedQuiz);
-            quizState.setQuestions(shuffleArray(questions));
+            quizState.setQuiz(mergedQuiz);
+            quizState.setQuestions(shuffleArray(quizData.questions));
 
             // Démarrer la première question
             this.questionManager.showQuestion();
@@ -143,9 +154,9 @@ class QuizApp {
         }
     }
 
-    backToHome() {
+    async backToHome() {
         quizState.reset();
-        this.quizSelector.show();
+        await this.quizSelector.show();
     }
 }
 
