@@ -132,11 +132,11 @@
 
                 <!-- Score principal -->
                 <div class="flex justify-center items-center space-x-8 mb-8">
-                    <div class="text-center">
+                    <div class="text-center score-section">
                         <div id="scoreText" class="text-6xl font-bold text-white mb-2">0/0</div>
                         <div class="text-lg text-slate-400">Questions correctes</div>
                     </div>
-                    <div class="text-center">
+                    <div class="text-center percentage-section">
                         <div id="percentageText" class="text-6xl font-bold text-blue-400 mb-2">0%</div>
                         <div class="text-lg text-slate-400">Taux de réussite</div>
                     </div>
@@ -196,7 +196,7 @@
         </div>
 
         <!-- Détails des questions -->
-        <div class="results-card rounded-2xl p-6 mb-8">
+        <div id="questions-details-section" class="results-card rounded-2xl p-6 mb-8">
             <h3 class="text-2xl font-bold mb-6 text-center">Détail des Questions</h3>
             <div id="questionsDetail" class="space-y-4">
                 <!-- Les détails des questions seront insérés ici -->
@@ -223,9 +223,10 @@
         // Récupération des données depuis l'URL ou le localStorage
         const urlParams = new URLSearchParams(window.location.search);
         const quizData = JSON.parse(localStorage.getItem('quizResults') || '{}');
+        const isFreeMode = quizData.freeMode || urlParams.get('mode') === 'free';
 
-        if (quizData.score === undefined) {
-            // Redirection si pas de données
+        if (quizData.score === undefined && !isFreeMode) {
+            // Redirection si pas de données (sauf en mode libre)
             window.location.href = 'index.html';
         }
 
@@ -234,7 +235,9 @@
             celebrationEmoji: document.getElementById('celebrationEmoji'),
             resultMessage: document.getElementById('resultMessage'),
             scoreText: document.getElementById('scoreText'),
+            scoreLabel: document.getElementById('scoreLabel'),
             percentageText: document.getElementById('percentageText'),
+            percentageLabel: document.getElementById('percentageLabel'),
             centerPercentage: document.getElementById('centerPercentage'),
             progressCircle: document.getElementById('progressCircle'),
             totalTime: document.getElementById('totalTime'),
@@ -245,14 +248,31 @@
         };
 
         // Calculs des statistiques
-        const totalScorable = quizData.totalScorable || quizData.totalQuestions; // Questions qui comptent pour le score
-        const percentage = Math.round((quizData.score / totalScorable) * 100);
+        let percentage, scoreConfig;
+        
+        if (isFreeMode) {
+            // En mode libre, pas de score - message de remerciement
+            percentage = 0; // Pas d'animation de cercle
+            scoreConfig = {
+                emoji: "🎉",
+                message: "Merci d'avoir participé !",
+                gradient: "from-blue-400 to-purple-500",
+                confetti: false
+            };
+        } else {
+            // Mode normal avec scores
+            const totalScorable = quizData.totalScorable || quizData.totalQuestions || 1; // Éviter division par 0
+            if (totalScorable === 0) {
+                percentage = 0;
+            } else {
+                percentage = Math.round((quizData.score / totalScorable) * 100);
+            }
+            scoreConfig = getScoreConfig(percentage);
+        }
+        
         const totalTime = quizData.totalTime || 0;
-        const avgTime = totalTime / quizData.totalQuestions;
+        const avgTime = totalTime / (quizData.totalQuestions || 1);
         const accuracy = percentage;
-
-        // Configuration selon le score
-        const scoreConfig = getScoreConfig(percentage);
 
         // Animation d'entrée
         setTimeout(() => {
@@ -309,25 +329,66 @@
             // Mise à jour des éléments principaux
             elements.celebrationEmoji.textContent = scoreConfig.emoji;
             elements.resultMessage.textContent = scoreConfig.message;
-            elements.scoreText.textContent = `${quizData.score}/${totalScorable}`;
-            elements.percentageText.textContent = `${percentage}%`;
-            elements.centerPercentage.textContent = `${percentage}%`;
+            
+            if (isFreeMode) {
+                // En mode libre, masquer complètement la section score
+                const scoreSection = document.querySelector('.flex.justify-center.items-center.space-x-8.mb-8');
+                if (scoreSection) {
+                    scoreSection.style.display = 'none';
+                }
+                
+                // Masquer les statistiques de performance
+                const statsSection = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-3');
+                if (statsSection) {
+                    statsSection.style.display = 'none';
+                }
+                
+                // Masquer le détail des questions (chercher spécifiquement la section questions)
+                const questionsDetailSection = document.getElementById('questions-details-section');
+                if (questionsDetailSection) {
+                    questionsDetailSection.style.display = 'none';
+                }
+            } else {
+                // Mode normal avec scores
+                const totalScorable = quizData.totalScorable || quizData.totalQuestions || 1;
+                if (totalScorable === 0) {
+                    // Pas de questions scorable, masquer les éléments de score
+                    const scoreSection = document.querySelector('.score-section');
+                    if (scoreSection) scoreSection.style.display = 'none';
+                    const percentageSection = document.querySelector('.percentage-section');
+                    if (percentageSection) percentageSection.style.display = 'none';
+                    const statsSection = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-3');
+                    if (statsSection) statsSection.style.display = 'none';
+                } else {
+                    elements.scoreText.textContent = `${quizData.score}/${totalScorable}`;
+                    elements.percentageText.textContent = `${percentage}%`;
+                    
+                    // Statistiques
+                    elements.totalTime.textContent = formatTime(totalTime);
+                    elements.avgTime.textContent = `${avgTime.toFixed(1)}s`;
+                    elements.accuracy.textContent = `${accuracy}%`;
+                }
+            }
 
             // Animation du cercle de progression
-            const circumference = 534; // 2 * π * 85
-            const offset = circumference - (circumference * percentage) / 100;
-            elements.progressCircle.style.strokeDashoffset = offset;
-
-            // Statistiques
-            elements.totalTime.textContent = formatTime(totalTime);
-            elements.avgTime.textContent = `${avgTime.toFixed(1)}s`;
-            elements.accuracy.textContent = `${accuracy}%`;
+            if (!isFreeMode) {
+                const circumference = 534; // 2 * π * 85
+                const offset = circumference - (circumference * percentage) / 100;
+                elements.progressCircle.style.strokeDashoffset = offset;
+                elements.centerPercentage.textContent = `${percentage}%`;
+            } else {
+                // En mode libre, cercle complet décoratif
+                elements.progressCircle.style.strokeDashoffset = 0;
+                elements.centerPercentage.textContent = `🎉`;
+            }
 
             // Titre du quiz
             elements.quizTitle.textContent = quizData.quizTitle || 'Quiz';
 
-            // Détails des questions
-            displayQuestionsDetail();
+            // Détails des questions (seulement en mode normal)
+            if (!isFreeMode) {
+                displayQuestionsDetail();
+            }
 
             // Confettis si excellent score
             if (scoreConfig.confetti) {

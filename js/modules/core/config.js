@@ -23,7 +23,8 @@ export const CONFIG = {
             icon: 'bi-emoji-smile',
             color: 'from-blue-400 to-cyan-500',
             difficulty: 'Facile',
-            questionCount: 10
+            questionCount: 10,
+            spoilerMode: true
         },
         {
             id: 'animaux',

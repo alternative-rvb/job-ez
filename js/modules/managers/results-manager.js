@@ -14,9 +14,21 @@ export class ResultsManager {
     }
 
     show() {
-        // En mode libre, afficher un message simple au lieu des résultats
+        // En mode libre, rediriger vers la page de résultats avec un paramètre spécial
         if (CONFIG.freeMode) {
-            this.showFreeModeEndMessage();
+            // Sauvegarde des données minimales pour le mode libre
+            const freeModeData = {
+                freeMode: true,
+                totalQuestions: quizState.questions.length,
+                quizTitle: quizState.currentQuiz?.title || 'Quiz',
+                quizId: quizState.currentQuiz?.id
+            };
+            
+            localStorage.setItem('quizResults', JSON.stringify(freeModeData));
+            
+            // Redirection vers la page de résultats
+            const quizId = quizState.currentQuiz?.id;
+            window.location.href = `results.html${quizId ? `?quiz=${quizId}&mode=free` : '?mode=free'}`;
             return;
         }
         
@@ -60,28 +72,5 @@ export class ResultsManager {
         // Redirection vers la page de résultats
         const quizId = quizState.currentQuiz?.id;
         window.location.href = `results.html${quizId ? `?quiz=${quizId}` : ''}`;
-    }
-
-    showFreeModeEndMessage() {
-        // Afficher un message de fin pour le mode libre
-        const endMessageHTML = `
-            <div class="fixed inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center">
-                <div class="text-center p-8 max-w-md mx-auto">
-                    <div class="text-6xl mb-6">🎉</div>
-                    <h2 class="text-3xl font-bold text-white mb-4">Merci !</h2>
-                    <p class="text-lg text-gray-300 mb-8">
-                        Vous avez terminé le quiz en mode libre.<br>
-                        À bientôt pour de nouveaux défis !
-                    </p>
-                    <button onclick="window.location.href='index.html'" 
-                            class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl font-medium text-lg transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl">
-                        <i class="bi bi-house mr-2"></i>
-                        Retour à l'accueil
-                    </button>
-                </div>
-            </div>
-        `;
-
-        domManager.setContent('quizContent', endMessageHTML);
     }
 }
