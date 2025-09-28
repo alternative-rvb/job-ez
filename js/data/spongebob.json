@@ -10,12 +10,6 @@
     "category": "Divertissement"
   },
   "questions": [
-    // {
-    //   "question": "Connais-tu Bob l'éponge ?",
-    //   "choices": null,
-    //   "correctAnswer": "Bob l'éponge SquarePants",
-    //   "imageUrl": "images/spongebob/SpongeBob_stock_art.webp"
-    // },
     {
       "question": "Quel est le nom complet de Bob l'éponge ?",
       "choices": [
