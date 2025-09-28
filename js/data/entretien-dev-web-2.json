@@ -6,7 +6,8 @@
     "difficulty": "Difficile",
     "questionCount": 40,
     "icon": "bi-briefcase-fill",
-    "color": "from-red-400 to-pink-500"
+    "color": "from-red-400 to-pink-500",
+    "category": "Coaching"
   },
   "questions": [
   {

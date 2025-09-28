@@ -6,7 +6,8 @@
     "difficulty": "Facile",
     "questionCount": 20,
     "icon": "bi-code-slash",
-    "color": "from-yellow-400 to-orange-500"
+    "color": "from-yellow-400 to-orange-500",
+    "category": "Apprentissage"
   },
   "questions": [
     {

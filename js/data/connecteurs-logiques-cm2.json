@@ -6,7 +6,8 @@
         "difficulty": "Facile",
         "questionCount": 10,
         "icon": "bi-journal-text",
-        "color": "from-yellow-400 to-orange-500"
+        "color": "from-yellow-400 to-orange-500",
+        "category": "Apprentissage"
     },
     "questions": [
         {
