@@ -1,15 +1,40 @@
 {
-  "builds": [
-    {
-      "src": "api.py",
-      "use": "@vercel/python"
+  "buildCommand": "python3 api.py generate-index",
+  "outputDirectory": ".",
+  "installCommand": "",
+  "functions": {
+    "api/generate-index.py": {
+      "runtime": "python3.9"
     }
-  ],
+  },
   "routes": [
+    {
+      "src": "/api/generate-index",
+      "dest": "/api/generate-index.py"
+    },
     {
       "src": "/(.*)",
       "dest": "/$1"
     }
   ],
-  "buildCommand": "python3 api.py generate-index"
+  "headers": [
+    {
+      "source": "/js/data/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=3600"
+        }
+      ]
+    },
+    {
+      "source": "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
 }
