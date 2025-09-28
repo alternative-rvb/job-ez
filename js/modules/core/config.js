@@ -14,6 +14,7 @@ export const CONFIG = {
             icon: 'bi-code-slash',
             color: 'from-yellow-400 to-orange-500',
             difficulty: 'Débutant',
+            spoilerMode: true,
             questionCount: 20
         },
         {
@@ -33,7 +34,9 @@ export const CONFIG = {
             icon: 'bi-bug',
             color: 'from-green-400 to-emerald-500',
             difficulty: 'Moyen',
+            spoilerMode: true,
             questionCount: 20
+
         },
         {
             id: 'entretien-dev-web-1',

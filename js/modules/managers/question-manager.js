@@ -25,12 +25,23 @@ export class QuestionManager {
         
         let imageSection = '';
         if (question.imageUrl) {
+            const isSpoilerMode = quizState.currentQuiz?.spoilerMode;
+            const blurClass = isSpoilerMode ? 'filter blur-sm' : '';
+            const spoilerOverlay = isSpoilerMode ? `
+                <div class="absolute inset-0 bg-black/50 flex items-center justify-center rounded-lg">
+                    <div class="text-white text-center">
+                        <i class="bi bi-eye-slash text-4xl mb-2"></i>
+                    </div>
+                </div>
+            ` : '';
+            
             imageSection = `
-                <div class="mb-6 text-center">
+                <div class="mb-6 text-center relative">
                     <img src="${question.imageUrl}" 
                          alt="Question ${quizState.currentQuestionIndex + 1}" 
-                         class="max-w-full h-48 object-cover rounded-lg mx-auto" 
+                         class="max-w-full h-48 aspect-square object-cover rounded-lg mx-auto ${blurClass}" 
                          id="question-image">
+                    ${spoilerOverlay}
                 </div>
             `;
         }
@@ -161,8 +172,15 @@ export class QuestionManager {
             
             if (quizState.timeRemaining <= 0) {
                 clearInterval(quizState.timerInterval);
+                
                 if (!quizState.isAnswered) {
                     const question = quizState.getCurrentQuestion();
+                    
+                    // L'image sera révélée dans le modal de feedback
+                    if (quizState.currentQuiz?.spoilerMode && question?.imageUrl) {
+                        // Pas besoin d'action supplémentaire ici
+                    }
+                    
                     if (question && (!question.choices || question.choices.length === 0)) {
                         // Pour les questions libres, passer simplement à la suivante
                         this.handleFreeResponseMode();
@@ -182,6 +200,11 @@ export class QuestionManager {
             if (!question || !question.choices || question.choices.length === 0 || !question.correctAnswer) {
                 console.error('Question data is invalid for multiple choice:', question);
                 return;
+            }
+            
+            // Afficher la popup de révélation d'image en mode spoiler
+            if (quizState.currentQuiz?.spoilerMode && question.imageUrl) {
+                // L'image sera affichée dans le modal de feedback normal
             }
             
             quizState.setAnswered(true);
@@ -204,13 +227,13 @@ export class QuestionManager {
                 quizState.addScore();
                 quizState.recordAnswerCorrectness(true);
                 const correctAnswerText = `Réponse ${String.fromCharCode(65 + answerIndex)} : ${question.choices[answerIndex]}`;
-                this.showFeedbackMessage(correctAnswerText, 'success');
+                this.showFeedbackMessage(correctAnswerText, 'success', quizState.currentQuiz?.spoilerMode ? question : null);
             } else if (answerIndex === -1) {
                 quizState.recordAnswerCorrectness(false);
                 this.showFeedbackMessage('Temps écoulé ! ⏰', 'timeout', question, correctAnswerIndex);
             } else {
                 quizState.recordAnswerCorrectness(false);
-                this.showFeedbackMessage('Mauvaise réponse 😔', 'error');
+                this.showFeedbackMessage('Mauvaise réponse 😔', 'error', quizState.currentQuiz?.spoilerMode ? question : null);
             }
             
             domManager.updateQuizStats(
@@ -353,6 +376,18 @@ export class QuestionManager {
         let icon = '';
         let title = '';
         let subtitle = '';
+        let imageSection = '';
+
+        // Ajouter l'image révélée en mode spoiler
+        if (quizState.currentQuiz?.spoilerMode && question?.imageUrl) {
+            imageSection = `
+                <div class="mb-4">
+                    <img src="${question.imageUrl}" 
+                         alt="Image révélée" 
+                         class="w-full max-w-sm h-32 aspect-square object-cover rounded-lg mx-auto">
+                </div>
+            `;
+        }
 
         switch(type) {
             case 'success':
@@ -390,6 +425,7 @@ export class QuestionManager {
             <h3 class="text-2xl font-bold mb-4 bg-gradient-to-r ${feedbackColors[type]} bg-clip-text text-transparent">
                 ${title}
             </h3>
+            ${imageSection}
             <p class="text-xl text-gray-300 leading-relaxed">
                 ${subtitle}
             </p>
