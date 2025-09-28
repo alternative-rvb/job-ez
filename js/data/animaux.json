@@ -2,7 +2,7 @@
   "config": {
     "title": "Animaux",
     "description": "Découvrez le règne animal",
-    "spoilerMode": false,
+    "spoilerMode": true,
     "difficulty": "Moyen",
     "questionCount": 20,
     "icon": "bi-bug",
