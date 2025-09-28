@@ -14,9 +14,9 @@ export class ResultsManager {
     }
 
     show() {
-        // En mode spoiler, afficher un message simple au lieu des résultats
-        if (CONFIG.spoilerMode) {
-            this.showSpoilerEndMessage();
+        // En mode libre, afficher un message simple au lieu des résultats
+        if (CONFIG.freeMode) {
+            this.showFreeModeEndMessage();
             return;
         }
         
@@ -62,15 +62,15 @@ export class ResultsManager {
         window.location.href = `results.html${quizId ? `?quiz=${quizId}` : ''}`;
     }
 
-    showSpoilerEndMessage() {
-        // Afficher un message de fin pour le mode spoiler
+    showFreeModeEndMessage() {
+        // Afficher un message de fin pour le mode libre
         const endMessageHTML = `
             <div class="fixed inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center">
                 <div class="text-center p-8 max-w-md mx-auto">
                     <div class="text-6xl mb-6">🎉</div>
                     <h2 class="text-3xl font-bold text-white mb-4">Merci !</h2>
                     <p class="text-lg text-gray-300 mb-8">
-                        Vous avez terminé le quiz en mode spoiler.<br>
+                        Vous avez terminé le quiz en mode libre.<br>
                         À bientôt pour de nouveaux défis !
                     </p>
                     <button onclick="window.location.href='index.html'" 

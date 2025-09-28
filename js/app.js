@@ -85,11 +85,11 @@ class QuizApp {
                 button.classList.add('selected');
 
                 // Mettre à jour la configuration
-                const isSpoilerMode = button.id === 'spoiler-mode';
-                CONFIG.spoilerMode = isSpoilerMode;
+                const isFreeMode = button.id === 'free-mode';
+                CONFIG.freeMode = isFreeMode;
 
-                // Ajouter/retirer la classe spoiler-mode sur le body
-                document.body.classList.toggle('spoiler-mode', isSpoilerMode);
+                // Ajouter/retirer la classe free-mode sur le body
+                document.body.classList.toggle('free-mode', isFreeMode);
             });
         });
     }

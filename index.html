@@ -78,12 +78,12 @@
         transform: scale(1.05);
       }
 
-      /* Mode spoiler - masquer les boutons de réponse */
-      .spoiler-mode .answer-btn {
+      /* Mode libre - masquer les boutons de réponse */
+      .free-mode .answer-btn {
         display: none !important;
       }
 
-      .spoiler-mode .answer-reveal {
+      .free-mode .answer-reveal {
         display: block !important;
       }
 
@@ -266,16 +266,21 @@
               </label>
               <div class="space-y-3">
                 <button type="button" id="normal-mode" class="game-mode w-full px-4 py-3 bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium text-left flex items-center selected">
-                  <i class="bi bi-lightbulb mr-3 text-xl"></i>
+                  <!-- <i class="bi bi-lightbulb mr-3 text-xl"></i> -->
+                  <!-- Icon étoile -->
+                   <i class="bi bi-star-fill mr-3 text-xl text-yellow-400"></i>
                   <div>
                     <div class="font-semibold">Mode Normal</div>
                     <div class="text-sm opacity-80">Réponses visibles, choix interactif</div>
                   </div>
                 </button>
-                <button type="button" id="spoiler-mode" class="game-mode w-full px-4 py-3 bg-gray-700 hover:bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium text-left flex items-center">
-                  <i class="bi bi-eye-slash mr-3 text-xl"></i>
+                <button type="button" id="free-mode" class="game-mode w-full px-4 py-3 bg-gray-700 hover:bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium text-left flex items-center">
+                  <!-- <i class="bi bi-lightbulb mr-3 text-xl"></i> -->
+                   <!-- Icon représentant du vent -->
+                    <i class="bi bi-wind text-xl text-blue-400 mr-3"></i>
+                    
                   <div>
-                    <div class="font-semibold">Mode Spoiler</div>
+                    <div class="font-semibold">Mode Libre</div>
                     <div class="text-sm opacity-80">Réponses cachées, révélation automatique</div>
                   </div>
                 </button>

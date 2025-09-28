@@ -4,7 +4,7 @@
 
 export const CONFIG = {
     timeLimit: 10,
-    spoilerMode: false,
+    freeMode: false,
     questionsPath: 'js/data/',
     availableQuizzes: [
         {

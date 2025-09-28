@@ -40,7 +40,7 @@ export class QuestionManager {
             // Mode choix multiples
             optionsHTML = question.choices.map((option, index) => {
                 const letter = String.fromCharCode(65 + index);
-                const isHidden = CONFIG.spoilerMode ? 'hidden' : '';
+                const isHidden = CONFIG.freeMode ? 'hidden' : '';
                 return `
                     <button class="answer-btn ${isHidden} p-4 md:p-5 text-left bg-gray-700 hover:bg-gray-600 active:bg-gray-600 rounded-lg md:rounded-xl transition-all duration-200 border-2 border-transparent hover:border-primary-500 active:scale-95 touch-manipulation" 
                             data-answer-index="${index}">
@@ -80,10 +80,10 @@ export class QuestionManager {
                 
                 <!-- Options améliorées pour mobile -->
                 <div class="grid grid-cols-1 gap-3 md:gap-4 mb-6 px-2">
-                    ${CONFIG.spoilerMode ? `
+                    ${CONFIG.freeMode ? `
                         <div class="text-center py-4 px-6 bg-blue-900/30 border-2 border-blue-500/50 rounded-lg mb-4">
-                            <i class="bi bi-eye-slash text-2xl text-blue-400 mb-2"></i>
-                            <p class="text-blue-300 font-medium">Mode Spoiler activé</p>
+                            <i class="bi bi-lightbulb text-2xl text-blue-400 mb-2"></i>
+                            <p class="text-blue-300 font-medium">Mode Libre activé</p>
                             <p class="text-blue-400 text-sm">Les réponses sont cachées. Réfléchissez bien !</p>
                         </div>
                     ` : ''}
@@ -190,8 +190,8 @@ export class QuestionManager {
 
             const answerButtons = document.querySelectorAll('.answer-btn');
 
-            // En mode spoiler, révéler automatiquement la bonne réponse
-            if (CONFIG.spoilerMode && answerIndex === -1) {
+            // En mode libre, révéler automatiquement la bonne réponse
+            if (CONFIG.freeMode && answerIndex === -1) {
                 this.revealCorrectAnswer(question);
                 return;
             }
