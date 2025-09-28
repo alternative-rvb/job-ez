@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+node_modules/
+.git/
+.vercel/
+*.log
+.DS_Store
