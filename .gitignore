@@ -2,3 +2,11 @@
 node_modules/
 .archives/
 Notes
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.vercel/
+*.log
+.DS_Store

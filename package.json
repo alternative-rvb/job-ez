@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Application de quiz interactive",
   "scripts": {
-    "build": "python3 api.py generate-index",
+    "build": "python3 api.py generate-index && echo 'Build completed'",
     "dev": "python3 api.py generate-index && python3 -m http.server 8000",
     "generate-index": "python3 api.py generate-index"
   },

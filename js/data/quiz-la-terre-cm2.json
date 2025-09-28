@@ -1,0 +1,123 @@
+{
+  "config": {
+    "title": "Quiz : La Terre",
+    "description": "Découvre les secrets de notre planète bleue",
+    "spoilerMode": true,
+    "difficulty": "Facile",
+    "questionCount": 10,
+    "icon": "bi-globe2",
+    "color": "from-blue-400 to-green-500"
+  },
+  "questions": [
+    {
+      "question": "Quelle est la forme de la Terre ?",
+      "choices": [
+        "Carrée",
+        "Plate",
+        "Ronde",
+        "Triangle"
+      ],
+      "correctAnswer": "Ronde",
+      "imageUrl": null
+    },
+    {
+      "question": "Pourquoi la Terre tourne autour du Soleil ?",
+      "choices": [
+        "À cause de la gravité",
+        "Parce qu’elle a des moteurs",
+        "Parce que les étoiles la poussent",
+        "Parce qu’elle est plate"
+      ],
+      "correctAnswer": "À cause de la gravité",
+      "imageUrl": null
+    },
+    {
+      "question": "En combien de temps la Terre fait un tour complet sur elle-même ?",
+      "choices": [
+        "1 heure",
+        "1 jour",
+        "1 semaine",
+        "1 mois"
+      ],
+      "correctAnswer": "1 jour",
+      "imageUrl": null
+    },
+    {
+      "question": "Pourquoi dit-on que la Terre est ronde ?",
+      "choices": [
+        "Parce qu’elle a la forme d’une boule",
+        "Parce qu’elle est plate",
+        "Parce qu’elle est carrée",
+        "Parce qu’elle est creuse"
+      ],
+      "correctAnswer": "Parce qu’elle a la forme d’une boule",
+      "imageUrl": null
+    },
+    {
+      "question": "Comment s’appelle la couche solide où nous vivons ?",
+      "choices": [
+        "La croûte terrestre",
+        "Le noyau interne",
+        "L’océan",
+        "Les nuages"
+      ],
+      "correctAnswer": "La croûte terrestre",
+      "imageUrl": null
+    },
+    {
+      "question": "La croûte terrestre est divisée en deux parties. Lesquelles ?",
+      "choices": [
+        "Croûte océanique et croûte continentale",
+        "Croûte douce et croûte dure",
+        "Croûte interne et croûte externe",
+        "Croûte chaude et croûte froide"
+      ],
+      "correctAnswer": "Croûte océanique et croûte continentale",
+      "imageUrl": null
+    },
+    {
+      "question": "Quelle est la partie liquide à l’intérieur de la Terre ?",
+      "choices": [
+        "Le noyau externe",
+        "La croûte terrestre",
+        "La croûte océanique",
+        "Le noyau interne"
+      ],
+      "correctAnswer": "Le noyau externe",
+      "imageUrl": null
+    },
+    {
+      "question": "Quelle est la partie la plus au centre de la Terre ?",
+      "choices": [
+        "Le noyau interne",
+        "La croûte",
+        "Les océans",
+        "L’atmosphère"
+      ],
+      "correctAnswer": "Le noyau interne",
+      "imageUrl": null
+    },
+    {
+      "question": "Pourquoi la Terre ne tombe pas dans l’espace ?",
+      "choices": [
+        "Grâce à la gravité",
+        "Parce qu’elle est accrochée à une ficelle",
+        "Parce que les étoiles la tiennent",
+        "Parce qu’elle est immobile"
+      ],
+      "correctAnswer": "Grâce à la gravité",
+      "imageUrl": null
+    },
+    {
+      "question": "Pourquoi la Terre s’appelle la planète bleue ?",
+      "choices": [
+        "Parce qu’elle est peinte en bleu",
+        "Parce qu’elle est plus froide",
+        "Parce qu’elle a beaucoup d’eau",
+        "Parce qu’elle est carrée"
+      ],
+      "correctAnswer": "Parce qu’elle a beaucoup d’eau",
+      "imageUrl": null
+    }
+  ]
+}
