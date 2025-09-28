@@ -1,0 +1,13 @@
+{
+  "quizzes": [
+    "animaux",
+    "connecteurs-logiques-cm2",
+    "entretien-dev-web-1",
+    "entretien-dev-web-2",
+    "javascript-1",
+    "spongebob"
+  ],
+  "count": 6,
+  "lastUpdated": "2025-09-28T14:54:28.518813",
+  "generated_by": "api.py"
+}

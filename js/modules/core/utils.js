@@ -124,18 +124,35 @@ export function launchConfetti(options = {}) {
 }
 
 /**
- * Charge la liste des quiz disponibles depuis les fichiers JSON
+ * Charge la liste des quiz disponibles depuis le fichier d'index
+ * Compatible avec Vercel et les déploiements statiques
  * @returns {Promise<Array>} - Liste des quiz avec leurs configurations
  */
 export async function loadAvailableQuizzes() {
-    // Liste des IDs de quiz connus
-    const quizIds = [
-        'javascript-1',
-        'spongebob',
-        'animaux',
-        'entretien-dev-web-1',
-        'entretien-dev-web-2'
-    ];
+    let quizIds = [];
+
+    try {
+        // Charger la liste depuis le fichier d'index
+        const response = await fetch('./js/data/index.json');
+        if (response.ok) {
+            const indexData = await response.json();
+            quizIds = indexData.quizzes || [];
+            console.log(`📋 Quiz chargés depuis l'index (${quizIds.length} quiz disponibles)`);
+        } else {
+            throw new Error('Fichier d\'index non trouvé');
+        }
+    } catch (error) {
+        console.warn('⚠️ Erreur lors du chargement de l\'index, utilisation de la liste de fallback:', error);
+        // Fallback vers une liste statique
+        quizIds = [
+            'javascript-1',
+            'spongebob',
+            'animaux',
+            'entretien-dev-web-1',
+            'entretien-dev-web-2',
+            'connecteurs-logiques-cm2'
+        ];
+    }
 
     const availableQuizzes = [];
 
@@ -154,5 +171,7 @@ export async function loadAvailableQuizzes() {
         }
     }
 
+    console.log(`✅ ${availableQuizzes.length} quiz chargés avec succès`);
+    console.log(`✅ ${availableQuizzes.length} quiz chargés avec succès`);
     return availableQuizzes;
 }

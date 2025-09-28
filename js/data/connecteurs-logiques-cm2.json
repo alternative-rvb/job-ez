@@ -1,0 +1,123 @@
+{
+    "config": {
+        "title": "Quiz : Les connecteurs logiques",
+        "description": "Teste tes connaissances sur les mots qui servent à lier les idées",
+        "spoilerMode": true,
+        "difficulty": "Facile",
+        "questionCount": 10,
+        "icon": "bi-journal-text",
+        "color": "from-yellow-400 to-orange-500"
+    },
+    "questions": [
+        {
+            "question": "Quel mot peut commencer une histoire ?",
+            "choices": [
+                "Tout d’abord",
+                "Mais",
+                "Parce que",
+                "Enfin"
+            ],
+            "correctAnswer": "Tout d’abord",
+            "imageUrl": null
+        },
+        {
+            "question": "Quel mot sert à ajouter une idée ?",
+            "choices": [
+                "De plus",
+                "Cependant",
+                "En conclusion",
+                "Car"
+            ],
+            "correctAnswer": "De plus",
+            "imageUrl": null
+        },
+        {
+            "question": "Quel mot explique une chose ?",
+            "choices": [
+                "Parce que",
+                "Ensuite",
+                "Pour finir",
+                "Mais"
+            ],
+            "correctAnswer": "Parce que",
+            "imageUrl": null
+        },
+        {
+            "question": "Quel mot sert à dire le contraire ?",
+            "choices": [
+                "Mais",
+                "Ensuite",
+                "De plus",
+                "Enfin"
+            ],
+            "correctAnswer": "Mais",
+            "imageUrl": null
+        },
+        {
+            "question": "Quel mot sert à terminer un texte ?",
+            "choices": [
+                "En conclusion",
+                "Ensuite",
+                "Cependant",
+                "D’abord"
+            ],
+            "correctAnswer": "En conclusion",
+            "imageUrl": null
+        },
+        {
+            "question": "Complète : « Je joue au foot. ___, je rentre à la maison. »",
+            "choices": [
+                "Ensuite",
+                "Mais",
+                "Parce que",
+                "Enfin"
+            ],
+            "correctAnswer": "Ensuite",
+            "imageUrl": null
+        },
+        {
+            "question": "Complète : « J’aime les chiens. ___, j’ai peur des serpents. »",
+            "choices": [
+                "Cependant",
+                "D’abord",
+                "De plus",
+                "Enfin"
+            ],
+            "correctAnswer": "Cependant",
+            "imageUrl": null
+        },
+        {
+            "question": "Quel mot sert à donner une raison ?",
+            "choices": [
+                "Parce que",
+                "Mais",
+                "En conclusion",
+                "Ensuite"
+            ],
+            "correctAnswer": "Parce que",
+            "imageUrl": null
+        },
+        {
+            "question": "Quel mot sert à dire le premier point d’une liste ?",
+            "choices": [
+                "Premièrement",
+                "De plus",
+                "Ainsi",
+                "Pour conclure"
+            ],
+            "correctAnswer": "Premièrement",
+            "imageUrl": null
+        },
+        {
+            "question": "Quel mot veut dire presque comme « enfin » ?",
+            "choices": [
+                "Finalement",
+                "Ensuite",
+                "Mais",
+                "De plus"
+            ],
+            "correctAnswer": "Finalement",
+            "imageUrl": null
+        }
+    ]
+}

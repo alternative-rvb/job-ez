@@ -169,35 +169,43 @@ Config → Utils → Core Logic → UI → User
 
 ## 🎨 Personnalisation
 
-### Ajouter un Nouveau Quiz
+### 🎯 Ajouter un Nouveau Quiz (Automatique)
 
-1. **Créer le fichier JSON** dans `js/data/`
+1. **Créez votre fichier JSON** dans `js/data/` avec la structure complète :
 
 ```json
 {
-  "title": "Mon Quiz",
+  "config": {
+    "title": "Mon Nouveau Quiz",
+    "description": "Description du quiz", 
+    "spoilerMode": true,
+    "difficulty": "Moyen",
+    "questionCount": 15,
+    "icon": "bi-star",
+    "color": "from-blue-400 to-purple-500"
+  },
   "questions": [
     {
       "question": "Ma question ?",
-      "options": ["Option A", "Option B", "Option C", "Option D"],
-      "correct": 0,
-      "explanation": "Explication de la réponse"
+      "choices": ["Option A", "Option B", "Option C", "Option D"],
+      "correctAnswer": "Option A",
+      "imageUrl": null
     }
   ]
 }
 ```
 
-2. **Mettre à jour la configuration** dans `js/modules/core/config.js`
+2. **Régénérez l'index automatiquement** :
 
-```javascript
-availableQuizzes: [
-  // ... autres quiz
-  {
-    id: 'mon-quiz',
-    title: 'Mon Quiz',
-    description: 'Description du quiz',
-    icon: 'bi-star',
-    color: 'from-purple-400 to-pink-500',
+```bash
+npm run generate-index
+# ou directement :
+python3 api.py generate-index
+```
+
+3. **C'est tout !** Votre quiz apparaîtra automatiquement dans l'application.
+
+> 💡 **Pour Vercel** : L'index est généré automatiquement pendant le build grâce au `buildCommand` dans `vercel.json`
     file: 'mon-quiz.json'
   }
 ]
