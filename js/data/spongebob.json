@@ -99,15 +99,15 @@
       "imageUrl": "images/spongebob/Squidward_stock_art.webp"
     },
     {
-      "question": "Quelle est la couleur de la cravate de Monsieur Krabs ?",
+      "question": "Qu'aime particulièrement Monsieur Krabs ?",
       "choices": [
-        "Rouge",
-        "Bleue",
-        "Jaune",
-        "Violette"
+        "Le pognon",
+        "Les glaces",
+        "Les bijoux",
+        "Les voitures"
       ],
-      "correctAnswer": "Jaune",
-      "imageUrl": "images/spongebob/SpongeBob_stock_art.webp"
+      "correctAnswer": "Le pognon",
+      "imageUrl": "images/spongebob/Krabs_artwork.webp"
     },
     {
       "question": "Quel est le nom du restaurant où travaille Bob l'éponge ?",
