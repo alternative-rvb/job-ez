@@ -384,7 +384,7 @@ export class QuestionManager {
                 <div class="mb-4">
                     <img src="${question.imageUrl}" 
                          alt="Image révélée" 
-                         class="w-full max-w-sm h-32 aspect-square object-cover rounded-lg mx-auto">
+                         class="w-full max-w-sm aspect-square object-cover rounded-lg mx-auto">
                 </div>
             `;
         }
