@@ -2,7 +2,7 @@
   "config": {
     "title": "Bob l'Éponge",
     "description": "Tout sur votre éponge préférée de Bikini Bottom",
-    "spoilerMode": false,
+    "spoilerMode": true,
     "difficulty": "Facile",
     "questionCount": 11,
     "icon": "bi-emoji-smile",
@@ -16,7 +16,7 @@
         "Bob l'éponge Carlo",
         "Bob l'éponge Pantalon Carré",
         "Bob l'éponge Éponge",
-        "Bob l'éponge l'éponge carré"
+        "Bob l'éponge carré"
       ],
       "correctAnswer": "Bob l'éponge carré",
       "imageUrl": "images/spongebob/SpongeBob_stock_art.webp"
@@ -52,7 +52,7 @@
         "Plankton"
       ],
       "correctAnswer": "Carlo",
-      "imageUrl": "images/spongebob/SpongeBob_stock_art.webp"
+      "imageUrl": "images/spongebob/Squidward_stock_art.webp"
     },
     {
       "question": "Quel est l'animal de compagnie de Bob l'éponge ?",
