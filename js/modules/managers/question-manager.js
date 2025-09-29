@@ -26,9 +26,9 @@ export class QuestionManager {
         let imageSection = '';
         if (question.imageUrl) {
             const isSpoilerMode = quizState.currentQuiz?.spoilerMode;
-            const blurClass = isSpoilerMode ? 'filter blur-sm' : '';
+            const blurClass = isSpoilerMode ? 'filter blur-md' : '';
             const spoilerOverlay = isSpoilerMode ? `
-                <div class="absolute inset-0 bg-black/50 flex items-center justify-center rounded-lg">
+                <div class="absolute inset-0 bg-black/50 flex items-center justify-center rounded-md">
                     <div class="text-white text-center">
                         <i class="bi bi-eye-slash text-4xl mb-2"></i>
                     </div>
