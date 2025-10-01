@@ -1,0 +1,5 @@
+# Fichier de configuration pour empêcher l'indexation du dossier private
+
+<LocationMatch "^/private">
+    Header always set X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
+</LocationMatch>

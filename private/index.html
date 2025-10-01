@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
     <link rel="icon" href="https://api.dicebear.com/5.x/identicon/svg?seed=job-ez" type="image/x-icon">
-    <title>EZ JOB - Quiz de Développement</title>
+    <title>EZ JOB - Tous les Quiz (Privé)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Bootstrap Icons -->
@@ -198,17 +199,20 @@
         <div class="flex items-center justify-between">
           <!-- Logo -->
           <div class="flex items-center space-x-2">
-            <a href="/" class="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-              <img src="images/alternative-rvb-logo.svg" alt="Alternative RVB logo" class="w-8 h-8" />
-              <span class="text-xl font-bold text-primary-400">EZ JOB</span>
+            <a href="../" class="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+              <img src="../images/alternative-rvb-logo.svg" alt="Alternative RVB logo" class="w-8 h-8" />
+              <span class="text-xl font-bold text-primary-400">EZ JOB (Privé)</span>
             </a>
           </div>
           
           <!-- Navigation Desktop -->
           <div class="hidden md:flex items-center space-x-6">
-            <a href="/" class="hover:text-primary-400 transition-colors">Home</a>
+            <a href="../" class="hover:text-primary-400 transition-colors">Version Publique</a>
             <a href="https://alternative-rvb.com" class="hover:text-primary-400 transition-colors">Alternative RVB</a>
             <div class="flex items-center space-x-3">
+              <a href="https://www.youtube.com/@nicolasmalet9267/" class="hover:text-primary-400 transition-colors" aria-label="Youtube">
+                <i class="bi bi-youtube text-lg"></i>
+              </a>
               <a href="https://github.com/alternative-rvb" class="hover:text-primary-400 transition-colors" aria-label="GitHub">
                 <i class="bi bi-github text-lg"></i>
               </a>
@@ -228,7 +232,7 @@
         
         <!-- Menu Mobile Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
-          <a href="/" class="block py-2 hover:text-primary-400 transition-colors">Home</a>
+          <a href="../" class="block py-2 hover:text-primary-400 transition-colors">Version Publique</a>
           <a href="https://alternative-rvb.com" class="block py-2 hover:text-primary-400 transition-colors">Alternative RVB</a>
         </div>
       </nav>
@@ -239,18 +243,12 @@
       <!-- Page de sélection des quiz -->
       <div id="quiz-selection" class="max-w-4xl mx-auto">
         <div class="text-center mb-8">
-          <a href="/" class="inline-block hover:opacity-80 transition-opacity">
+          <a href="../" class="inline-block hover:opacity-80 transition-opacity">
             <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-primary-400 to-purple-500 bg-clip-text text-white">
-              EZ JOB - Quiz de Développement
+              EZ JOB - Tous les Quiz (Version Privée)
             </h1>
           </a>
-          <p class="text-gray-400 text-lg">Testez vos compétences en programmation et développement !</p>
-          <div class="mt-4">
-            <a href="private/" class="text-sm text-primary-400 hover:text-primary-300 transition-colors">
-              <i class="bi bi-unlock mr-1"></i>
-              Accès version complète (privée)
-            </a>
-          </div>
+          <p class="text-gray-400 text-lg">Accès complet à tous les thèmes et catégories !</p>
         </div>
 
         <!-- Options de jeu -->
@@ -288,19 +286,14 @@
               </label>
               <div class="space-y-3">
                 <button type="button" id="normal-mode" class="game-mode w-full px-4 py-3 bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium text-left flex items-center selected">
-                  <!-- <i class="bi bi-lightbulb mr-3 text-xl"></i> -->
-                  <!-- Icon étoile -->
-                   <i class="bi bi-star-fill mr-3 text-xl text-yellow-400"></i>
+                  <i class="bi bi-star-fill mr-3 text-xl text-yellow-400"></i>
                   <div>
                     <div class="font-semibold">Mode Normal</div>
                     <div class="text-sm opacity-80">Réponses visibles, choix interactif</div>
                   </div>
                 </button>
                 <button type="button" id="free-mode" class="game-mode w-full px-4 py-3 bg-gray-700 hover:bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium text-left flex items-center">
-                  <!-- <i class="bi bi-lightbulb mr-3 text-xl"></i> -->
-                   <!-- Icon représentant du vent -->
-                    <i class="bi bi-wind text-xl text-blue-400 mr-3"></i>
-                    
+                  <i class="bi bi-wind text-xl text-blue-400 mr-3"></i>
                   <div>
                     <div class="font-semibold">Mode Libre</div>
                     <div class="text-sm opacity-80">Réponses cachées, révélation automatique</div>
@@ -308,6 +301,28 @@
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- Filtres par catégorie -->
+        <div class="bg-gray-800 rounded-xl p-4 mb-8 shadow-lg">
+          <h2 class="text-2xl font-bold mb-4 text-center">Filtrer par Catégorie</h2>
+          <div class="flex flex-wrap justify-center gap-3" id="category-filters">
+            <button type="button" data-category="all" class="category-filter px-4 py-2 bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium selected">
+              Toutes
+            </button>
+            <button type="button" data-category="Développement" class="category-filter px-4 py-2 bg-gray-700 hover:bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium">
+              Développement
+            </button>
+            <button type="button" data-category="Divertissement" class="category-filter px-4 py-2 bg-gray-700 hover:bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium">
+              Divertissement
+            </button>
+            <button type="button" data-category="Apprentissage" class="category-filter px-4 py-2 bg-gray-700 hover:bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium">
+              Apprentissage
+            </button>
+            <button type="button" data-category="Coaching" class="category-filter px-4 py-2 bg-gray-700 hover:bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium">
+              Coaching
+            </button>
           </div>
         </div>
 
@@ -319,28 +334,35 @@
       <!-- Interface de quiz (cachée au démarrage) -->
       <div id="quiz-container" class="hidden max-w-2xl mx-auto">
         <div id="quiz-header" class="text-center mb-4">
-          <button id="back-to-selection" class="mb-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors">
-            <i class="bi bi-arrow-left mr-2"></i>Retour à la sélection
-          </button>
-          <h2 id="quiz-title" class="text-2xl font-bold mb-2"></h2>
-          <div class="flex justify-center items-center space-x-4 text-sm text-gray-400">
-            <div class="flex flex-col items-center space-y-1">
-              <span id="question-counter">Question 1/10</span>
-              <div class="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
-                <div id="progress-bar" class="h-full bg-gradient-to-r from-primary-500 to-primary-400 rounded-full transition-all duration-500 ease-out" style="width: 10%"></div>
-              </div>
-            </div>
-            <span id="score-display">Score: 0</span>
-            <div class="flex items-center">
-              <i class="bi bi-clock mr-1"></i>
-              <span id="timer-display">10</span>s
-            </div>
+          <h2 id="quiz-title" class="text-3xl font-bold text-white mb-2"></h2>
+          <div class="flex items-center justify-between text-sm text-gray-400">
+            <span id="question-counter">Question 1 / 10</span>
+            <span id="timer" class="font-mono text-lg text-primary-400">10s</span>
+          </div>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-3">
+            <div id="progress-bar" class="bg-gradient-to-r from-primary-500 to-purple-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
           </div>
         </div>
-        
-        <div id="quiz-content" class="bg-gray-800 rounded-xl p-4 shadow-lg">
-          <!-- Le contenu du quiz sera généré dynamiquement -->
+
+        <div id="quiz-content" class="bg-gray-800 rounded-xl p-6 shadow-lg">
+          <!-- Contenu de la question -->
         </div>
+
+        <div class="mt-6 flex gap-4">
+          <button id="back-to-selection" class="px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
+            <i class="bi bi-arrow-left mr-2"></i>
+            Retour à la sélection
+          </button>
+          <button id="backButton" class="px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
+            <i class="bi bi-arrow-left mr-2"></i>
+            Retour
+          </button>
+        </div>
+      </div>
+
+      <!-- Page de résultats (cachée au démarrage) -->
+      <div id="results-container" class="hidden max-w-2xl mx-auto text-center">
+        <!-- Contenu des résultats -->
       </div>
     </main>
 
@@ -354,7 +376,6 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.11.0/tsparticles.confetti.bundle.min.js"></script>
-    <script src="js/app.js" type="module"></script>
+    <script src="../js/private-app-simple.js"></script>
   </body>
 </html>

@@ -1,18 +1,18 @@
 /**
- * Application principale de quiz
+ * Application privée de quiz - Accès à tous les quiz
  * @version 2.0.0
  * @author Alternative RVB
  */
 
-import { CONFIG } from './modules/core/config.js';
-import { quizState } from './modules/core/state.js';
-import { domManager } from './modules/ui/dom.js';
-import { PublicQuizSelector } from './modules/managers/public-quiz-selector.js';
-import { QuestionManager } from './modules/managers/question-manager.js';
-import { ResultsManager } from './modules/managers/results-manager.js';
-import { shuffleArray, loadQuizData } from './modules/core/utils.js';
+import { CONFIG } from '../js/modules/core/config.js';
+import { quizState } from '../js/modules/core/state.js';
+import { domManager } from '../js/modules/ui/dom.js';
+import { QuizSelector } from '../js/modules/managers/quiz-selector.js';
+import { QuestionManager } from '../js/modules/managers/question-manager.js';
+import { ResultsManager } from '../js/modules/managers/results-manager.js';
+import { shuffleArray, loadQuizData } from '../js/modules/core/utils.js';
 
-class QuizApp {
+class PrivateQuizApp {
     constructor() {
         this.quizSelector = null;
         this.questionManager = null;
@@ -21,7 +21,7 @@ class QuizApp {
     }
 
     async init() {
-        console.log('Quiz App loaded');
+        console.log('Private Quiz App loaded');
         
         // Initialiser le gestionnaire DOM
         if (!domManager.init()) {
@@ -30,7 +30,7 @@ class QuizApp {
         }
 
         // Initialiser les modules
-        this.quizSelector = new PublicQuizSelector((quiz) => this.startQuiz(quiz));
+        this.quizSelector = new QuizSelector((quiz) => this.startQuiz(quiz));
         this.questionManager = new QuestionManager(() => this.showResults());
         this.resultsManager = new ResultsManager(
             () => this.restartQuiz(),
@@ -41,14 +41,14 @@ class QuizApp {
         this.setupEventListeners();
         this.setupGameOptions();
 
-        // Charger la liste des quiz disponibles (seulement développement pour la version publique)
-        const { loadAvailableQuizzes } = await import('./modules/core/utils.js');
+        // Charger la liste des quiz disponibles (TOUS les quiz)
+        const { loadAvailableQuizzes } = await import('../js/modules/core/utils.js');
         this.availableQuizzes = await loadAvailableQuizzes();
 
         // Afficher la sélection des quiz
         await this.quizSelector.show();
 
-        console.log('Quiz App initialisée');
+        console.log('Private Quiz App initialisée');
     }
 
     setupEventListeners() {
@@ -122,7 +122,7 @@ class QuizApp {
             this.questionManager.showLoadingMessage();
 
             // Charger les données du quiz (config + questions)
-            const quizData = await loadQuizData(`${CONFIG.questionsPath}${selectedQuiz.id}.json`);
+            const quizData = await loadQuizData(`../js/data/${selectedQuiz.id}.json`);
             
             // Fusionner la configuration du fichier JSON avec celle de config.js
             const mergedQuiz = {
@@ -162,6 +162,6 @@ class QuizApp {
 
 // Initialiser l'application quand le DOM est prêt
 document.addEventListener('DOMContentLoaded', () => {
-    const app = new QuizApp();
+    const app = new PrivateQuizApp();
     app.init();
 });
