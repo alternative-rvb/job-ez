@@ -5,8 +5,8 @@
     "spoilerMode": true,
     "difficulty": "Moyen",
     "questionCount": 20,
-    "icon": "bi-bug",
-    "color": "from-green-400 to-emerald-500",
+    "icon": "bi-emoji-smile",
+    "color": "from-yellow-400 to-orange-400",
     "category": "Divertissement"
   },
   "questions": [

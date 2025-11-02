@@ -6,7 +6,7 @@
     "difficulty": "Facile",
     "questionCount": 11,
     "icon": "bi-emoji-smile",
-    "color": "from-blue-400 to-cyan-500",
+    "color": "from-yellow-400 to-orange-400",
     "category": "Divertissement"
   },
   "questions": [

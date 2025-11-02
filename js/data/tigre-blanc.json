@@ -5,8 +5,8 @@
     "spoilerMode": true,
     "difficulty": "Moyen",
     "questionCount": 20,
-    "icon": "bi-paw",
-    "color": "from-blue-300 to-cyan-400",
+    "icon": "bi-emoji-smile",
+    "color": "from-yellow-400 to-orange-400",
     "category": "Divertissement"
   },
   "questions": [
@@ -19,7 +19,7 @@
         "Mutation génétique spontanée"
       ],
       "correctAnswer": "Gène récessif",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/White_Tiger_-_Kansas_City_Zoo.jpg/1280px-White_Tiger_-_Kansas_City_Zoo.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-gen.webp"
     },
     {
       "question": "Quelle est la couleur caractéristique des yeux du tigre blanc ?",
@@ -30,7 +30,7 @@
         "Vert émeraude"
       ],
       "correctAnswer": "Bleu électrique",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/White_Tiger_Face_closeup.jpg/1280px-White_Tiger_Face_closeup.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-blue-eyes.jpg"
     },
     {
       "question": "En quelle année le premier tigre blanc a-t-il été capturé en Inde ?",
@@ -41,7 +41,7 @@
         "1990"
       ],
       "correctAnswer": "1951",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/White_Tiger_in_Sunlight.jpg/1280px-White_Tiger_in_Sunlight.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-1.webp"
     },
     {
       "question": "Quel est le nom du tigre blanc le plus célèbre capturé en 1951 ?",
@@ -52,7 +52,7 @@
         "Maharaj"
       ],
       "correctAnswer": "Mohan",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/White_tiger_at_delhi_zoo.jpg/1280px-White_tiger_at_delhi_zoo.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-mohan.jpg"
     },
     {
       "question": "Quel est le poids moyen d'un tigre blanc mâle adulte ?",
@@ -63,7 +63,7 @@
         "300-350 kg"
       ],
       "correctAnswer": "200-250 kg",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/White_Tiger_Walking.jpg/1280px-White_Tiger_Walking.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-fat.jpg"
     },
     {
       "question": "Combien environ de tigres blancs vivraient dans les zoos du monde ?",
@@ -74,7 +74,7 @@
         "Plus de 1000"
       ],
       "correctAnswer": "Entre 250 et 500",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/White_Tiger_Zoo.jpg/1280px-White_Tiger_Zoo.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-zoo.jpg"
     },
     {
       "question": "Quel problème génétique affecte souvent les tigres blancs ?",
@@ -85,7 +85,7 @@
         "Dégénérescence rétinienne"
       ],
       "correctAnswer": "Strabisme (yeux qui regardent de côté)",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/White_Tiger_Head.jpg/1280px-White_Tiger_Head.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-1.webp"
     },
     {
       "question": "Quelle est la durée moyenne de vie d'un tigre blanc en captivité ?",
@@ -96,7 +96,7 @@
         "25-30 ans"
       ],
       "correctAnswer": "15-20 ans",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/White_Tiger_Resting.jpg/1280px-White_Tiger_Resting.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-2.jpeg"
     },
     {
       "question": "À quel âge un tigre blanc atteint-il sa maturité sexuelle ?",
@@ -107,7 +107,7 @@
         "7-8 ans"
       ],
       "correctAnswer": "3-4 ans",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/White_Tiger_Young.jpg/1280px-White_Tiger_Young.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-1.webp"
     },
     {
       "question": "Quel célèbre magicien a popularisé le tigre blanc dans les années 1980 ?",
@@ -118,7 +118,7 @@
         "Criss Angel"
       ],
       "correctAnswer": "Siegfried et Roy",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/White_Tiger_Profile.jpg/1280px-White_Tiger_Profile.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-2.jpeg"
     },
     {
       "question": "Quelle est la longueur totale moyenne d'un tigre blanc (corps + queue) ?",
@@ -129,7 +129,7 @@
         "4-4,5 m"
       ],
       "correctAnswer": "2,2-2,6 m",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/White_Tiger_Full_Body.jpg/1280px-White_Tiger_Full_Body.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-1.webp"
     },
     {
       "question": "Combien de chatons naissent généralement dans une portée de tigre blanc ?",
@@ -140,7 +140,7 @@
         "7-8"
       ],
       "correctAnswer": "3-4",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/White_Tiger_Cub.jpg/1280px-White_Tiger_Cub.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-babies.jpg"
     },
     {
       "question": "Quelle est la principale région où vivaient les tigres blancs sauvages ?",
@@ -151,7 +151,7 @@
         "Afrique du Sud"
       ],
       "correctAnswer": "Inde centrale",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/White_Tiger_India.jpg/1280px-White_Tiger_India.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-1.webp"
     },
     {
       "question": "Quel pourcentage de tigres sauvages naît blanc sans intervention humaine ?",
@@ -162,7 +162,7 @@
         "1%"
       ],
       "correctAnswer": "0,001%",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/White_Tiger_Rare.jpg/1280px-White_Tiger_Rare.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-gen-spec.webp"
     },
     {
       "question": "Combien de dents possède un tigre blanc adulte ?",
@@ -173,7 +173,7 @@
         "34"
       ],
       "correctAnswer": "30",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/White_Tiger_Teeth.jpg/1280px-White_Tiger_Teeth.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-teeth.jpg"
     },
     {
       "question": "Quelle est la vitesse maximale d'un tigre blanc en course ?",
@@ -184,7 +184,7 @@
         "100 km/h"
       ],
       "correctAnswer": "60 km/h",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/White_Tiger_Running.jpg/1280px-White_Tiger_Running.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-run.jpg"
     },
     {
       "question": "Comment identifie-t-on les tigres blancs individuellement ?",
@@ -195,7 +195,7 @@
         "Tous les tigres blancs se ressemblent"
       ],
       "correctAnswer": "Par le motif unique de rayures comme une empreinte digitale",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/White_Tiger_Stripes.jpg/1280px-White_Tiger_Stripes.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-1.webp"
     },
     {
       "question": "Quelle est la période de gestation d'une tigresse blanche ?",
@@ -206,7 +206,7 @@
         "5-6 mois"
       ],
       "correctAnswer": "3-4 mois",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/White_Tiger_Mother.jpg/1280px-White_Tiger_Mother.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-babies.jpg"
     },
     {
       "question": "Quel est le principal problème de santé lié à la consanguinité des tigres blancs ?",
@@ -217,7 +217,7 @@
         "Croissance anormalement rapide"
       ],
       "correctAnswer": "Malformations congénitales",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/White_Tiger_Health.jpg/1280px-White_Tiger_Health.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-gen.webp"
     },
     {
       "question": "Quelle organisation s'oppose à l'élevage de tigres blancs en captivité ?",
@@ -228,7 +228,7 @@
         "Union mondiale pour la conservation"
       ],
       "correctAnswer": "Association des zoos et aquariums (AZA)",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/White_Tiger_Conservation.jpg/1280px-White_Tiger_Conservation.jpg"
+      "imageUrl": "/images/white-tiger/white-tiger-zoo.jpg"
     }
   ]
 }
