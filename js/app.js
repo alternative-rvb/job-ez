@@ -149,12 +149,14 @@ class QuizApp {
     }
 
     restartQuiz() {
+        console.log('🔄 App.restartQuiz() called');
         if (quizState.currentQuiz) {
             this.startQuiz(quizState.currentQuiz);
         }
     }
 
     async backToHome() {
+        console.log('🏠 App.backToHome() called');
         quizState.reset();
         await this.quizSelector.show();
     }

@@ -61,7 +61,7 @@ export class ResultsManager {
                     <!-- Score Card -->
                     <div class="bg-gray-800 rounded-2xl p-8 mb-8 text-center shadow-2xl">
                         <div class="mb-6">
-                            <div class="text-7xl font-bold bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent">
+                            <div class="text-7xl font-bold text-white">
                                 ${percentage}%
                             </div>
                         </div>
@@ -136,21 +136,31 @@ export class ResultsManager {
             
             console.log('btnRetry:', btnRetry);
             console.log('btnHome:', btnHome);
+            console.log('this.onRestart:', this.onRestart);
+            console.log('this.onBackToHome:', this.onBackToHome);
             
             if (btnRetry) {
-                btnRetry.addEventListener('click', () => {
-                    console.log('🔄 Retry clicked, calling onRestart');
+                btnRetry.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('🔄 Retry clicked');
                     if (this.onRestart) {
+                        console.log('✅ Calling onRestart');
                         this.onRestart();
+                    } else {
+                        console.error('❌ onRestart not defined');
                     }
                 });
             }
             
             if (btnHome) {
-                btnHome.addEventListener('click', () => {
-                    console.log('🏠 Home clicked, calling onBackToHome');
+                btnHome.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('🏠 Home clicked');
                     if (this.onBackToHome) {
+                        console.log('✅ Calling onBackToHome');
                         this.onBackToHome();
+                    } else {
+                        console.error('❌ onBackToHome not defined');
                     }
                 });
             }
