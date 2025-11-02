@@ -4,7 +4,7 @@
  */
 
 // Déterminer si on est sur la page privée ou publique
-const isPrivate = window.location.pathname.includes('/private/');
+const isPrivate = window.location.pathname.includes('/private');
 
 console.log('🔍 CONFIG DEBUG:', {
     pathname: window.location.pathname,
