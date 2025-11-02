@@ -105,16 +105,22 @@ export class ResultsManager {
         domManager.setContent('results-container', resultsHTML);
         console.log('✅ Results HTML set in DOM');
         
-        // Afficher le conteneur et masquer le quiz
-        const resultsContainer = document.getElementById('results-container');
+        // Masquer tous les autres conteneurs
+        const quizSelection = document.getElementById('quiz-selection');
         const quizContainer = document.getElementById('quiz-container');
-        if (resultsContainer) {
-            resultsContainer.classList.remove('hidden');
-            console.log('✅ Results container shown');
+        const resultsContainer = document.getElementById('results-container');
+        
+        if (quizSelection) {
+            quizSelection.classList.add('hidden');
+            console.log('✅ Quiz selection hidden');
         }
         if (quizContainer) {
             quizContainer.classList.add('hidden');
             console.log('✅ Quiz container hidden');
+        }
+        if (resultsContainer) {
+            resultsContainer.classList.remove('hidden');
+            console.log('✅ Results container shown');
         }
         
         // Lancer confetti si 100%
@@ -133,13 +139,19 @@ export class ResultsManager {
             
             if (btnRetry) {
                 btnRetry.addEventListener('click', () => {
-                    if (this.onRestart) this.onRestart();
+                    console.log('🔄 Retry clicked, calling onRestart');
+                    if (this.onRestart) {
+                        this.onRestart();
+                    }
                 });
             }
             
             if (btnHome) {
                 btnHome.addEventListener('click', () => {
-                    if (this.onBackToHome) this.onBackToHome();
+                    console.log('🏠 Home clicked, calling onBackToHome');
+                    if (this.onBackToHome) {
+                        this.onBackToHome();
+                    }
                 });
             }
         }, 100);
