@@ -1,4 +1,4 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "echo 'Build completed - index.json is pre-generated'",
   "outputDirectory": "."
 }
