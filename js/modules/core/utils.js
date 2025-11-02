@@ -129,11 +129,15 @@ export function launchConfetti(options = {}) {
  * @returns {Promise<Array>} - Liste des quiz avec leurs configurations
  */
 export async function loadAvailableQuizzes() {
+    // Importer CONFIG pour avoir accès au chemin correct
+    const { CONFIG } = await import('./config.js');
+    
     let quizIds = [];
+    const indexPath = CONFIG.questionsPath + 'index.json';
 
     try {
         // Charger la liste depuis le fichier d'index
-        const response = await fetch('./js/data/index.json');
+        const response = await fetch(indexPath);
         if (response.ok) {
             const indexData = await response.json();
             quizIds = indexData.quizzes || [];
@@ -159,7 +163,7 @@ export async function loadAvailableQuizzes() {
     // Charger chaque quiz et extraire sa config
     for (const quizId of quizIds) {
         try {
-            const quizData = await loadQuizData(`./js/data/${quizId}.json`);
+            const quizData = await loadQuizData(`${CONFIG.questionsPath}${quizId}.json`);
             if (quizData && quizData.config) {
                 availableQuizzes.push({
                     id: quizId,
@@ -171,7 +175,6 @@ export async function loadAvailableQuizzes() {
         }
     }
 
-    console.log(`✅ ${availableQuizzes.length} quiz chargés avec succès`);
     console.log(`✅ ${availableQuizzes.length} quiz chargés avec succès`);
     return availableQuizzes;
 }

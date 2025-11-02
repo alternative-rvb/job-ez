@@ -18,7 +18,14 @@ export class QuizSelector {
         const startTime = Date.now();
         
         try {
-            const availableQuizzes = await loadAvailableQuizzes();
+            let availableQuizzes = await loadAvailableQuizzes();
+            
+            // Appliquer le filtre de catégories si défini dans CONFIG
+            if (CONFIG.categoryFilter && Array.isArray(CONFIG.categoryFilter)) {
+                availableQuizzes = availableQuizzes.filter(quiz => 
+                    CONFIG.categoryFilter.includes(quiz.category)
+                );
+            }
             
             // Trier par catégorie dans l'ordre souhaité
             const categoryOrder = { 'Divertissement': 1, 'Apprentissage': 2, 'Coaching': 3 };

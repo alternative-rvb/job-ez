@@ -7,7 +7,7 @@
 import { CONFIG } from './modules/core/config.js';
 import { quizState } from './modules/core/state.js';
 import { domManager } from './modules/ui/dom.js';
-import { PublicQuizSelector } from './modules/managers/public-quiz-selector.js';
+import { QuizSelector } from './modules/managers/quiz-selector.js';
 import { QuestionManager } from './modules/managers/question-manager.js';
 import { ResultsManager } from './modules/managers/results-manager.js';
 import { shuffleArray, loadQuizData } from './modules/core/utils.js';
@@ -30,7 +30,7 @@ class QuizApp {
         }
 
         // Initialiser les modules
-        this.quizSelector = new PublicQuizSelector((quiz) => this.startQuiz(quiz));
+        this.quizSelector = new QuizSelector((quiz) => this.startQuiz(quiz));
         this.questionManager = new QuestionManager(() => this.showResults());
         this.resultsManager = new ResultsManager(
             () => this.restartQuiz(),
