@@ -156,12 +156,12 @@
     {
       "question": "Quel pourcentage de tigres sauvages naît blanc sans intervention humaine ?",
       "choices": [
-        "0,001%",
         "0,01%",
         "0,1%",
-        "1%"
+        "1%",
+        "5%"
       ],
-      "correctAnswer": "0,001%",
+      "correctAnswer": "0,01%",
       "imageUrl": "/images/white-tiger/white-tiger-gen-spec.webp"
     },
     {
