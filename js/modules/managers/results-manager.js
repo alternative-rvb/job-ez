@@ -9,6 +9,9 @@ import { CONFIG } from '../core/config.js';
 
 export class ResultsManager {
     constructor(onRestart, onBackToHome) {
+        console.log('📦 ResultsManager constructor called');
+        console.log('onRestart:', onRestart);
+        console.log('onBackToHome:', onBackToHome);
         this.onRestart = onRestart;
         this.onBackToHome = onBackToHome;
     }
@@ -129,40 +132,49 @@ export class ResultsManager {
         }
         
         // Ajouter les écouteurs d'événements après un court délai pour assurer que le DOM est mis à jour
+        const self = this; // Capturer 'this' pour éviter les problèmes de contexte
         setTimeout(() => {
             console.log('⏱️ Timeout callback - attaching event listeners');
+            console.log('self:', self);
+            console.log('self.onRestart:', self.onRestart);
+            console.log('self.onBackToHome:', self.onBackToHome);
+            
             const btnRetry = document.getElementById('btnRetry');
             const btnHome = document.getElementById('btnHome');
             
             console.log('btnRetry:', btnRetry);
             console.log('btnHome:', btnHome);
-            console.log('this.onRestart:', this.onRestart);
-            console.log('this.onBackToHome:', this.onBackToHome);
             
             if (btnRetry) {
-                btnRetry.addEventListener('click', (e) => {
+                btnRetry.onclick = (e) => {
                     e.preventDefault();
                     console.log('🔄 Retry clicked');
-                    if (this.onRestart) {
+                    console.log('self.onRestart:', self.onRestart);
+                    if (self.onRestart) {
                         console.log('✅ Calling onRestart');
-                        this.onRestart();
+                        self.onRestart();
                     } else {
                         console.error('❌ onRestart not defined');
                     }
-                });
+                };
+            } else {
+                console.error('❌ btnRetry element not found');
             }
             
             if (btnHome) {
-                btnHome.addEventListener('click', (e) => {
+                btnHome.onclick = (e) => {
                     e.preventDefault();
                     console.log('🏠 Home clicked');
-                    if (this.onBackToHome) {
+                    console.log('self.onBackToHome:', self.onBackToHome);
+                    if (self.onBackToHome) {
                         console.log('✅ Calling onBackToHome');
-                        this.onBackToHome();
+                        self.onBackToHome();
                     } else {
                         console.error('❌ onBackToHome not defined');
                     }
-                });
+                };
+            } else {
+                console.error('❌ btnHome element not found');
             }
         }, 100);
     }
