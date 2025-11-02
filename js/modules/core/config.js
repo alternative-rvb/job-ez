@@ -9,6 +9,6 @@ const isPrivate = window.location.pathname.includes('/private/');
 export const CONFIG = {
     timeLimit: 10,        // Temps par question en secondes
     freeMode: false,      // Mode libre activé par défaut
-    questionsPath: isPrivate ? '../js/data/' : 'js/data/',  // Chemin vers les fichiers de données
+    questionsPath: './js/data/',  // Chemin identique pour les deux pages (Vercel et local)
     categoryFilter: isPrivate ? null : ['Coaching']  // null = toutes les catégories, array = filtrer par ces catégories
 };
