@@ -104,14 +104,23 @@ export class ResultsManager {
             launchConfetti();
         }
         
-        // Ajouter les écouteurs d'événements
-        document.getElementById('btnRetry').addEventListener('click', () => {
-            if (this.onRestart) this.onRestart();
-        });
-        
-        document.getElementById('btnHome').addEventListener('click', () => {
-            if (this.onBackToHome) this.onBackToHome();
-        });
+        // Ajouter les écouteurs d'événements après un court délai pour assurer que le DOM est mis à jour
+        setTimeout(() => {
+            const btnRetry = document.getElementById('btnRetry');
+            const btnHome = document.getElementById('btnHome');
+            
+            if (btnRetry) {
+                btnRetry.addEventListener('click', () => {
+                    if (this.onRestart) this.onRestart();
+                });
+            }
+            
+            if (btnHome) {
+                btnHome.addEventListener('click', () => {
+                    if (this.onBackToHome) this.onBackToHome();
+                });
+            }
+        }, 100);
     }
     
     renderDetails(questions) {
