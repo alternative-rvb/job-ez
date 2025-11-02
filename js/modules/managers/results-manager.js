@@ -14,12 +14,17 @@ export class ResultsManager {
     }
 
     show() {
+        console.log('🎯 ResultsManager.show() called');
+        console.log('Quiz state:', quizState);
+        
         // Calculer le nombre de questions qui comptent pour le score
         const scorableQuestions = quizState.questions.filter(q => q.choices && q.choices.length > 0);
         const totalScorable = scorableQuestions.length;
         
         const score = quizState.score || 0;
         const percentage = totalScorable > 0 ? Math.round((score / totalScorable) * 100) : 0;
+        
+        console.log(`📊 Score: ${score}/${totalScorable} = ${percentage}%`);
         
         // Déterminer le message basé sur le pourcentage
         let message = '';
@@ -97,7 +102,20 @@ export class ResultsManager {
             </div>
         `;
         
-        domManager.setContent('app', resultsHTML);
+        domManager.setContent('results-container', resultsHTML);
+        console.log('✅ Results HTML set in DOM');
+        
+        // Afficher le conteneur et masquer le quiz
+        const resultsContainer = document.getElementById('results-container');
+        const quizContainer = document.getElementById('quiz-container');
+        if (resultsContainer) {
+            resultsContainer.classList.remove('hidden');
+            console.log('✅ Results container shown');
+        }
+        if (quizContainer) {
+            quizContainer.classList.add('hidden');
+            console.log('✅ Quiz container hidden');
+        }
         
         // Lancer confetti si 100%
         if (percentage === 100) {
@@ -106,8 +124,12 @@ export class ResultsManager {
         
         // Ajouter les écouteurs d'événements après un court délai pour assurer que le DOM est mis à jour
         setTimeout(() => {
+            console.log('⏱️ Timeout callback - attaching event listeners');
             const btnRetry = document.getElementById('btnRetry');
             const btnHome = document.getElementById('btnHome');
+            
+            console.log('btnRetry:', btnRetry);
+            console.log('btnHome:', btnHome);
             
             if (btnRetry) {
                 btnRetry.addEventListener('click', () => {

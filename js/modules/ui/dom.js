@@ -79,9 +79,18 @@ class DOMManager {
     }
 
     setContent(elementName, html) {
-        const element = this.elements[elementName];
+        // Vérifier d'abord dans le mapping
+        let element = this.elements[elementName];
+        
+        // Si pas trouvé, chercher directement par ID
+        if (!element) {
+            element = document.getElementById(elementName);
+        }
+        
         if (element) {
             element.innerHTML = html;
+        } else {
+            console.warn(`Element not found: ${elementName}`);
         }
     }
 }
