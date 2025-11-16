@@ -57,6 +57,16 @@ class DOMManager {
         this.elements.resultsContainer?.classList.remove('hidden');
     }
 
+    showHistory() {
+        const historyScreen = document.getElementById('history-screen');
+        if (historyScreen) {
+            historyScreen.classList.remove('hidden');
+        }
+        this.elements.quizSelection?.classList.add('hidden');
+        this.elements.quizContainer?.classList.add('hidden');
+        this.elements.resultsContainer?.classList.add('hidden');
+    }
+
     toggleMobileMenu() {
         this.elements.mobileMenu?.classList.toggle('hidden');
     }

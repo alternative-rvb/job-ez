@@ -6,6 +6,7 @@ import { quizState } from '../core/state.js';
 import { domManager } from '../ui/dom.js';
 import { launchConfetti } from '../core/utils.js';
 import { CONFIG } from '../core/config.js';
+import { playerManager } from '../core/player.js';
 
 export class ResultsManager {
     constructor(onRestart, onBackToHome) {
@@ -28,6 +29,18 @@ export class ResultsManager {
         const percentage = totalScorable > 0 ? Math.round((score / totalScorable) * 100) : 0;
         
         console.log(`📊 Score: ${score}/${totalScorable} = ${percentage}%`);
+
+        // Sauvegarder le résultat
+        playerManager.saveResult({
+            id: quizState.currentQuiz?.id,
+            title: quizState.currentQuiz?.title,
+            score: score,
+            totalQuestions: totalScorable,
+            percentage: percentage,
+            timeSpent: quizState.totalTime,
+            difficulty: quizState.currentQuiz?.difficulty,
+            category: quizState.currentQuiz?.category
+        });
         
         // Déterminer le message basé sur le pourcentage
         let message = '';

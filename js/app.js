@@ -7,9 +7,11 @@
 import { CONFIG } from './modules/core/config.js';
 import { quizState } from './modules/core/state.js';
 import { domManager } from './modules/ui/dom.js';
+import { playerManager } from './modules/core/player.js';
 import { QuizSelector } from './modules/managers/quiz-selector.js';
 import { QuestionManager } from './modules/managers/question-manager.js';
 import { ResultsManager } from './modules/managers/results-manager.js';
+import { HistoryManager } from './modules/managers/history-manager.js';
 import { shuffleArray, loadQuizData } from './modules/core/utils.js';
 
 class QuizApp {
@@ -17,6 +19,7 @@ class QuizApp {
         this.quizSelector = null;
         this.questionManager = null;
         this.resultsManager = null;
+        this.historyManager = null;
         this.availableQuizzes = [];
     }
 
@@ -29,6 +32,54 @@ class QuizApp {
             return;
         }
 
+        // Vérifier si le joueur a déjà un nom
+        if (playerManager.playerName) {
+            console.log(`👤 Bienvenue ${playerManager.playerName}`);
+            this.showQuizSelection();
+        } else {
+            this.showPlayerNameScreen();
+        }
+
+        console.log('Quiz App initialisée');
+    }
+
+    showPlayerNameScreen() {
+        const screen = document.getElementById('player-name-screen');
+        const form = document.getElementById('player-name-form');
+        const input = document.getElementById('player-name-input');
+
+        if (screen) {
+            screen.classList.remove('hidden');
+        }
+
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = input.value.trim();
+                if (name.length > 0) {
+                    playerManager.setPlayerName(name);
+                    this.showQuizSelection();
+                } else {
+                    input.focus();
+                }
+            });
+            input.focus();
+        }
+    }
+
+    async showQuizSelection() {
+        // Masquer l'écran de saisie du nom
+        const nameScreen = document.getElementById('player-name-screen');
+        if (nameScreen) {
+            nameScreen.classList.add('hidden');
+        }
+
+        // Afficher le nom du joueur
+        const playerDisplay = document.getElementById('player-name-display');
+        if (playerDisplay) {
+            playerDisplay.textContent = playerManager.playerName;
+        }
+
         // Initialiser les modules
         this.quizSelector = new QuizSelector((quiz) => this.startQuiz(quiz));
         this.questionManager = new QuestionManager(() => this.showResults());
@@ -36,19 +87,40 @@ class QuizApp {
             () => this.restartQuiz(),
             () => this.backToHome()
         );
+        this.historyManager = new HistoryManager(() => this.backToHome());
 
         // Configurer les écouteurs d'événements globaux
         this.setupEventListeners();
         this.setupGameOptions();
 
-        // Charger la liste des quiz disponibles (seulement développement pour la version publique)
+        // Charger la liste des quiz disponibles
         const { loadAvailableQuizzes } = await import('./modules/core/utils.js');
         this.availableQuizzes = await loadAvailableQuizzes();
 
         // Afficher la sélection des quiz
         await this.quizSelector.show();
 
-        console.log('Quiz App initialisée');
+        // Ajouter les écouteurs pour l'historique et le changement de joueur
+        this.setupHistoryButtons();
+    }
+
+    setupHistoryButtons() {
+        // Bouton historique
+        const btnHistory = document.getElementById('btn-show-history');
+        if (btnHistory) {
+            btnHistory.addEventListener('click', () => {
+                this.historyManager.show();
+            });
+        }
+
+        // Bouton changer de joueur
+        const btnChangePlayer = document.getElementById('btn-change-player');
+        if (btnChangePlayer) {
+            btnChangePlayer.addEventListener('click', () => {
+                playerManager.reset();
+                location.reload();
+            });
+        }
     }
 
     setupEventListeners() {
@@ -158,7 +230,18 @@ class QuizApp {
     async backToHome() {
         console.log('🏠 App.backToHome() called');
         quizState.reset();
-        await this.quizSelector.show();
+        
+        // Afficher la sélection des quiz
+        const quizSelection = document.getElementById('quiz-selection');
+        const historyScreen = document.getElementById('history-screen');
+        if (quizSelection) {
+            quizSelection.classList.remove('hidden');
+        }
+        if (historyScreen) {
+            historyScreen.classList.add('hidden');
+        }
+        
+        domManager.showQuizSelection();
     }
 }
 
