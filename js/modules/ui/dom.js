@@ -11,6 +11,7 @@ class DOMManager {
         this.elements = {
             quizSelection: document.getElementById('quiz-selection'),
             quizContainer: document.getElementById('quiz-container'),
+            resultsContainer: document.getElementById('results-container'),
             quizList: document.getElementById('quiz-list'),
             quizContent: document.getElementById('quiz-content'),
             quizTitle: document.getElementById('quiz-title'),
@@ -23,7 +24,7 @@ class DOMManager {
         };
 
         // Vérifier que les éléments essentiels existent
-        const required = ['quizSelection', 'quizContainer', 'quizList', 'quizContent'];
+        const required = ['quizSelection', 'quizContainer', 'resultsContainer', 'quizList', 'quizContent'];
         const missing = required.filter(key => !this.elements[key]);
         
         if (missing.length > 0) {
@@ -41,11 +42,19 @@ class DOMManager {
     showQuizSelection() {
         this.elements.quizSelection?.classList.remove('hidden');
         this.elements.quizContainer?.classList.add('hidden');
+        this.elements.resultsContainer?.classList.add('hidden');
     }
 
     showQuizInterface() {
         this.elements.quizSelection?.classList.add('hidden');
         this.elements.quizContainer?.classList.remove('hidden');
+        this.elements.resultsContainer?.classList.add('hidden');
+    }
+
+    showResults() {
+        this.elements.quizSelection?.classList.add('hidden');
+        this.elements.quizContainer?.classList.add('hidden');
+        this.elements.resultsContainer?.classList.remove('hidden');
     }
 
     toggleMobileMenu() {

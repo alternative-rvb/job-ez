@@ -233,7 +233,8 @@ export class QuestionManager {
                 this.showFeedbackMessage('Temps écoulé ! ⏰', 'timeout', question, correctAnswerIndex);
             } else {
                 quizState.recordAnswerCorrectness(false);
-                this.showFeedbackMessage('Mauvaise réponse 😔', 'error', quizState.currentQuiz?.spoilerMode ? question : null);
+                // Afficher la bonne réponse si showResponse est activé
+                this.showFeedbackMessage('Mauvaise réponse 😔', 'error', CONFIG.showResponse ? question : (quizState.currentQuiz?.spoilerMode ? question : null), correctAnswerIndex);
             }
             
             domManager.updateQuizStats(
@@ -376,6 +377,7 @@ export class QuestionManager {
         let icon = '';
         let title = '';
         let subtitle = '';
+        let responseSection = '';
         let imageSection = '';
 
         // Ajouter l'image révélée en mode spoiler
@@ -399,6 +401,17 @@ export class QuestionManager {
                 icon = '❌';
                 title = 'Mauvaise réponse';
                 subtitle = message;
+                // Afficher la bonne réponse si showResponse est activé et la question est disponible
+                if (CONFIG.showResponse && question && answerIndex !== null) {
+                    responseSection = `
+                        <div class="mt-4 p-3 bg-green-900/30 border-2 border-green-500/50 rounded-lg">
+                            <p class="text-sm text-green-300 mb-2">La bonne réponse était:</p>
+                            <p class="text-lg font-semibold text-green-400">
+                                ${String.fromCharCode(65 + answerIndex)} : ${question.choices[answerIndex]}
+                            </p>
+                        </div>
+                    `;
+                }
                 break;
             case 'neutral':
                 icon = '📝';
@@ -410,7 +423,17 @@ export class QuestionManager {
                 title = 'Temps écoulé !';
                 if (question && answerIndex !== null) {
                     // Mode normal : afficher avec lettrage
-                    subtitle = `Réponse était ${String.fromCharCode(65 + answerIndex)} : ${question.choices[answerIndex]}`;
+                    subtitle = 'Vous n\'avez pas eu le temps de répondre';
+                    if (CONFIG.showResponse) {
+                        responseSection = `
+                            <div class="mt-4 p-3 bg-yellow-900/30 border-2 border-yellow-500/50 rounded-lg">
+                                <p class="text-sm text-yellow-300 mb-2">La bonne réponse était:</p>
+                                <p class="text-lg font-semibold text-yellow-400">
+                                    ${String.fromCharCode(65 + answerIndex)} : ${question.choices[answerIndex]}
+                                </p>
+                            </div>
+                        `;
+                    }
                 } else if (question) {
                     // Mode spoiler : afficher sans lettrage
                     subtitle = question.correctAnswer;
@@ -429,6 +452,7 @@ export class QuestionManager {
             <p class="text-xl text-gray-300 leading-relaxed">
                 ${subtitle}
             </p>
+            ${responseSection}
         `;
 
         overlay.appendChild(modalContent);

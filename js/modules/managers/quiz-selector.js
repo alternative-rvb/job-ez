@@ -38,11 +38,16 @@ export class QuizSelector {
             this.allQuizzes = sortedQuizzes;
             this.currentFilter = 'all';
             
+            // Récupérer les catégories disponibles depuis CONFIG
+            this.availableCategories = CONFIG.availableCategories || [];
+            console.log('📦 Catégories pour les filtres:', this.availableCategories);
+            
             // Assurer un délai minimum de 500ms pour le loader
             const elapsedTime = Date.now() - startTime;
             const remainingTime = Math.max(0, 500 - elapsedTime);
             
             setTimeout(() => {
+                this.renderFilterButtons();
                 this.renderQuizCards();
                 this.hideLoader();
             }, remainingTime);
@@ -114,6 +119,37 @@ export class QuizSelector {
                 }
             });
         });
+    }
+
+    renderFilterButtons() {
+        const categoryFiltersContainer = document.getElementById('category-filters');
+        if (!categoryFiltersContainer) {
+            console.warn('⚠️ Conteneur category-filters non trouvé');
+            return;
+        }
+
+        // Générer les boutons de filtres dynamiquement
+        let filterButtonsHTML = `
+            <button type="button" data-category="all" class="category-filter px-4 py-2 bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium selected">
+                Toutes
+            </button>
+        `;
+
+        // Ajouter les catégories disponibles
+        if (this.availableCategories && this.availableCategories.length > 0) {
+            this.availableCategories.forEach(category => {
+                filterButtonsHTML += `
+                    <button type="button" data-category="${category}" class="category-filter px-4 py-2 bg-gray-700 hover:bg-primary-600 text-white rounded-lg transition-all duration-200 font-medium">
+                        ${category}
+                    </button>
+                `;
+            });
+        }
+
+        categoryFiltersContainer.innerHTML = filterButtonsHTML;
+        
+        // Réappliquer les écouteurs d'événements
+        this.setupFilters();
     }
 
     setupFilters() {

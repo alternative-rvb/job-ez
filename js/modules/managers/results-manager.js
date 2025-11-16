@@ -108,23 +108,9 @@ export class ResultsManager {
         domManager.setContent('results-container', resultsHTML);
         console.log('✅ Results HTML set in DOM');
         
-        // Masquer tous les autres conteneurs
-        const quizSelection = document.getElementById('quiz-selection');
-        const quizContainer = document.getElementById('quiz-container');
-        const resultsContainer = document.getElementById('results-container');
-        
-        if (quizSelection) {
-            quizSelection.classList.add('hidden');
-            console.log('✅ Quiz selection hidden');
-        }
-        if (quizContainer) {
-            quizContainer.classList.add('hidden');
-            console.log('✅ Quiz container hidden');
-        }
-        if (resultsContainer) {
-            resultsContainer.classList.remove('hidden');
-            console.log('✅ Results container shown');
-        }
+        // Afficher le conteneur de résultats et masquer les autres
+        domManager.showResults();
+        console.log('✅ Results container shown via domManager');
         
         // Lancer confetti si 100%
         if (percentage === 100) {
@@ -146,7 +132,7 @@ export class ResultsManager {
             console.log('btnHome:', btnHome);
             
             if (btnRetry) {
-                btnRetry.onclick = (e) => {
+                btnRetry.addEventListener('click', (e) => {
                     e.preventDefault();
                     console.log('🔄 Retry clicked');
                     console.log('self.onRestart:', self.onRestart);
@@ -156,13 +142,13 @@ export class ResultsManager {
                     } else {
                         console.error('❌ onRestart not defined');
                     }
-                };
+                });
             } else {
                 console.error('❌ btnRetry element not found');
             }
             
             if (btnHome) {
-                btnHome.onclick = (e) => {
+                btnHome.addEventListener('click', (e) => {
                     e.preventDefault();
                     console.log('🏠 Home clicked');
                     console.log('self.onBackToHome:', self.onBackToHome);
@@ -172,7 +158,7 @@ export class ResultsManager {
                     } else {
                         console.error('❌ onBackToHome not defined');
                     }
-                };
+                });
             } else {
                 console.error('❌ btnHome element not found');
             }

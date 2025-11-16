@@ -133,6 +133,7 @@ export async function loadAvailableQuizzes() {
     const { CONFIG } = await import('./config.js');
     
     let quizIds = [];
+    let categories = [];
     const indexPath = CONFIG.questionsPath + 'index.json';
 
     try {
@@ -141,6 +142,9 @@ export async function loadAvailableQuizzes() {
         if (response.ok) {
             const indexData = await response.json();
             quizIds = indexData.quizzes || [];
+            categories = indexData.categories || [];
+            // Mettre à jour les catégories disponibles dans CONFIG
+            CONFIG.setAvailableCategories(categories);
             console.log(`📋 Quiz chargés depuis l'index (${quizIds.length} quiz disponibles)`);
         } else {
             throw new Error('Fichier d\'index non trouvé');

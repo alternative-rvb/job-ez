@@ -21,6 +21,7 @@ def generate_quiz_index():
     
     # Scanner les fichiers JSON (sauf index.json)
     quiz_files = []
+    categories = set()
     for filename in sorted(os.listdir(data_dir)):
         if filename.endswith('.json') and filename != 'index.json':
             quiz_id = filename[:-5]  # Enlever .json
@@ -31,6 +32,10 @@ def generate_quiz_index():
                     quiz_data = json.load(f)
                     if 'config' in quiz_data and 'questions' in quiz_data:
                         quiz_files.append(quiz_id)
+                        # Extraire la catégorie
+                        category = quiz_data['config'].get('category')
+                        if category:
+                            categories.add(category)
                         print(f"✅ {quiz_id}: {quiz_data['config'].get('title', 'Sans titre')}")
                     else:
                         print(f"⚠️  {quiz_id}: Structure invalide (pas de config/questions)")
@@ -40,6 +45,7 @@ def generate_quiz_index():
     # Générer le fichier d'index
     index_data = {
         "quizzes": quiz_files,
+        "categories": sorted(list(categories)),
         "count": len(quiz_files),
         "lastUpdated": datetime.now().isoformat(),
         "generated_by": "api.py"
@@ -52,6 +58,7 @@ def generate_quiz_index():
         print(f"\n🎯 Index généré avec succès !")
         print(f"📁 Fichier: {index_file}")
         print(f"📊 {len(quiz_files)} quiz indexés")
+        print(f"🏷️  Catégories trouvées: {', '.join(sorted(categories))}")
         return True
         
     except Exception as e:
