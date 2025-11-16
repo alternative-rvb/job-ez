@@ -226,8 +226,7 @@ export class QuestionManager {
             if (isCorrect) {
                 quizState.addScore();
                 quizState.recordAnswerCorrectness(true);
-                const correctAnswerText = `Réponse ${String.fromCharCode(65 + answerIndex)} : ${question.choices[answerIndex]}`;
-                this.showFeedbackMessage(correctAnswerText, 'success', quizState.currentQuiz?.spoilerMode ? question : null);
+                this.showFeedbackMessage('Bonne réponse !', 'success', question, answerIndex);
             } else if (answerIndex === -1) {
                 quizState.recordAnswerCorrectness(false);
                 this.showFeedbackMessage('Temps écoulé ! ⏰', 'timeout', question, correctAnswerIndex);
@@ -396,6 +395,17 @@ export class QuestionManager {
                 icon = '🎉';
                 title = 'Bonne réponse !';
                 subtitle = message;
+                // Afficher la réponse correcte avec le même style
+                if (question && answerIndex !== null) {
+                    responseSection = `
+                        <div class="mt-4 p-3 bg-gray-700 border-2 border-green-500/50 rounded-lg">
+                            <p class="text-sm text-gray-300 mb-2">Votre réponse:</p>
+                            <p class="text-lg font-semibold text-green-400">
+                                ${String.fromCharCode(65 + answerIndex)} : ${question.choices[answerIndex]}
+                            </p>
+                        </div>
+                    `;
+                }
                 break;
             case 'error':
                 icon = '❌';
