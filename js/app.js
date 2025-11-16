@@ -52,8 +52,8 @@ class QuizApp {
     }
 
     setupEventListeners() {
-        // Bouton retour
-        const backButton = domManager.get('backButton');
+        // Bouton retour à la sélection
+        const backButton = document.getElementById('back-to-selection');
         if (backButton) {
             backButton.addEventListener('click', () => this.backToHome());
         }
