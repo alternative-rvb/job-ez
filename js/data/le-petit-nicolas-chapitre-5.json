@@ -1,0 +1,234 @@
+{
+    "config": {
+        "title": "Quiz : Le petit Nicolas - On a eu l'inspecteur (Chapitre 5)",
+        "description": "Teste ta compréhension de cette histoire du Petit Nicolas",
+        "spoilerMode": false,
+        "difficulty": "Moyen",
+        "questionCount": 20,
+        "icon": "bi-book",
+        "color": "from-blue-400 to-cyan-400",
+        "category": "Lecture"
+    },
+    "questions": [
+        {
+            "question": "Pourquoi la maîtresse est-elle nerveuse au début du chapitre ?",
+            "choices": [
+                "L'inspecteur est dans l'école",
+                "Les élèves ont fait une bêtise",
+                "Le directeur est en colère",
+                "C'est la fin de l'année"
+            ],
+            "correctAnswer": "L'inspecteur est dans l'école",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Pourquoi est-ce un nouvel inspecteur ?",
+            "choices": [
+                "L'ancien a pris sa retraite",
+                "L'ancien est tombé malade",
+                "L'ancien a changé d'école",
+                "C'est la première inspection de l'année"
+            ],
+            "correctAnswer": "L'ancien a pris sa retraite",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Que s'était-il passé lors de la dernière visite de l'inspecteur ?",
+            "choices": [
+                "Il s'est retrouvé par terre à cause de billes",
+                "Il a glissé sur de l'encre",
+                "Les élèves ont fait du bruit",
+                "Quelqu'un a lancé une gomme"
+            ],
+            "correctAnswer": "Il s'est retrouvé par terre à cause de billes",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "À qui la maîtresse demande-t-elle de cesser de manger ?",
+            "choices": [
+                "Alceste",
+                "Rufus",
+                "Clotaire",
+                "Joachim"
+            ],
+            "correctAnswer": "Alceste",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "À qui la maîtresse demande-t-elle de ne pas se faire remarquer ?",
+            "choices": [
+                "Clotaire",
+                "Agnan",
+                "Rufus",
+                "Cyrille"
+            ],
+            "correctAnswer": "Clotaire",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Qui est le premier de la classe et le chouchou ?",
+            "choices": [
+                "Agnan",
+                "Clotaire",
+                "Nicolas",
+                "Rufus"
+            ],
+            "correctAnswer": "Agnan",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Que fait Agnan avec la grande bouteille d'encre ?",
+            "choices": [
+                "Il la renverse sur le banc",
+                "Il la donne à la maîtresse",
+                "Il la cache dans son cartable",
+                "Il la pose sur le bureau"
+            ],
+            "correctAnswer": "Il la renverse sur le banc",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Sur quel banc l'encre est-elle renversée ?",
+            "choices": [
+                "Le premier banc où sont Cyrille et Joachim",
+                "Le dernier banc où est Clotaire",
+                "Le banc d'Alceste",
+                "Le banc d'Agnan"
+            ],
+            "correctAnswer": "Le premier banc où sont Cyrille et Joachim",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Qui a vraiment crié « Voilà l'inspecteur ! » ?",
+            "choices": [
+                "Clotaire",
+                "Rufus",
+                "Alceste",
+                "Joachim"
+            ],
+            "correctAnswer": "Clotaire",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Pourquoi Clotaire pleure-t-il quand la maîtresse veut le mettre au piquet ?",
+            "choices": [
+                "Il a peur de se faire remarquer par l'inspecteur",
+                "Il n'a pas fait de blague",
+                "Il a mal au ventre",
+                "Il n'aime pas le piquet"
+            ],
+            "correctAnswer": "Il a peur de se faire remarquer par l'inspecteur",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Où décident-ils de mettre le banc plein d'encre ?",
+            "choices": [
+                "Au dernier rang pour qu'on ne le voie pas",
+                "Dans le couloir",
+                "Dehors dans la cour",
+                "Près du bureau de la maîtresse"
+            ],
+            "correctAnswer": "Au dernier rang pour qu'on ne le voie pas",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Que font les élèves quand l'inspecteur entre ?",
+            "choices": [
+                "Ils sont tous debout en train de bouger les bancs",
+                "Ils sont assis et silencieux",
+                "Ils récitent leur leçon",
+                "Ils sortent en récréation"
+            ],
+            "correctAnswer": "Ils sont tous debout en train de bouger les bancs",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Dans quel sens sont assis Cyrille et Joachim quand l'inspecteur arrive ?",
+            "choices": [
+                "Ils tournent le dos au tableau",
+                "Ils sont face au tableau",
+                "Ils sont de côté",
+                "Ils sont debout"
+            ],
+            "correctAnswer": "Ils tournent le dos au tableau",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Que fait l'inspecteur qui lui met de l'encre sur les mains ?",
+            "choices": [
+                "Il appuie ses mains sur le banc",
+                "Il écrit au tableau",
+                "Il prend la bouteille d'encre",
+                "Il tape dans ses mains"
+            ],
+            "correctAnswer": "Il appuie ses mains sur le banc",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Quelle histoire drôle raconte l'inspecteur ?",
+            "choices": [
+                "L'histoire des deux sourds qui vont à la pêche",
+                "L'histoire du corbeau et du renard",
+                "L'histoire d'un élève distrait",
+                "L'histoire d'un professeur"
+            ],
+            "correctAnswer": "L'histoire des deux sourds qui vont à la pêche",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Quelle fable les élèves étaient-ils en train d'étudier ?",
+            "choices": [
+                "Le Corbeau et le Renard",
+                "La Cigale et la Fourmi",
+                "Le Lièvre et la Tortue",
+                "Le Lion et le Rat"
+            ],
+            "correctAnswer": "Le Corbeau et le Renard",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Qui la maîtresse veut-elle interroger en premier ?",
+            "choices": [
+                "Agnan",
+                "Clotaire",
+                "Rufus",
+                "Nicolas"
+            ],
+            "correctAnswer": "Agnan",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Qui l'inspecteur choisit-il d'interroger à la place ?",
+            "choices": [
+                "Clotaire",
+                "Agnan",
+                "Rufus",
+                "Alceste"
+            ],
+            "correctAnswer": "Clotaire",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Rufus et Alceste se disputent sur quel fromage ?",
+            "choices": [
+                "Roquefort ou camembert",
+                "Gruyère ou emmental",
+                "Brie ou comté",
+                "Chèvre ou brebis"
+            ],
+            "correctAnswer": "Roquefort ou camembert",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        },
+        {
+            "question": "Que fait la maîtresse à la fin de l'histoire malgré les félicitations de l'inspecteur ?",
+            "choices": [
+                "Elle met tous les élèves en retenue",
+                "Elle donne des bonbons",
+                "Elle annule la récréation",
+                "Elle félicite les élèves"
+            ],
+            "correctAnswer": "Elle met tous les élèves en retenue",
+            "imageUrl": "/images/le-petit-nicolas/le_petit_nicolas-chapitre_5.jpg"
+        }
+    ]
+}
