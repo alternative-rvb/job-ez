@@ -79,11 +79,11 @@ export class QuizSelector {
                             <div>
                                 <h3 class="text-xl font-bold text-white">${quiz.title}</h3>
                                 <div class="flex gap-2 mt-1">
-                                    <span class="text-sm px-3 bg-gray-600 rounded-full text-white font-medium">
-                                        ${quiz.difficulty}
+                                    <span class="text-sm px-3 py-1 bg-amber-600/60 rounded-full text-amber-100 font-medium border border-amber-500/40">
+                                        <i class="bi bi-lightning-charge mr-1"></i>${quiz.difficulty}
                                     </span>
-                                    <span class="text-sm px-3 bg-gray-600 rounded-full text-gray-300 font-medium">
-                                        ${quiz.category}
+                                    <span class="text-sm px-3 py-1 bg-blue-600/60 rounded-full text-blue-100 font-medium border border-blue-500/40">
+                                        <i class="bi bi-tag mr-1"></i>${quiz.category}
                                     </span>
                                 </div>
                             </div>

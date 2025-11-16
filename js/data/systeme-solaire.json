@@ -1,0 +1,146 @@
+{
+  "config": {
+    "title": "Quiz : Le Système Solaire",
+    "description": "Explore les mystères de notre système solaire et des planètes",
+    "spoilerMode": true,
+    "difficulty": "Facile",
+    "questionCount": 12,
+    "icon": "bi-book",
+    "color": "from-blue-400 to-cyan-400",
+    "category": "CM2"
+  },
+  "questions": [
+    {
+      "question": "Qu'est-ce qui est au centre de notre système solaire ?",
+      "choices": [
+        "La Lune",
+        "Le Soleil",
+        "La Terre",
+        "Une étoile lointaine"
+      ],
+      "correctAnswer": "Le Soleil",
+      "imageUrl": null
+    },
+    {
+      "question": "Combien de planètes tournent autour du Soleil ?",
+      "choices": [
+        "5 planètes",
+        "8 planètes",
+        "10 planètes",
+        "15 planètes"
+      ],
+      "correctAnswer": "8 planètes",
+      "imageUrl": null
+    },
+    {
+      "question": "Quelle est la plus grande planète du système solaire ?",
+      "choices": [
+        "Saturne",
+        "Neptune",
+        "Jupiter",
+        "Uranus"
+      ],
+      "correctAnswer": "Jupiter",
+      "imageUrl": null
+    },
+    {
+      "question": "Laquelle de ces planètes a des anneaux visibles ?",
+      "choices": [
+        "Mars",
+        "Vénus",
+        "Saturne",
+        "Mercure"
+      ],
+      "correctAnswer": "Saturne",
+      "imageUrl": null
+    },
+    {
+      "question": "En combien de temps la Terre tourne-t-elle autour du Soleil ?",
+      "choices": [
+        "1 mois",
+        "6 mois",
+        "1 an",
+        "10 ans"
+      ],
+      "correctAnswer": "1 an",
+      "imageUrl": null
+    },
+    {
+      "question": "Quelle planète est la plus proche du Soleil ?",
+      "choices": [
+        "Vénus",
+        "Mercure",
+        "Terre",
+        "Mars"
+      ],
+      "correctAnswer": "Mercure",
+      "imageUrl": null
+    },
+    {
+      "question": "Laquelle de ces planètes est la planète rouge ?",
+      "choices": [
+        "Vénus",
+        "Mars",
+        "Mercure",
+        "Jupiter"
+      ],
+      "correctAnswer": "Mars",
+      "imageUrl": null
+    },
+    {
+      "question": "Quel est le nom du satellite naturel qui orbite autour de la Terre ?",
+      "choices": [
+        "Une étoile",
+        "Le Soleil",
+        "La Lune",
+        "Une planète"
+      ],
+      "correctAnswer": "La Lune",
+      "imageUrl": null
+    },
+    {
+      "question": "Pourquoi les planètes tournent-elles autour du Soleil ?",
+      "choices": [
+        "À cause du vent",
+        "À cause de la gravité du Soleil",
+        "Parce qu'elles sont magnétiques",
+        "Parce qu'elles sont attachées à une corde"
+      ],
+      "correctAnswer": "À cause de la gravité du Soleil",
+      "imageUrl": null
+    },
+    {
+      "question": "Quelle est la planète la plus froide du système solaire ?",
+      "choices": [
+        "Saturne",
+        "Neptune",
+        "Uranus",
+        "Jupiter"
+      ],
+      "correctAnswer": "Neptune",
+      "imageUrl": null
+    },
+    {
+      "question": "Combien de satellites naturels la planète Mars a-t-elle ?",
+      "choices": [
+        "0 satellite",
+        "1 satellite",
+        "2 satellites",
+        "5 satellites"
+      ],
+      "correctAnswer": "2 satellites",
+      "imageUrl": null
+    },
+    {
+      "question": "Pourquoi le Soleil est-il important pour la vie sur Terre ?",
+      "choices": [
+        "Il nous donne la lumière et la chaleur",
+        "Il crée les tempêtes",
+        "Il change la forme de la Terre",
+        "Il n'est pas important"
+      ],
+      "correctAnswer": "Il nous donne la lumière et la chaleur",
+      "imageUrl": null
+    }
+  ]
+}
