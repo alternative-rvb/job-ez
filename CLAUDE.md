@@ -35,7 +35,7 @@ python3 api.py generate-index
 
 The application follows a clean modular architecture with separation of concerns:
 
-```
+```plaintext
 js/
 ├── app.js                    # Main entry point, bootstraps QuizApp
 ├── modules/
@@ -175,9 +175,10 @@ The `playerManager` in `player.js`:
 
 1. Create a JSON file in `js/data/` following the format above
 2. Run `npm run generate-index` to update `index.json`
-3. The quiz automatically appears in the UI (no code changes needed)
+3. **Commit both files** (your quiz JSON + `index.json`)
+4. The quiz automatically appears in the UI (no code changes needed)
 
-**Vercel Deployment**: The `vercel.json` buildCommand should run `python3 api.py generate-index` to ensure index is current.
+**Vercel Deployment**: The `index.json` file must be **pre-generated and committed** to the repository. Vercel does NOT regenerate the index during build. Always run `npm run generate-index` locally and commit the updated index before deploying.
 
 ### Free Mode vs Normal Mode
 
@@ -258,18 +259,44 @@ Update `CONFIG.categoryFilter` in [js/modules/core/config.js](js/modules/core/co
 
 Edit the message logic in [js/modules/managers/results-manager.js](js/modules/managers/results-manager.js) `show()` method.
 
+## Claude Code Integration
+
+### Available Skills
+
+The project includes custom skills in `.claude/skills/`:
+
+- **tailwind-ui**: Creates and adds UI elements with Tailwind CSS v3 using best practices. Automatically fetches up-to-date Tailwind documentation via Context7 MCP. Activated when building new UI components, forms, layouts, or modifying existing interface elements.
+
+To use a skill, simply request UI-related tasks (automatic activation) or invoke explicitly with the skill name.
+
+### Custom Slash Commands
+
+Available commands in `.claude/commands/`:
+
+- **/architecture**: Generates a complete annotated project tree structure with detailed comments
+
+### Internal Documentation Convention
+
+All technical notes, recommendations, and documentation should be created in the `.doc/` directory:
+
+- `.doc/architecture-*.md` - Auto-generated project architecture files
+- `.doc/prompt-engineering/` - Prompt engineering documentation and resources
+- `.doc/*.md` - Other notes and recommendations organized by theme
+
 ## Deployment Notes
 
 ### Vercel
 
-The project is configured for Vercel deployment via [vercel.json](vercel.json). Ensure the buildCommand generates the quiz index:
+The project is configured for Vercel deployment via [vercel.json](vercel.json).
 
-```json
-{
-  "buildCommand": "python3 api.py generate-index",
-  "outputDirectory": "."
-}
-```
+**IMPORTANT**: The quiz index (`js/data/index.json`) must be **pre-generated and committed** to the repository. Vercel does NOT regenerate the index during build.
+
+**Recommended workflow**:
+
+1. Add/modify a quiz in `js/data/`
+2. Run `npm run generate-index` locally
+3. Commit both the quiz file and `js/data/index.json`
+4. Push to Vercel
 
 ### Local Serving
 

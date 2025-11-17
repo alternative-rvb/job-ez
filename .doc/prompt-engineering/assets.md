@@ -17,3 +17,7 @@
 ## Claude Subagents
 
 - https://code.claude.com/docs/fr/sub-agents
+
+## Claude MCP
+
+- https://code.claude.com/docs/fr/mcp
