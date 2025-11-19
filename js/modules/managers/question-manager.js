@@ -90,9 +90,9 @@ export class QuestionManager {
                 <h3 class="text-xl md:text-2xl font-bold mb-4 text-center px-2">${question.question}</h3>
                 
                 <!-- Options améliorées pour mobile -->
-                <div class="grid grid-cols-1 gap-3 md:gap-4 mb-4 px-2">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-4 px-2">
                     ${CONFIG.freeMode ? `
-                        <div class="text-center py-4 px-6 bg-blue-900/30 border-2 border-blue-500/50 rounded-lg mb-4">
+                        <div class="text-center py-4 px-6 bg-blue-900/30 border-2 border-blue-500/50 rounded-lg mb-4 md:col-span-2">
                             <i class="bi bi-lightbulb text-2xl text-blue-400 mb-2"></i>
                             <p class="text-blue-300 font-medium">Mode Libre activé</p>
                             <p class="text-blue-400 text-sm">Les réponses sont cachées. Réfléchissez bien !</p>
