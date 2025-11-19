@@ -13,6 +13,7 @@ import { QuestionManager } from './modules/managers/question-manager.js';
 import { ResultsManager } from './modules/managers/results-manager.js';
 import { HistoryManager } from './modules/managers/history-manager.js';
 import { shuffleArray, loadQuizData } from './modules/core/utils.js';
+import { initializeCategoryColors } from './modules/core/category-colors.js';
 
 class QuizApp {
     constructor() {
@@ -25,6 +26,9 @@ class QuizApp {
 
     async init() {
         console.log('Quiz App loaded');
+        
+        // Initialiser les couleurs des catégories
+        await initializeCategoryColors();
         
         // Initialiser le gestionnaire DOM
         if (!domManager.init()) {

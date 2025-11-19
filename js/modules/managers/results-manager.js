@@ -66,53 +66,51 @@ export class ResultsManager {
         const quizTitle = quizState.currentQuiz?.title || 'Quiz';
         
         const resultsHTML = `
-            <div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4 md:p-8">
-                <div class="max-w-2xl mx-auto">
-                    <!-- Header -->
-                    <div class="text-center mb-8">
-                        <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">Résultats</h1>
-                        <p class="text-gray-400">${quizTitle}</p>
-                    </div>
+            <div class="py-8">
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">Résultats</h1>
+                    <p class="text-gray-400">${quizTitle}</p>
+                </div>
 
-                    <!-- Score Card -->
-                    <div class="bg-gray-800 rounded-2xl p-8 mb-8 text-center shadow-2xl">
-                        <div class="mb-6">
-                            <div class="text-7xl font-bold text-white">
-                                ${percentage}%
-                            </div>
-                        </div>
-                        
-                        <div class="mb-6">
-                            <p class="text-2xl font-bold text-white mb-2">${score} / ${totalScorable}</p>
-                            <p class="text-gray-400">Bonnes réponses</p>
-                        </div>
-                        
-                        <div class="p-4 bg-gray-700 rounded-xl mb-6">
-                            <p class="text-lg ${messageClass} font-semibold">${message}</p>
-                        </div>
-                        
-                        <div class="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
-                            <div class="bg-gradient-to-r from-primary-400 to-primary-600 h-full transition-all duration-500" 
-                                 style="width: ${percentage}%"></div>
+                <!-- Score Card -->
+                <div class="bg-gray-800 rounded-2xl p-8 mb-8 text-center shadow-2xl">
+                    <div class="mb-6">
+                        <div class="text-7xl font-bold text-white">
+                            ${percentage}%
                         </div>
                     </div>
-
-                    <!-- Actions -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                        <button id="btnRetry" class="w-full px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg hover:opacity-90 transition-opacity font-bold text-lg">
-                            <i class="bi bi-arrow-clockwise mr-2"></i> Rejouer
-                        </button>
-                        <button id="btnHome" class="w-full px-6 py-3 bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded-lg hover:opacity-90 transition-opacity font-bold text-lg">
-                            <i class="bi bi-house mr-2"></i> Retour à l'accueil
-                        </button>
+                    
+                    <div class="mb-6">
+                        <p class="text-2xl font-bold text-white mb-2">${score} / ${totalScorable}</p>
+                        <p class="text-gray-400">Bonnes réponses</p>
                     </div>
+                    
+                    <div class="p-4 bg-gray-700 rounded-xl mb-6">
+                        <p class="text-lg ${messageClass} font-semibold">${message}</p>
+                    </div>
+                    
+                    <div class="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
+                        <div class="bg-gradient-to-r from-primary-400 to-primary-600 h-full transition-all duration-500" 
+                             style="width: ${percentage}%"></div>
+                    </div>
+                </div>
 
-                    <!-- Details Section -->
-                    <div class="bg-gray-800 rounded-2xl p-6 shadow-2xl">
-                        <h2 class="text-xl font-bold text-white mb-6">Détails des réponses</h2>
-                        <div class="space-y-4" id="detailsContainer">
-                            ${this.renderDetails(quizState.questions)}
-                        </div>
+                <!-- Actions -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                    <button id="btnRetry" class="w-full px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg hover:opacity-90 transition-opacity font-bold text-lg">
+                        <i class="bi bi-arrow-clockwise mr-2"></i> Rejouer
+                    </button>
+                    <button id="btnHome" class="w-full px-6 py-3 bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded-lg hover:opacity-90 transition-opacity font-bold text-lg">
+                        <i class="bi bi-house mr-2"></i> Retour à l'accueil
+                    </button>
+                </div>
+
+                <!-- Details Section -->
+                <div class="bg-gray-800 rounded-2xl p-6 shadow-2xl">
+                    <h2 class="text-xl font-bold text-white mb-6">Détails des réponses</h2>
+                    <div class="space-y-4" id="detailsContainer">
+                        ${this.renderDetails(quizState.questions)}
                     </div>
                 </div>
             </div>

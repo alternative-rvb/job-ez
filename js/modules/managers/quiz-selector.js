@@ -5,6 +5,7 @@
 import { CONFIG } from '../core/config.js';
 import { loadAvailableQuizzes } from '../core/utils.js';
 import { domManager } from '../ui/dom.js';
+import { getCategoryColors, initializeCategoryColors } from '../core/category-colors.js';
 
 export class QuizSelector {
     constructor(onQuizSelect) {
@@ -18,6 +19,9 @@ export class QuizSelector {
         const startTime = Date.now();
         
         try {
+            // S'assurer que les couleurs sont initialisées
+            await initializeCategoryColors();
+            
             let availableQuizzes = await loadAvailableQuizzes();
             
             // Appliquer le filtre de catégories si défini dans CONFIG
@@ -59,49 +63,69 @@ export class QuizSelector {
     }
 
     renderQuizCards() {
-        // Remettre les classes originales de la grille
+        // Remettre les classes originales de la grille - 4 colonnes responsive
         const quizListContainer = document.getElementById('quiz-list');
-        quizListContainer.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6';
+        quizListContainer.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4';
         
         const filteredQuizzes = this.currentFilter === 'all' 
             ? this.allQuizzes 
             : this.allQuizzes.filter(quiz => quiz.category === this.currentFilter);
             
         const quizCards = filteredQuizzes.map(quiz => {
+            // Image avec fallback placehold.co
+            const imageUrl = quiz.imageUrl || `https://placehold.co/400x200?text=${encodeURIComponent(quiz.title)}`;
+            
+            // Couleurs basées sur la catégorie
+            const categoryColor = getCategoryColors(quiz.category);
+            
             return `
-                <div class="bg-gray-800 rounded-xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer quiz-card" 
+                <div class="group cursor-pointer quiz-card overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-300 bg-gray-800" 
                      data-quiz-id="${quiz.id}">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-14 h-14 bg-gradient-to-r ${quiz.color} rounded-lg flex items-center justify-center">
-                                <i class="bi ${quiz.icon} text-white text-xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-white">${quiz.title}</h3>
-                                <div class="flex gap-2 mt-1">
-                                    <span class="text-sm px-3 py-1 bg-amber-600/60 rounded-full text-amber-100 font-medium border border-amber-500/40">
-                                        <i class="bi bi-lightning-charge mr-1"></i>${quiz.difficulty}
-                                    </span>
-                                    <span class="text-sm px-3 py-1 bg-blue-600/60 rounded-full text-blue-100 font-medium border border-blue-500/40">
-                                        <i class="bi bi-tag mr-1"></i>${quiz.category}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <div class="text-2xl font-bold text-primary-400">${quiz.questionCount}</div>
-                            <div class="text-xs text-gray-400">questions</div>
-                        </div>
+                    <!-- Image -->
+                    <div class="relative h-32 overflow-hidden bg-gray-700">
+                        <img src="${imageUrl}" alt="${quiz.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
                     </div>
-                    <p class="text-gray-300 mb-4">${quiz.description}</p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center text-sm text-gray-400">
-                            <i class="bi bi-clock mr-1"></i>
-                            <span>~${Math.ceil(quiz.questionCount * CONFIG.timeLimit / 60)} min</span>
+                    
+                    <!-- Contenu -->
+                    <div class="p-3">
+                        <div class="flex items-start justify-between mb-1">
+                            <h3 class="text-sm font-bold text-white flex-1">${quiz.title}</h3>
+                            <div class="text-right ml-1">
+                                <div class="text-xs font-semibold text-gray-300">${quiz.questionCount}</div>
+                                <div class="text-xs text-gray-500">Q.</div>
+                            </div>
                         </div>
-                        <button class="px-4 py-2 bg-gradient-to-r ${quiz.color} text-white rounded-lg hover:opacity-80 transition-opacity font-medium">
-                            Commencer
-                        </button>
+                        
+                        <p class="text-xs text-gray-400 mb-2 line-clamp-2">${quiz.description}</p>
+                        
+                        <!-- Badges -->
+                        <div class="flex flex-wrap gap-1 mb-2">
+                            <span class="text-xs px-1 py-0.5 ${categoryColor.badge} rounded font-medium">
+                                <i class="bi bi-folder mr-0.5"></i>${quiz.category}
+                            </span>
+                            <span class="text-xs px-1 py-0.5 bg-gray-700 text-gray-200 rounded font-medium">
+                                <i class="bi bi-lightning-charge mr-0.5"></i>${quiz.difficulty}
+                            </span>
+                        </div>
+                        
+                        <!-- Tags (au maximum 1 affiché) -->
+                        ${quiz.tag && quiz.tag.length > 0 ? `
+                            <span class="text-xs px-1 py-0.5 bg-gray-700 text-gray-200 rounded font-medium">
+                                <i class="bi bi-tag mr-0.5"></i>${quiz.tag[0]}
+                            </span>
+                        ` : ''}
+                        
+                        <!-- Infos bas -->
+                        <div class="flex items-center justify-between mt-2 pt-2 border-t border-gray-700">
+                            <div class="flex items-center text-xs text-gray-500">
+                                <i class="bi bi-clock mr-0.5"></i>
+                                <span>~${Math.ceil(quiz.questionCount * CONFIG.timeLimit / 60)}m</span>
+                            </div>
+                            <span class="text-xs font-medium text-gray-400 group-hover:text-white transition-colors">
+                                <i class="bi bi-play-fill"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
             `;

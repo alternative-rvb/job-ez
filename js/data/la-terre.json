@@ -1,13 +1,16 @@
 {
   "config": {
-    "title": "Quiz : La Terre",
+    "title": "La Terre",
     "description": "Découvre les secrets de notre planète bleue",
+    "imageUrl": "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=500&h=300&fit=crop",
     "spoilerMode": true,
     "difficulty": "Facile",
     "questionCount": 10,
-    "icon": "bi-book",
-    "color": "from-blue-400 to-cyan-400",
-    "category": "CM2"
+    "category": "CM2",
+    "tag": [
+      "Géographie",
+      "Sciences"
+    ]
   },
   "questions": [
     {

@@ -1,13 +1,16 @@
 {
   "config": {
-    "title": "Quiz : Le Système Solaire",
+    "title": "Le Système Solaire",
     "description": "Explore les mystères de notre système solaire et des planètes",
+    "imageUrl": "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=500&h=300&fit=crop",
     "spoilerMode": true,
     "difficulty": "Facile",
     "questionCount": 12,
-    "icon": "bi-book",
-    "color": "from-blue-400 to-cyan-400",
-    "category": "CM2"
+    "category": "CM2",
+    "tag": [
+      "Astronomie",
+      "Sciences"
+    ]
   },
   "questions": [
     {
