@@ -1,0 +1,47 @@
+{
+  "name": "EZ JOB - De Zéro à 100% Pro",
+  "short_name": "EZ JOB",
+  "description": "Formation et coaching en développement web pour tous. De zéro vers 100% pro avec des quiz interactifs.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://api.dicebear.com/5.x/identicon/svg?seed=job-ez",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "https://api.dicebear.com/5.x/identicon/svg?seed=job-ez",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://api.dicebear.com/5.x/identicon/svg?seed=job-ez",
+      "sizes": "540x720",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    }
+  ],
+  "categories": ["education", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Démarrer un Quiz",
+      "short_name": "Quiz",
+      "description": "Commencer immédiatement un quiz",
+      "url": "/?action=start-quiz",
+      "icons": [
+        {
+          "src": "https://api.dicebear.com/5.x/identicon/svg?seed=job-ez",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
