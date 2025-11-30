@@ -1,0 +1,149 @@
+{
+  "config": {
+    "title": "Orthographe - Erreurs Courantes",
+    "description": "Maîtrise l'orthographe des mots sur lesquels les élèves font souvent des erreurs",
+    "imageUrl": "",
+    "spoilerMode": true,
+    "difficulty": "Moyen",
+    "questionCount": 12,
+    "category": "CM2",
+    "tag": [
+      "Français",
+      "Orthographe"
+    ]
+  },
+  "questions": [
+    {
+      "question": "Comment s'écrit ce mot ?",
+      "choices": [
+        "un accueil",
+        "un accuille",
+        "un accueille",
+        "un accuiel"
+      ],
+      "correctAnswer": "un accueil",
+      "imageUrl": null
+    },
+    {
+      "question": "Quelle est la bonne orthographe ?",
+      "choices": [
+        "apparament",
+        "apparamment",
+        "apparemment",
+        "aparemment"
+      ],
+      "correctAnswer": "apparemment",
+      "imageUrl": null
+    },
+    {
+      "question": "Comment écrit-on ce mot ?",
+      "choices": [
+        "un embarras",
+        "un embarasse",
+        "un embairas",
+        "un embarass"
+      ],
+      "correctAnswer": "un embarras",
+      "imageUrl": null
+    },
+    {
+      "question": "Quelle orthographe est correcte ?",
+      "choices": [
+        "occassion",
+        "occasion",
+        "occation",
+        "ocasion"
+      ],
+      "correctAnswer": "occasion",
+      "imageUrl": null
+    },
+    {
+      "question": "Comment s'écrit ce mot ?",
+      "choices": [
+        "concurence",
+        "concurrence",
+        "concurance",
+        "concurence"
+      ],
+      "correctAnswer": "concurrence",
+      "imageUrl": null
+    },
+    {
+      "question": "Quelle est la bonne orthographe ?",
+      "choices": [
+        "excellant",
+        "excellent",
+        "exellent",
+        "excélent"
+      ],
+      "correctAnswer": "excellent",
+      "imageUrl": null
+    },
+    {
+      "question": "Comment écrit-on ce mot ?",
+      "choices": [
+        "un nécessaire",
+        "un necessaire",
+        "un nécessère",
+        "un necéssaire"
+      ],
+      "correctAnswer": "un nécessaire",
+      "imageUrl": null
+    },
+    {
+      "question": "Quelle orthographe est correcte ?",
+      "choices": [
+        "persévérence",
+        "persévérance",
+        "persévérence",
+        "perseverance"
+      ],
+      "correctAnswer": "persévérance",
+      "imageUrl": null
+    },
+    {
+      "question": "Comment s'écrit ce mot ?",
+      "choices": [
+        "un différand",
+        "un différent",
+        "un différend",
+        "un différand"
+      ],
+      "correctAnswer": "un différend",
+      "imageUrl": null
+    },
+    {
+      "question": "Quelle est la bonne orthographe ?",
+      "choices": [
+        "conscience",
+        "consciense",
+        "conssience",
+        "consciance"
+      ],
+      "correctAnswer": "conscience",
+      "imageUrl": null
+    },
+    {
+      "question": "Comment écrit-on ce mot ?",
+      "choices": [
+        "une promesse",
+        "une promasse",
+        "une promèsse",
+        "une promace"
+      ],
+      "correctAnswer": "une promesse",
+      "imageUrl": null
+    },
+    {
+      "question": "Quelle orthographe est correcte ?",
+      "choices": [
+        "un gouvernement",
+        "un gouvernemant",
+        "un gouvernmant",
+        "un gouvernmment"
+      ],
+      "correctAnswer": "un gouvernement",
+      "imageUrl": null
+    }
+  ]
+}

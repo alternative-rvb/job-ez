@@ -8,6 +8,7 @@
     "la-terre",
     "le-petit-nicolas-chapitre-5",
     "multiples-3-et-9",
+    "orthographe-erreurs-courantes",
     "spongebob",
     "systeme-solaire",
     "tigre-blanc",
@@ -19,7 +20,7 @@
     "Divertissement",
     "Développement"
   ],
-  "count": 12,
+  "count": 13,
   "lastUpdated": "2025-11-30T12:11:16.982105",
   "generated_by": "api.py"
 }
