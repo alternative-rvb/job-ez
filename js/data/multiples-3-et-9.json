@@ -1,0 +1,149 @@
+{
+  "config": {
+    "title": "Multiples de 3 et 9",
+    "description": "Apprends à reconnaître les multiples de 3 et 9",
+    "imageUrl": "",
+    "spoilerMode": true,
+    "difficulty": "Facile",
+    "questionCount": 12,
+    "category": "CM2",
+    "tag": [
+      "Mathématiques",
+      "Divisibilité"
+    ]
+  },
+  "questions": [
+    {
+      "question": "Parmi ces nombres, lequel est un multiple de 3 ?",
+      "choices": [
+        "14",
+        "15",
+        "16",
+        "17"
+      ],
+      "correctAnswer": "15",
+      "imageUrl": null
+    },
+    {
+      "question": "Lequel de ces nombres est divisible par 9 ?",
+      "choices": [
+        "25",
+        "36",
+        "40",
+        "45"
+      ],
+      "correctAnswer": "36",
+      "imageUrl": null
+    },
+    {
+      "question": "Le nombre 27 est un multiple de :",
+      "choices": [
+        "2 et 3",
+        "3 et 9",
+        "5 et 9",
+        "2 et 9"
+      ],
+      "correctAnswer": "3 et 9",
+      "imageUrl": null
+    },
+    {
+      "question": "Quel nombre n'est PAS un multiple de 3 ?",
+      "choices": [
+        "21",
+        "24",
+        "26",
+        "30"
+      ],
+      "correctAnswer": "26",
+      "imageUrl": null
+    },
+    {
+      "question": "Le nombre 54 est divisible par :",
+      "choices": [
+        "3 seulement",
+        "9 seulement",
+        "3 et 9",
+        "Aucun des deux"
+      ],
+      "correctAnswer": "3 et 9",
+      "imageUrl": null
+    },
+    {
+      "question": "Quel nombre est un multiple de 9 ?",
+      "choices": [
+        "35",
+        "42",
+        "45",
+        "50"
+      ],
+      "correctAnswer": "45",
+      "imageUrl": null
+    },
+    {
+      "question": "Lequel de ces nombres n'est PAS divisible par 3 ?",
+      "choices": [
+        "33",
+        "37",
+        "39",
+        "42"
+      ],
+      "correctAnswer": "37",
+      "imageUrl": null
+    },
+    {
+      "question": "Le nombre 63 est :",
+      "choices": [
+        "Divisible par 3 mais pas par 9",
+        "Divisible par 9 mais pas par 3",
+        "Divisible par 3 et par 9",
+        "Divisible par 2 mais pas par 3"
+      ],
+      "correctAnswer": "Divisible par 3 et par 9",
+      "imageUrl": null
+    },
+    {
+      "question": "Quel nombre est un multiple de 3 mais pas de 9 ?",
+      "choices": [
+        "18",
+        "24",
+        "36",
+        "81"
+      ],
+      "correctAnswer": "24",
+      "imageUrl": null
+    },
+    {
+      "question": "Lequel de ces nombres est divisible par 9 ?",
+      "choices": [
+        "52",
+        "61",
+        "72",
+        "85"
+      ],
+      "correctAnswer": "72",
+      "imageUrl": null
+    },
+    {
+      "question": "Le nombre 99 est un multiple de :",
+      "choices": [
+        "3 seulement",
+        "9 seulement",
+        "3 et 9",
+        "2 et 3"
+      ],
+      "correctAnswer": "3 et 9",
+      "imageUrl": null
+    },
+    {
+      "question": "Quel nombre n'est PAS un multiple de 3 ?",
+      "choices": [
+        "48",
+        "51",
+        "53",
+        "57"
+      ],
+      "correctAnswer": "53",
+      "imageUrl": null
+    }
+  ]
+}
