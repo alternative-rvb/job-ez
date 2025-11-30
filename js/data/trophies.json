@@ -4,7 +4,7 @@
       "id": "trophy_001",
       "name": "Bob l'Éponge",
       "description": "Débloque le trophée de Bob l'Éponge",
-      "image": "images/trophies/bob-leponge.svg",
+      "image": "/images/trophies/bob-leponge.svg",
       "rarity": "commun",
       "order": 1
     },
@@ -12,7 +12,7 @@
       "id": "trophy_002",
       "name": "Patrick l'Étoile de Mer",
       "description": "Débloque le trophée de Patrick",
-      "image": "images/trophies/patrick.svg",
+      "image": "/images/trophies/patrick.svg",
       "rarity": "commun",
       "order": 2
     },
@@ -20,7 +20,7 @@
       "id": "trophy_003",
       "name": "Calamur Tentacules",
       "description": "Débloque le trophée de Calamur",
-      "image": "images/trophies/calamur.svg",
+      "image": "/images/trophies/calamur.svg",
       "rarity": "commun",
       "order": 3
     },
@@ -28,7 +28,7 @@
       "id": "trophy_004",
       "name": "Capitaine Crochet",
       "description": "Débloque le trophée du Capitaine Crochet",
-      "image": "images/trophies/capitaine-crochet.svg",
+      "image": "/images/trophies/capitaine-crochet.svg",
       "rarity": "rare",
       "order": 4
     },
@@ -36,7 +36,7 @@
       "id": "trophy_005",
       "name": "Plancton le Génie",
       "description": "Débloque le trophée de Plancton",
-      "image": "images/trophies/plancton.svg",
+      "image": "/images/trophies/plancton.svg",
       "rarity": "rare",
       "order": 5
     },
@@ -44,7 +44,7 @@
       "id": "trophy_006",
       "name": "Maître Krabe",
       "description": "Débloque le trophée du Maître Krabe",
-      "image": "images/trophies/maitre-krabe.svg",
+      "image": "/images/trophies/maitre-krabe.svg",
       "rarity": "épique",
       "order": 6
     }

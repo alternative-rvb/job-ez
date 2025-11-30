@@ -80,8 +80,6 @@ export class HistoryManager {
             new Date(b.date) - new Date(a.date)
         );
 
-        console.log('Résultats à afficher:', sortedResults);
-
         const resultsHTML = sortedResults.map(result => {
             const scoreClass = result.percentage >= 80 ? 'text-green-400' : 
                                result.percentage >= 60 ? 'text-yellow-400' : 'text-red-400';
