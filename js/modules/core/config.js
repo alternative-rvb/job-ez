@@ -12,7 +12,7 @@ class AppConfig {
         this.freeMode = false;      // Mode libre activé par défaut
         this.questionsPath = '/js/data/';  // Chemin absolu depuis la racine
         this.showResponse = true;   // Afficher la bonne réponse en cas de mauvaise réponse
-        this.categoryFilter = isPrivate ? null : ['Coaching'];  // null = toutes les catégories
+        this.categoryFilter = null;  // null = toutes les catégories
         this.availableCategories = [];  // Mis à jour dynamiquement depuis l'index
         this.isPrivate = isPrivate;
     }

@@ -10,12 +10,13 @@ import { playerManager } from '../core/player.js';
 import { rewardsManager } from './rewards-manager.js';
 
 export class ResultsManager {
-    constructor(onRestart, onBackToHome) {
+    constructor(onRestart, onBackToHome, onShowTrophies) {
         console.log('📦 ResultsManager constructor called');
         console.log('onRestart:', onRestart);
         console.log('onBackToHome:', onBackToHome);
         this.onRestart = onRestart;
         this.onBackToHome = onBackToHome;
+        this.onShowTrophies = onShowTrophies;
     }
 
     show() {
@@ -131,9 +132,9 @@ export class ResultsManager {
                         </div>
                     </div>
                     ${rewardsResult.canBuySecretCode ? `
-                        <a href="/trophies.html" class="inline-block mt-4 px-6 py-2 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 rounded-lg font-semibold transition-all text-sm">
+                        <button id="btnShowTrophies" class="inline-block mt-4 px-6 py-2 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 rounded-lg font-semibold transition-all text-sm">
                             <i class="bi bi-key-fill mr-2"></i>Aller débloquer un trophée
-                        </a>
+                        </button>
                     ` : ''}
                 </div>
 
@@ -179,9 +180,11 @@ export class ResultsManager {
             
             const btnRetry = document.getElementById('btnRetry');
             const btnHome = document.getElementById('btnHome');
+            const btnShowTrophies = document.getElementById('btnShowTrophies');
             
             console.log('btnRetry:', btnRetry);
             console.log('btnHome:', btnHome);
+            console.log('btnShowTrophies:', btnShowTrophies);
             
             if (btnRetry) {
                 btnRetry.addEventListener('click', (e) => {
@@ -213,6 +216,19 @@ export class ResultsManager {
                 });
             } else {
                 console.error('❌ btnHome element not found');
+            }
+
+            if (btnShowTrophies) {
+                btnShowTrophies.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('🏆 Show Trophies clicked');
+                    if (self.onShowTrophies) {
+                        console.log('✅ Calling onShowTrophies');
+                        self.onShowTrophies();
+                    } else {
+                        console.error('❌ onShowTrophies not defined');
+                    }
+                });
             }
         }, 100);
     }

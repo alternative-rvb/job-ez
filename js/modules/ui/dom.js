@@ -43,25 +43,47 @@ class DOMManager {
         this.elements.quizSelection?.classList.remove('hidden');
         this.elements.quizContainer?.classList.add('hidden');
         this.elements.resultsContainer?.classList.add('hidden');
+        const historyScreen = document.getElementById('history-screen');
+        const trophiesScreen = document.getElementById('trophies-screen');
+        if (historyScreen) historyScreen.classList.add('hidden');
+        if (trophiesScreen) trophiesScreen.classList.add('hidden');
     }
 
     showQuizInterface() {
         this.elements.quizSelection?.classList.add('hidden');
         this.elements.quizContainer?.classList.remove('hidden');
         this.elements.resultsContainer?.classList.add('hidden');
+        document.getElementById('history-screen')?.classList.add('hidden');
+        document.getElementById('trophies-screen')?.classList.add('hidden');
     }
 
     showResults() {
         this.elements.quizSelection?.classList.add('hidden');
         this.elements.quizContainer?.classList.add('hidden');
         this.elements.resultsContainer?.classList.remove('hidden');
+        document.getElementById('history-screen')?.classList.add('hidden');
+        document.getElementById('trophies-screen')?.classList.add('hidden');
     }
 
     showHistory() {
         const historyScreen = document.getElementById('history-screen');
+        const trophiesScreen = document.getElementById('trophies-screen');
         if (historyScreen) {
             historyScreen.classList.remove('hidden');
         }
+        if (trophiesScreen) trophiesScreen.classList.add('hidden');
+        this.elements.quizSelection?.classList.add('hidden');
+        this.elements.quizContainer?.classList.add('hidden');
+        this.elements.resultsContainer?.classList.add('hidden');
+    }
+
+    showTrophies() {
+        const historyScreen = document.getElementById('history-screen');
+        const trophiesScreen = document.getElementById('trophies-screen');
+        if (trophiesScreen) {
+            trophiesScreen.classList.remove('hidden');
+        }
+        if (historyScreen) historyScreen.classList.add('hidden');
         this.elements.quizSelection?.classList.add('hidden');
         this.elements.quizContainer?.classList.add('hidden');
         this.elements.resultsContainer?.classList.add('hidden');

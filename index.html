@@ -188,6 +188,56 @@
           transform: rotate(360deg);
         }
       }
+
+      /* Styles pour les trophées */
+      .trophy-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .trophy-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.3);
+      }
+
+      .trophy-locked {
+        opacity: 0.5;
+        filter: grayscale(100%);
+      }
+
+      .trophy-unlocked {
+        animation: pulse-glow 2s ease-in-out infinite;
+      }
+
+      .rarity-commun {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.1);
+      }
+
+      .rarity-rare {
+        border-color: #3b82f6;
+        background: rgba(59, 130, 246, 0.1);
+      }
+
+      .rarity-epique {
+        border-color: #a855f7;
+        background: rgba(168, 85, 247, 0.1);
+      }
+
+      .badge-commun {
+        background: #10b981;
+        color: white;
+      }
+
+      .badge-rare {
+        background: #3b82f6;
+        color: white;
+      }
+
+      .badge-epique {
+        background: #a855f7;
+        color: white;
+      }
     </style>
   </head>
 
@@ -268,7 +318,7 @@
       </div>
       
       <!-- Page de sélection des quiz -->
-      <div id="quiz-selection" class="hidden container mx-auto px-4">
+      <div id="quiz-selection" class="hidden py-8">
         <div class="text-center mb-8">
           <a href="/" class="inline-block hover:opacity-80 transition-opacity">
             <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-primary-400 to-purple-500 bg-clip-text text-white">
@@ -284,9 +334,9 @@
             <button id="btn-show-history" class="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors text-sm">
               <i class="bi bi-clock-history mr-1"></i>Historique
             </button>
-            <a href="trophies.html" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors text-sm flex items-center gap-1">
-              <i class="bi bi-trophy-fill"></i>Mes Trophées
-            </a>
+            <button id="btn-show-trophies" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors text-sm">
+              <i class="bi bi-trophy-fill mr-1"></i>Mes Trophées
+            </button>
           </div>
         </div>
 
@@ -354,7 +404,7 @@
       </div>
 
       <!-- Interface de quiz (cachée au démarrage) -->
-      <div id="quiz-container" class="hidden container mx-auto px-4">
+      <div id="quiz-container" class="hidden py-8">
         <div id="quiz-header" class="text-center mb-4">
           <button id="back-to-selection" class="mb-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors">
             <i class="bi bi-arrow-left mr-2"></i>Retour à la sélection
@@ -381,12 +431,12 @@
       </div>
 
       <!-- Écran des résultats (cachée au démarrage) -->
-      <div id="results-container" class="hidden container mx-auto px-4">
+      <div id="results-container" class="hidden py-8">
         <!-- Le contenu des résultats sera généré dynamiquement -->
       </div>
 
       <!-- Page d'historique des résultats -->
-      <div id="history-screen" class="hidden container mx-auto px-4">
+      <div id="history-screen" class="hidden py-8">
         <div class="text-center mb-8">
           <button id="btn-back-from-history" class="mb-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors">
             <i class="bi bi-arrow-left mr-2"></i>Retour
@@ -399,6 +449,118 @@
 
         <div id="history-list" class="space-y-4">
           <!-- La liste des résultats sera générée dynamiquement -->
+        </div>
+      </div>
+
+      <!-- Page d'historique des trophées -->
+      <div id="trophies-screen" class="hidden py-8">
+        <div class="text-center mb-8">
+          <button id="btn-back-from-trophies" class="mb-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors">
+            <i class="bi bi-arrow-left mr-2"></i>Retour
+          </button>
+          <h1 class="text-4xl font-bold mb-2 text-white flex items-center justify-center gap-2">
+            <i class="bi bi-trophy text-yellow-400 text-4xl"></i>Mes Trophées
+          </h1>
+        </div>
+
+        <!-- Statistiques -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-400 text-sm">Points Totaux</p>
+                <p class="text-3xl font-bold text-blue-400" id="total-points">0</p>
+              </div>
+              <i class="bi bi-star-fill text-yellow-400 text-4xl opacity-20"></i>
+            </div>
+          </div>
+
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-400 text-sm">Trophées Débloqués</p>
+                <p class="text-3xl font-bold text-green-400" id="unlocked-count">0</p>
+              </div>
+              <i class="bi bi-trophy-fill text-green-400 text-4xl opacity-20"></i>
+            </div>
+          </div>
+
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-400 text-sm">Codes Disponibles</p>
+                <p class="text-3xl font-bold text-purple-400" id="codes-available">0</p>
+              </div>
+              <i class="bi bi-key-fill text-purple-400 text-4xl opacity-20"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Acheter Code Secret -->
+        <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 mb-8">
+          <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+            <i class="bi bi-lock-fill text-purple-400"></i>
+            Débloquer un Trophée
+          </h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Acheter Code -->
+            <div>
+              <h3 class="text-lg font-semibold mb-3">Acheter un Code Secret</h3>
+              <p class="text-gray-400 text-sm mb-4">Coûte 5 points | Gagne un trophée aléatoire</p>
+              
+              <button id="buy-code-btn" class="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                <i class="bi bi-bag-check"></i>
+                <span id="buy-code-text">Acheter Code (5 points)</span>
+              </button>
+
+              <!-- Code généré (caché par défaut) -->
+              <div id="generated-code-container" class="hidden mt-4 p-4 bg-gradient-to-r from-purple-900/50 to-purple-800/50 border border-purple-500 rounded-lg">
+                <p class="text-sm text-gray-300 mb-2">Votre code secret:</p>
+                <div class="flex items-center gap-2">
+                  <code id="generated-code" class="flex-1 text-2xl font-mono font-bold text-center text-purple-300 p-3 bg-black/30 rounded border border-purple-600"></code>
+                  <button id="copy-code-btn" class="px-4 py-3 bg-purple-600 hover:bg-purple-700 rounded transition-colors" title="Copier">
+                    <i class="bi bi-clipboard"></i>
+                  </button>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">⚠️ Conservez bien ce code pour débloquer votre trophée</p>
+              </div>
+            </div>
+
+            <!-- Utiliser Code -->
+            <div>
+              <h3 class="text-lg font-semibold mb-3">Utiliser un Code Secret</h3>
+              <p class="text-gray-400 text-sm mb-4">Saisissez votre code pour débloquer un trophée</p>
+              
+              <div class="flex gap-2">
+                <input 
+                  type="text" 
+                  id="secret-code-input" 
+                  placeholder="Entrez votre code..." 
+                  maxlength="8"
+                  class="flex-1 px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white uppercase focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20"
+                />
+                <button id="use-code-btn" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg font-semibold transition-all duration-200">
+                  <i class="bi bi-unlock"></i>
+                </button>
+              </div>
+
+              <!-- Message d'erreur/succès -->
+              <div id="code-message" class="hidden mt-3 p-3 rounded-lg text-sm"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collection de Trophées -->
+        <div>
+          <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+            <i class="bi bi-collection-fill text-yellow-400"></i>
+            Collection de Trophées
+          </h2>
+
+          <div id="trophies-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Cartes de trophées générées dynamiquement -->
+          </div>
         </div>
       </div>
     </main>

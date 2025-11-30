@@ -12,6 +12,7 @@ import { QuizSelector } from './modules/managers/quiz-selector.js';
 import { QuestionManager } from './modules/managers/question-manager.js';
 import { ResultsManager } from './modules/managers/results-manager.js';
 import { HistoryManager } from './modules/managers/history-manager.js';
+import { TrophiesManager } from './modules/managers/trophies-manager.js';
 import { shuffleArray, loadQuizData } from './modules/core/utils.js';
 import { initializeCategoryColors } from './modules/core/category-colors.js';
 
@@ -21,6 +22,7 @@ class QuizApp {
         this.questionManager = null;
         this.resultsManager = null;
         this.historyManager = null;
+        this.trophiesManager = null;
         this.availableQuizzes = [];
     }
 
@@ -89,9 +91,11 @@ class QuizApp {
         this.questionManager = new QuestionManager(() => this.showResults());
         this.resultsManager = new ResultsManager(
             () => this.restartQuiz(),
-            () => this.backToHome()
+            () => this.backToHome(),
+            () => this.trophiesManager.show()
         );
         this.historyManager = new HistoryManager(() => this.backToHome());
+        this.trophiesManager = new TrophiesManager(() => this.backToHome());
 
         // Configurer les écouteurs d'événements globaux
         this.setupEventListeners();
@@ -114,6 +118,14 @@ class QuizApp {
         if (btnHistory) {
             btnHistory.addEventListener('click', () => {
                 this.historyManager.show();
+            });
+        }
+
+        // Bouton trophées
+        const btnTrophies = document.getElementById('btn-show-trophies');
+        if (btnTrophies) {
+            btnTrophies.addEventListener('click', () => {
+                this.trophiesManager.show();
             });
         }
 
