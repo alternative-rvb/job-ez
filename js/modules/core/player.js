@@ -44,7 +44,9 @@ class PlayerManager {
             timeSpent: quizData.timeSpent,
             date: new Date().toISOString(),
             difficulty: quizData.difficulty,
-            category: quizData.category
+            category: quizData.category,
+            pointsEarned: quizData.pointsEarned || 0,
+            totalPoints: quizData.totalPoints || 0
         };
 
         this.results.push(result);

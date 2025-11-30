@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="https://api.dicebear.com/5.x/identicon/svg?seed=job-ez" type="image/x-icon">
+    <title>Mes Trophées - EZ JOB</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+      body {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      }
+
+      .trophy-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .trophy-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.3);
+      }
+
+      .trophy-locked {
+        opacity: 0.5;
+        filter: grayscale(100%);
+      }
+
+      .trophy-unlocked {
+        animation: pulse-glow 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+        50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.4); }
+      }
+
+      .rarity-commun {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.1);
+      }
+
+      .rarity-rare {
+        border-color: #3b82f6;
+        background: rgba(59, 130, 246, 0.1);
+      }
+
+      .rarity-epique {
+        border-color: #a855f7;
+        background: rgba(168, 85, 247, 0.1);
+      }
+
+      .badge-commun {
+        background: #10b981;
+        color: white;
+      }
+
+      .badge-rare {
+        background: #3b82f6;
+        color: white;
+      }
+
+      .badge-epique {
+        background: #a855f7;
+        color: white;
+      }
+    </style>
+</head>
+<body class="text-white min-h-screen">
+    <!-- Header -->
+    <header class="bg-gray-900 shadow-lg border-b border-gray-800">
+        <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="/" class="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+                <i class="bi bi-trophy text-yellow-400 text-2xl"></i>
+                <span class="text-xl font-bold text-blue-400">Mes Trophées</span>
+            </a>
+            <a href="/private" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors">
+                <i class="bi bi-arrow-left mr-2"></i>Retour aux quiz
+            </a>
+        </nav>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Statistiques -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm">Points Totaux</p>
+                        <p class="text-3xl font-bold text-blue-400" id="total-points">0</p>
+                    </div>
+                    <i class="bi bi-star-fill text-yellow-400 text-4xl opacity-20"></i>
+                </div>
+            </div>
+
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm">Trophées Débloqués</p>
+                        <p class="text-3xl font-bold text-green-400" id="unlocked-count">0</p>
+                    </div>
+                    <i class="bi bi-trophy-fill text-green-400 text-4xl opacity-20"></i>
+                </div>
+            </div>
+
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm">Codes Disponibles</p>
+                        <p class="text-3xl font-bold text-purple-400" id="codes-available">0</p>
+                    </div>
+                    <i class="bi bi-key-fill text-purple-400 text-4xl opacity-20"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Acheter Code Secret -->
+        <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 mb-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="bi bi-lock-fill text-purple-400"></i>
+                Débloquer un Trophée
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Acheter Code -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">Acheter un Code Secret</h3>
+                    <p class="text-gray-400 text-sm mb-4">Coûte 5 points | Gagne un trophée aléatoire</p>
+                    
+                    <button id="buy-code-btn" class="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                        <i class="bi bi-bag-check"></i>
+                        <span id="buy-code-text">Acheter Code (5 points)</span>
+                    </button>
+
+                    <!-- Code généré (caché par défaut) -->
+                    <div id="generated-code-container" class="hidden mt-4 p-4 bg-gradient-to-r from-purple-900/50 to-purple-800/50 border border-purple-500 rounded-lg">
+                        <p class="text-sm text-gray-300 mb-2">Votre code secret:</p>
+                        <div class="flex items-center gap-2">
+                            <code id="generated-code" class="flex-1 text-2xl font-mono font-bold text-center text-purple-300 p-3 bg-black/30 rounded border border-purple-600"></code>
+                            <button id="copy-code-btn" class="px-4 py-3 bg-purple-600 hover:bg-purple-700 rounded transition-colors" title="Copier">
+                                <i class="bi bi-clipboard"></i>
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">⚠️ Conservez bien ce code pour débloquer votre trophée</p>
+                    </div>
+                </div>
+
+                <!-- Utiliser Code -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">Utiliser un Code Secret</h3>
+                    <p class="text-gray-400 text-sm mb-4">Saisissez votre code pour débloquer un trophée</p>
+                    
+                    <div class="flex gap-2">
+                        <input 
+                            type="text" 
+                            id="secret-code-input" 
+                            placeholder="Entrez votre code..." 
+                            maxlength="8"
+                            class="flex-1 px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white uppercase focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20"
+                        />
+                        <button id="use-code-btn" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg font-semibold transition-all duration-200">
+                            <i class="bi bi-unlock"></i>
+                        </button>
+                    </div>
+
+                    <!-- Message d'erreur/succès -->
+                    <div id="code-message" class="hidden mt-3 p-3 rounded-lg text-sm"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Collection de Trophées -->
+        <div>
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                <i class="bi bi-collection-fill text-yellow-400"></i>
+                Collection de Trophées
+            </h2>
+
+            <div id="trophies-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Cartes de trophées générées dynamiquement -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 mt-12 py-6">
+        <div class="container mx-auto px-4 text-center text-gray-400">
+            <p>🎮 Gagnez des points en réussissant les quiz et débloquez des trophées!</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { rewardsManager } from '../js/modules/managers/rewards-manager.js';
+
+        let trophiesData = [];
+
+        // Charger les données au démarrage
+        async function loadTrophies() {
+            try {
+                const response = await fetch('./js/data/trophies.json');
+                trophiesData = await response.json();
+                renderTrophies();
+                updateStats();
+            } catch (error) {
+                console.error('Erreur lors du chargement des trophées:', error);
+            }
+        }
+
+        // Mettre à jour les statistiques
+        function updateStats() {
+            const rewards = rewardsManager.getRewards();
+            const totalPoints = rewards.totalPoints || 0;
+            const unlockedCount = rewards.unlockedTrophies.length;
+            const codesAvailable = Math.floor(totalPoints / 5);
+
+            document.getElementById('total-points').textContent = totalPoints;
+            document.getElementById('unlocked-count').textContent = unlockedCount;
+            document.getElementById('codes-available').textContent = codesAvailable;
+
+            // Mettre à jour l'état du bouton
+            const buyBtn = document.getElementById('buy-code-btn');
+            const buyText = document.getElementById('buy-code-text');
+            buyBtn.disabled = totalPoints < 5;
+            if (totalPoints < 5) {
+                buyText.textContent = `Acheter Code (${totalPoints}/5 points)`;
+            }
+        }
+
+        // Afficher les trophées
+        function renderTrophies() {
+            const container = document.getElementById('trophies-container');
+            const unlocked = rewardsManager.getUnlockedTrophies();
+            
+            container.innerHTML = trophiesData.trophies.map(trophy => {
+                const isUnlocked = unlocked.includes(trophy.id);
+                const rarityClass = `rarity-${trophy.rarity}`;
+                const badgeClass = `badge-${trophy.rarity}`;
+                
+                return `
+                    <div class="trophy-card bg-gray-800 rounded-xl overflow-hidden border-2 ${rarityClass} ${isUnlocked ? 'trophy-unlocked' : 'trophy-locked'}">
+                        <div class="h-48 bg-gray-700 flex items-center justify-center relative overflow-hidden">
+                            ${isUnlocked ? `
+                                <img src="${trophy.image}" alt="${trophy.name}" class="w-full h-full object-cover">
+                                <div class="absolute top-2 right-2">
+                                    <span class="inline-block px-3 py-1 ${badgeClass} rounded-full text-xs font-bold">
+                                        <i class="bi bi-check-circle mr-1"></i>${trophy.rarity.toUpperCase()}
+                                    </span>
+                                </div>
+                            ` : `
+                                <div class="text-center">
+                                    <i class="bi bi-lock-fill text-6xl opacity-30"></i>
+                                    <p class="text-gray-400 text-sm mt-2">À débloquer</p>
+                                </div>
+                            `}
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg mb-1">${trophy.name}</h3>
+                            <p class="text-gray-400 text-sm">${trophy.description}</p>
+                            ${isUnlocked ? `
+                                <div class="mt-3 pt-3 border-t border-gray-700">
+                                    <a href="${trophy.image}" download class="text-blue-400 hover:text-blue-300 text-sm flex items-center gap-1">
+                                        <i class="bi bi-download"></i> Télécharger
+                                    </a>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Acheter un code secret
+        document.getElementById('buy-code-btn').addEventListener('click', () => {
+            const rewards = rewardsManager.getRewards();
+            if (rewards.totalPoints < 5) {
+                showMessage('❌ Vous n\'avez pas assez de points! (Il vous en faut 5)', 'error');
+                return;
+            }
+
+            // Choisir un trophée aléatoire non encore débloqué
+            const unlocked = rewardsManager.getUnlockedTrophies();
+            const available = trophiesData.trophies.filter(t => !unlocked.includes(t.id));
+            
+            if (available.length === 0) {
+                showMessage('❌ Tous les trophées sont déjà débloqués!', 'error');
+                return;
+            }
+
+            const randomTrophy = available[Math.floor(Math.random() * available.length)];
+            const result = rewardsManager.buySecretCode(randomTrophy.id);
+
+            if (result) {
+                // Afficher le code généré
+                document.getElementById('generated-code').textContent = result.secretCode;
+                document.getElementById('generated-code-container').classList.remove('hidden');
+                
+                showMessage(`✅ Code généré! Vous aviez ${result.remainingPoints + 5} points, maintenant ${result.remainingPoints} points restants.`, 'success');
+                updateStats();
+            }
+        });
+
+        // Copier le code
+        document.getElementById('copy-code-btn').addEventListener('click', () => {
+            const code = document.getElementById('generated-code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.getElementById('copy-code-btn');
+                const original = btn.innerHTML;
+                btn.innerHTML = '<i class="bi bi-check"></i>';
+                setTimeout(() => {
+                    btn.innerHTML = original;
+                }, 2000);
+            });
+        });
+
+        // Utiliser un code secret
+        document.getElementById('use-code-btn').addEventListener('click', () => {
+            const input = document.getElementById('secret-code-input');
+            const code = input.value.toUpperCase();
+
+            if (!code) {
+                showMessage('Veuillez entrer un code', 'error');
+                return;
+            }
+
+            const result = rewardsManager.useSecretCode(code);
+
+            if (result) {
+                showMessage('✅ Trophée débloqué avec succès!', 'success');
+                input.value = '';
+                setTimeout(() => {
+                    renderTrophies();
+                    updateStats();
+                }, 500);
+            } else if (rewardsManager.getRewards().secretCodes[code]?.used) {
+                showMessage('❌ Ce code a déjà été utilisé', 'error');
+            } else {
+                showMessage('❌ Code invalide ou inexistant', 'error');
+            }
+        });
+
+        // Afficher un message
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('code-message');
+            messageDiv.textContent = text;
+            messageDiv.className = type === 'success' ? 
+                'hidden mt-3 p-3 rounded-lg text-sm bg-green-900/50 text-green-300 border border-green-600' :
+                'hidden mt-3 p-3 rounded-lg text-sm bg-red-900/50 text-red-300 border border-red-600';
+            messageDiv.classList.remove('hidden');
+
+            setTimeout(() => {
+                messageDiv.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Initialiser la page
+        loadTrophies();
+
+        // Touche Entrée pour valider le code
+        document.getElementById('secret-code-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                document.getElementById('use-code-btn').click();
+            }
+        });
+    </script>
+</body>
+</html>

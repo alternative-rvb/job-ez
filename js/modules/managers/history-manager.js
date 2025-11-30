@@ -80,6 +80,8 @@ export class HistoryManager {
             new Date(b.date) - new Date(a.date)
         );
 
+        console.log('Résultats à afficher:', sortedResults);
+
         const resultsHTML = sortedResults.map(result => {
             const scoreClass = result.percentage >= 80 ? 'text-green-400' : 
                                result.percentage >= 60 ? 'text-yellow-400' : 'text-red-400';
@@ -102,8 +104,20 @@ export class HistoryManager {
                         </div>
                     </div>
                     <div class="flex justify-between items-center text-sm text-gray-400 pt-3 border-t border-gray-700">
-                        <span><i class="bi bi-calendar mr-1"></i>${date}</span>
-                        <span><i class="bi bi-hourglass-split mr-1"></i>${Math.round(result.timeSpent)}s</span>
+                        <div class="flex gap-4">
+                            <span><i class="bi bi-calendar mr-1"></i>${date}</span>
+                            <span><i class="bi bi-hourglass-split mr-1"></i>${Math.round(result.timeSpent)}s</span>
+                        </div>
+                        <div class="flex gap-3 items-center">
+                            ${result.pointsEarned !== undefined ? `
+                                <span class="px-3 py-1 bg-purple-900/50 text-purple-300 rounded-full text-xs font-semibold">
+                                    <i class="bi bi-star-fill mr-1"></i>+${result.pointsEarned} pt${result.pointsEarned > 1 ? 's' : ''}
+                                </span>
+                                <span class="px-3 py-1 bg-yellow-900/50 text-yellow-300 rounded-full text-xs font-semibold">
+                                    <i class="bi bi-wallet2 mr-1"></i>Restants: ${result.totalPoints} pts
+                                </span>
+                            ` : ''}
+                        </div>
                     </div>
                 </div>
             `;

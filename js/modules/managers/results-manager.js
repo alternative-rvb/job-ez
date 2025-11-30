@@ -7,6 +7,7 @@ import { domManager } from '../ui/dom.js';
 import { launchConfetti } from '../core/utils.js';
 import { CONFIG } from '../core/config.js';
 import { playerManager } from '../core/player.js';
+import { rewardsManager } from './rewards-manager.js';
 
 export class ResultsManager {
     constructor(onRestart, onBackToHome) {
@@ -30,7 +31,10 @@ export class ResultsManager {
         
         console.log(`📊 Score: ${score}/${totalScorable} = ${percentage}%`);
 
-        // Sauvegarder le résultat
+        // Calculer et ajouter les points de récompense
+        const rewardsResult = rewardsManager.addPoints(percentage, quizState.currentQuiz?.title);
+
+        // Sauvegarder le résultat avec les points gagnés
         playerManager.saveResult({
             id: quizState.currentQuiz?.id,
             title: quizState.currentQuiz?.title,
@@ -39,7 +43,9 @@ export class ResultsManager {
             percentage: percentage,
             timeSpent: quizState.totalTime,
             difficulty: quizState.currentQuiz?.difficulty,
-            category: quizState.currentQuiz?.category
+            category: quizState.currentQuiz?.category,
+            pointsEarned: rewardsResult.pointsEarned,
+            totalPoints: rewardsResult.totalPoints
         });
         
         // Déterminer le message basé sur le pourcentage
@@ -94,6 +100,41 @@ export class ResultsManager {
                         <div class="bg-gradient-to-r from-primary-400 to-primary-600 h-full transition-all duration-500" 
                              style="width: ${percentage}%"></div>
                     </div>
+                </div>
+
+                <!-- Rewards Section -->
+                <div class="bg-gradient-to-r from-purple-900/50 to-purple-800/50 rounded-2xl p-6 mb-8 border border-purple-500/50 shadow-lg">
+                    <div class="flex items-start gap-4">
+                        <i class="bi bi-star-fill text-4xl text-yellow-400 flex-shrink-0"></i>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-white mb-2">Récompense Gagnée !</h3>
+                            <p class="text-purple-200 mb-3">
+                                ${rewardsResult.pointsEarned === 2 ? '🎉 Parfait ! +2 points' : rewardsResult.pointsEarned === 1 ? '✨ Bravo ! +1 point' : '📝 Score enregistré'}
+                            </p>
+                            <div class="flex flex-wrap gap-4">
+                                <div class="text-center">
+                                    <p class="text-2xl font-bold text-yellow-400">${rewardsResult.totalPoints}</p>
+                                    <p class="text-sm text-gray-300">Points totaux</p>
+                                </div>
+                                ${rewardsResult.canBuySecretCode ? `
+                                    <div class="text-center">
+                                        <p class="text-2xl font-bold text-purple-400">🔓</p>
+                                        <p class="text-sm text-green-300 font-semibold">Code disponible !</p>
+                                    </div>
+                                ` : `
+                                    <div class="text-center">
+                                        <p class="text-2xl font-bold text-gray-400">${5 - rewardsResult.totalPoints}</p>
+                                        <p class="text-sm text-gray-400">Points restants</p>
+                                    </div>
+                                `}
+                            </div>
+                        </div>
+                    </div>
+                    ${rewardsResult.canBuySecretCode ? `
+                        <a href="/trophies.html" class="inline-block mt-4 px-6 py-2 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 rounded-lg font-semibold transition-all text-sm">
+                            <i class="bi bi-key-fill mr-2"></i>Aller débloquer un trophée
+                        </a>
+                    ` : ''}
                 </div>
 
                 <!-- Actions -->

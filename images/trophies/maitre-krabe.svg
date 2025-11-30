@@ -1,0 +1,44 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond dégradé bleu -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E0FFFF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#bgGrad)"/>
+  
+  <!-- Maître Krabe -->
+  <!-- Carapace (rond marron) -->
+  <circle cx="100" cy="90" r="40" fill="#8B4513" stroke="#654321" stroke-width="2"/>
+  
+  <!-- Motif carapace -->
+  <circle cx="100" cy="60" r="8" fill="#A0522D"/>
+  <circle cx="80" cy="85" r="8" fill="#A0522D"/>
+  <circle cx="120" cy="85" r="8" fill="#A0522D"/>
+  <circle cx="85" cy="110" r="8" fill="#A0522D"/>
+  <circle cx="115" cy="110" r="8" fill="#A0522D"/>
+  
+  <!-- Yeux stalks -->
+  <line x1="95" y1="50" x2="92" y2="30" stroke="black" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="92" cy="25" r="5" fill="brown" stroke="black" stroke-width="1"/>
+  
+  <line x1="105" y1="50" x2="108" y2="30" stroke="black" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="108" cy="25" r="5" fill="brown" stroke="black" stroke-width="1"/>
+  
+  <!-- Yeux petits -->
+  <circle cx="92" cy="28" r="2" fill="black"/>
+  <circle cx="108" cy="28" r="2" fill="black"/>
+  
+  <!-- Pincettes (mains) -->
+  <path d="M 65 95 L 40 85 Q 35 85 35 90 L 40 100 Q 45 105 50 100" fill="#A0522D" stroke="#654321" stroke-width="1"/>
+  <path d="M 135 95 L 160 85 Q 165 85 165 90 L 160 100 Q 155 105 150 100" fill="#A0522D" stroke="#654321" stroke-width="1"/>
+  
+  <!-- Pattes -->
+  <line x1="75" y1="125" x2="70" y2="155" stroke="#8B4513" stroke-width="3" stroke-linecap="round"/>
+  <line x1="125" y1="125" x2="130" y2="155" stroke="#8B4513" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Badge Épique -->
+  <circle cx="170" cy="30" r="18" fill="#A855F7" stroke="#7C3AED" stroke-width="2"/>
+  <text x="170" y="38" font-size="20" font-weight="bold" text-anchor="middle" fill="white">👑</text>
+</svg>
